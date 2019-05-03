@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 
 entity RF is
 	generic(
-		data_length: integer := 16		);
+		data_length: integer := 16);
 	port(
 		A1,A2,A3 : in std_logic_vector(2 downto 0);
 		D3 : in std_logic_vector(15 downto 0);
