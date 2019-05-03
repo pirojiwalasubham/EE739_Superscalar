@@ -4,13 +4,13 @@ use std.standard.all;
 library ieee;
 use ieee.std_logic_1164.all;
   
-entity mux6_16 is
+entity mux9_16 is
    port(S0,S1,S2,S3:in std_logic;    --S2 is MSB
 	D0,D1,D2,D3,D4,D5,D6,D7,D8:in std_logic_vector(15 downto 0);
 	Y:out std_logic_vector(15 downto 0));
-end mux6_16;
+end mux9_16;
   
-architecture data of mux6_16 is
+architecture data of mux9_16 is
 begin
  
 mux_proc : process (S0, S1, S2, S3, D0, D1, D2, D3, D4, D5, D6, D7, D8) 
