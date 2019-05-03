@@ -258,6 +258,8 @@ architecture behave of rs is
 
 	process(rs1instrvalidout,rs2instrvalidout,rs3instrvalidout,rs4instrvalidout,rs5instrvalidout,rs6instrvalidout,rs7instrvalidout,rs8instrvalidout,rs9instrvalidout,rs10instrvalidout,rs11instrvalidout,rs12instrvalidout,rs13instrvalidout,rs14instrvalidout,rs15instrvalidout,rs16instrvalidout,ra1instrvalid,ra2instrvalid)
 
+		variable fullvar : std_logic;
+
 		begin
 
 		if (ra1instrvalid = '1') then
@@ -274,7 +276,7 @@ architecture behave of rs is
 				rs1instrvalidin <= ra1instrvalid;
 				rs1specbitin <= ra1specbit;
 				rs1wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs2instrvalidout = '0') then
 				rs2pcin <= ra1pc;
@@ -289,7 +291,7 @@ architecture behave of rs is
 				rs2instrvalidin <= ra1instrvalid;
 				rs2specbitin <= ra1specbit;
 				rs2wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs3instrvalidout = '0') then
 				rs3pcin <= ra1pc;
@@ -304,7 +306,7 @@ architecture behave of rs is
 				rs3instrvalidin <= ra1instrvalid;
 				rs3specbitin <= ra1specbit;
 				rs3wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs4instrvalidout = '0') then
 				rs4pcin <= ra1pc;
@@ -319,7 +321,7 @@ architecture behave of rs is
 				rs4instrvalidin <= ra1instrvalid;
 				rs4specbitin <= ra1specbit;
 				rs4wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs5instrvalidout = '0') then
 				rs5pcin <= ra1pc;
@@ -334,7 +336,7 @@ architecture behave of rs is
 				rs5instrvalidin <= ra1instrvalid;
 				rs5specbitin <= ra1specbit;
 				rs5wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs6instrvalidout = '0') then
 				rs6pcin <= ra1pc;
@@ -349,7 +351,7 @@ architecture behave of rs is
 				rs6instrvalidin <= ra1instrvalid;
 				rs6specbitin <= ra1specbit;
 				rs6wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs7instrvalidout = '0') then
 				rs7pcin <= ra1pc;
@@ -364,7 +366,7 @@ architecture behave of rs is
 				rs7instrvalidin <= ra1instrvalid;
 				rs7specbitin <= ra1specbit;
 				rs7wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs8instrvalidout = '0') then
 				rs8pcin <= ra1pc;
@@ -379,7 +381,7 @@ architecture behave of rs is
 				rs8instrvalidin <= ra1instrvalid;
 				rs8specbitin <= ra1specbit;
 				rs8wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs9instrvalidout = '0') then
 				rs9pcin <= ra1pc;
@@ -394,7 +396,7 @@ architecture behave of rs is
 				rs9instrvalidin <= ra1instrvalid;
 				rs9specbitin <= ra1specbit;
 				rs9wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs10instrvalidout = '0') then
 				rs10pcin <= ra1pc;
@@ -409,7 +411,7 @@ architecture behave of rs is
 				rs10instrvalidin <= ra1instrvalid;
 				rs10specbitin <= ra1specbit;
 				rs10wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs11instrvalidout = '0') then
 				rs11pcin <= ra1pc;
@@ -424,7 +426,7 @@ architecture behave of rs is
 				rs11instrvalidin <= ra1instrvalid;
 				rs11specbitin <= ra1specbit;
 				rs11wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs12instrvalidout = '0') then
 				rs12pcin <= ra1pc;
@@ -439,7 +441,7 @@ architecture behave of rs is
 				rs12instrvalidin <= ra1instrvalid;
 				rs12specbitin <= ra1specbit;
 				rs12wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs13instrvalidout = '0') then
 				rs13pcin <= ra1pc;
@@ -454,7 +456,7 @@ architecture behave of rs is
 				rs13instrvalidin <= ra1instrvalid;
 				rs13specbitin <= ra1specbit;
 				rs13wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs14instrvalidout = '0') then
 				rs14pcin <= ra1pc;
@@ -469,7 +471,7 @@ architecture behave of rs is
 				rs14instrvalidin <= ra1instrvalid;
 				rs14specbitin <= ra1specbit;
 				rs14wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs15instrvalidout = '0') then
 				rs15pcin <= ra1pc;
@@ -484,7 +486,7 @@ architecture behave of rs is
 				rs15instrvalidin <= ra1instrvalid;
 				rs15specbitin <= ra1specbit;
 				rs15wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs16instrvalidout = '0') then
 				rs16pcin <= ra1pc;
@@ -499,10 +501,10 @@ architecture behave of rs is
 				rs16instrvalidin <= ra1instrvalid;
 				rs16specbitin <= ra1specbit;
 				rs16wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			else
-				rsfull <= '1'
+				fullvar := '1'
 				
 			end if;
 		end if;
@@ -521,7 +523,7 @@ architecture behave of rs is
 				rs1instrvalidin <= ra2instrvalid;
 				rs1specbitin <= ra2specbit;
 				rs1wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs2instrvalidout = '0') then
 				rs2pcin <= ra2pc;
@@ -536,7 +538,7 @@ architecture behave of rs is
 				rs2instrvalidin <= ra2instrvalid;
 				rs2specbitin <= ra2specbit;
 				rs2wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs3instrvalidout = '0') then
 				rs3pcin <= ra2pc;
@@ -551,7 +553,7 @@ architecture behave of rs is
 				rs3instrvalidin <= ra2instrvalid;
 				rs3specbitin <= ra2specbit;
 				rs3wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs4instrvalidout = '0') then
 				rs4pcin <= ra2pc;
@@ -566,7 +568,7 @@ architecture behave of rs is
 				rs4instrvalidin <= ra2instrvalid;
 				rs4specbitin <= ra2specbit;
 				rs4wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs5instrvalidout = '0') then
 				rs5pcin <= ra2pc;
@@ -581,7 +583,7 @@ architecture behave of rs is
 				rs5instrvalidin <= ra2instrvalid;
 				rs5specbitin <= ra2specbit;
 				rs5wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs6instrvalidout = '0') then
 				rs6pcin <= ra2pc;
@@ -596,7 +598,7 @@ architecture behave of rs is
 				rs6instrvalidin <= ra2instrvalid;
 				rs6specbitin <= ra2specbit;
 				rs6wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs7instrvalidout = '0') then
 				rs7pcin <= ra2pc;
@@ -611,7 +613,7 @@ architecture behave of rs is
 				rs7instrvalidin <= ra2instrvalid;
 				rs7specbitin <= ra2specbit;
 				rs7wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs8instrvalidout = '0') then
 				rs8pcin <= ra2pc;
@@ -626,7 +628,7 @@ architecture behave of rs is
 				rs8instrvalidin <= ra2instrvalid;
 				rs8specbitin <= ra2specbit;
 				rs8wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs9instrvalidout = '0') then
 				rs9pcin <= ra2pc;
@@ -641,7 +643,7 @@ architecture behave of rs is
 				rs9instrvalidin <= ra2instrvalid;
 				rs9specbitin <= ra2specbit;
 				rs9wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs10instrvalidout = '0') then
 				rs10pcin <= ra2pc;
@@ -656,7 +658,7 @@ architecture behave of rs is
 				rs10instrvalidin <= ra2instrvalid;
 				rs10specbitin <= ra2specbit;
 				rs10wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs11instrvalidout = '0') then
 				rs11pcin <= ra2pc;
@@ -671,7 +673,7 @@ architecture behave of rs is
 				rs11instrvalidin <= ra2instrvalid;
 				rs11specbitin <= ra2specbit;
 				rs11wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs12instrvalidout = '0') then
 				rs12pcin <= ra2pc;
@@ -686,7 +688,7 @@ architecture behave of rs is
 				rs12instrvalidin <= ra2instrvalid;
 				rs12specbitin <= ra2specbit;
 				rs12wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs13instrvalidout = '0') then
 				rs13pcin <= ra2pc;
@@ -701,7 +703,7 @@ architecture behave of rs is
 				rs13instrvalidin <= ra2instrvalid;
 				rs13specbitin <= ra2specbit;
 				rs13wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs14instrvalidout = '0') then
 				rs14pcin <= ra2pc;
@@ -716,7 +718,7 @@ architecture behave of rs is
 				rs14instrvalidin <= ra2instrvalid;
 				rs14specbitin <= ra2specbit;
 				rs14wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs15instrvalidout = '0') then
 				rs15pcin <= ra2pc;
@@ -731,7 +733,7 @@ architecture behave of rs is
 				rs15instrvalidin <= ra2instrvalid;
 				rs15specbitin <= ra2specbit;
 				rs15wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			elsif (rs16instrvalidout = '0') then
 				rs16pcin <= ra2pc;
@@ -746,14 +748,16 @@ architecture behave of rs is
 				rs16instrvalidin <= ra2instrvalid;
 				rs16specbitin <= ra2specbit;
 				rs16wr <= '1';
-				rsfull <= '0';
+				fullvar := '0';
 
 			else
-				rsfull <= '1'
+				fullvar := '1';
 				
 			end if;
 
 		end if;
+
+		rsfull <= fullvar;
 
 	end process
 
