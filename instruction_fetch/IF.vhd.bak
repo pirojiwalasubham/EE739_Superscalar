@@ -18,7 +18,7 @@ entity IF is
 end entity;
 
 
-architecture behave of IF is
+architecture behave of IITB_RISC is
 
 	component myRegister is
 			generic(
@@ -57,7 +57,7 @@ architecture behave of IF is
 	end component;
 	
 
-	signal pc_out, pc_in, pc_out, adder1_out, pc_out_plus1, imem_dout1, imem_dout2 : std_logic_vector(15 downto 0);
+	signal pc_out, pc_in, pc_out, adder1_out, pc_out_plus1, imem_dout1, imem_dout2, : std_logic_vector(15 downto 0);
 	signal ra1_inv_in, ra2_inv_in : std_logic;
 begin
 		
@@ -67,7 +67,7 @@ begin
 		PC : myRegister generic map(data_length16) port map ( clk, pc_en, reset, pc_in, pc_out); 
 		ADDER1 : add2 port map(pc_out, adder1_out);
 		PC_PLUS1 : add1 port map(pc_out,pc_out_plus1)
-		MUX2 : mux9_16 port map (S0,S1,S2,S3, adder1_out, adder2_out, adder3_out, rb_op2, adder4_out,alu1_out, ZA7_1_out, ZA7_2_out, dmem_dout, pc_in); 
+		MUX : mux9_16 port map (S0,S1,S2,S3, adder1_out, adder2_out, adder3_out, rb_op2, adder4_out,alu1_out, ZA7_1_out, ZA7_2_out, dmem_dout, pc_in); 
 		IMEM : ram port map(pc_out, clk, "0000000000000000", reset_bar, '0', imem_dout1,imem_dout2);
 
 		RA1_PC : myRegister generic map(data_length16) port map (clk, ra_en, reset, pc_out, ra1_pc_out); 

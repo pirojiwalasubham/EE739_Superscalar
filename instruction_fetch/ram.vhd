@@ -72,7 +72,7 @@ begin
       end if;   
     end if;   
   end process;
-  ADDER_MEM : add1 port map(address, address_plus1) 
+  ADDER_MEM : add1 port map(address, address_plus1) ;
   q <= RAM(conv_integer(address)) when (rden ='1') else
         "ZZZZZZZZZZZZZZZZ";
   q2 <= RAM(conv_integer(address_plus1)) when (rden ='1') else
