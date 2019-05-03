@@ -61,8 +61,8 @@ architecture behave of IITB_RISC is
 	signal ra1_inv_in, ra2_inv_in : std_logic;
 begin
 		
-		ra1_inv_in <= '1' when (ra1_invalidate) else '0';	
-		ra2_inv_in <= '1' when (ra2_invalidate) else '0';
+		ra1_inv_in <= '1' when (ra1_invalidate = '1') else '0';	
+		ra2_inv_in <= '1' when (ra2_invalidate = '1') else '0';
 				
 		PC : myRegister generic map(data_length16) port map ( clk, pc_en, reset, pc_in, pc_out); 
 		ADDER1 : add2 port map(pc_out, adder1_out);
