@@ -23,8 +23,8 @@ architecture behave of RF is
 		din : in std_logic_vector(data_length-1 downto 0);
 		dout :out std_logic_vector(data_length-1 downto 0));
 	end component;
-	signal reg_data0,reg_data1,reg_data2,reg_datAwr_1,reg_data4,reg_data5,reg_data6,reg_data7,Data0,Data1,Data2,Data3,Data4,Data5,Data5,Data6,Data7 : std_logic_vector(15 downto 0);
-	signal en_vec1a,en_vec1,en_vec2,en_vec3 : std_logic_vector(7 downto 0);
+	signal reg_data0,reg_data1,reg_data2,reg_data3,reg_data4,reg_data5,reg_data6,reg_data7,Data0,Data1,Data2,Data3,Data4,Data5,Data6,Data7 : std_logic_vector(15 downto 0);
+	signal en_vec,en_vec1a,en_vec1,en_vec2,en_vec3 : std_logic_vector(7 downto 0);
 	signal e : std_logic;
 begin
 	
@@ -36,7 +36,7 @@ begin
 			 "00010000" when ((Awr_1="100") and (RF_write1='1')) else
 			 "00100000" when ((Awr_1="101") and (RF_write1='1')) else
 			 "01000000" when ((Awr_1="110") and (RF_write1='1')) else
-			 "00000000" when ((Awr_1="111") and (RF_write1='1')) else
+			 "10000000" when ((Awr_1="111") and (RF_write1='1')) else
 			"00000000";
 	en_vec1 <= "00000000" when(Awr_1 = Awr_2) else
 				en_vec1a;
@@ -48,7 +48,7 @@ begin
 			 "00010000" when ((Awr_2="100") and (RF_write2='1')) else
 			 "00100000" when ((Awr_2="101") and (RF_write2='1')) else
 			 "01000000" when ((Awr_2="110") and (RF_write2='1')) else
-			 "00000000" when ((Awr_2="111") and (RF_write2='1')) else
+			 "10000000" when ((Awr_2="111") and (RF_write2='1')) else
 			"00000000";
 	en_vec3  <= "00000001" when ((Awr_3="000") and (RF_write3='1')) else
 			 "00000010" when ((Awr_3="001") and (RF_write3='1')) else
