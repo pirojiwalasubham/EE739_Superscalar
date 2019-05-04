@@ -7,10 +7,10 @@ entity RF_tag is
 	generic(
 		data_length: integer := 5);
 	port(
-		Ard_1,Ard_2,Ard_3,Ard_4,Ard_5,Ard_6,Awr_1,Awr_2 : in std_logic_vector(2 downto 0);
+		Ard_1,Ard_2,Ard_3,Ard_4,Ard_5,Ard_6,Ard_7,Ard_8,Awr_1,Awr_2 : in std_logic_vector(2 downto 0);
 		Din_1,Din_2 : in std_logic_vector(4 downto 0);
 		RF_write1,RF_write2,clk,clr : in std_logic;
-		Dout_1,Dout_2,Dout_3,Dout_4,Dout_5,Dout_6 : out std_logic_vector(4 downto 0)
+		Dout_1,Dout_2,Dout_3,Dout_4,Dout_5,Dout_6,Dout_7,Dout_8 : out std_logic_vector(4 downto 0)
 		);
 end entity;
 
@@ -85,7 +85,7 @@ begin
 	   reg_data5 when (Ard_1="101" ) else
 	   reg_data6 when (Ard_1="110" ) else
 	   reg_data7 when (Ard_1="111" ) else
-	   "0000000000000000";
+	   "00000";
 
 	Dout_2 <= reg_data0 when (Ard_2="000" ) else
 	    reg_data1 when (Ard_2="001" ) else
@@ -95,7 +95,7 @@ begin
 	    reg_data5 when (Ard_2="101" ) else
 	    reg_data6 when (Ard_2="110" ) else
 	    reg_data7 when (Ard_2="111" ) else
-	    "0000000000000000";
+	   "00000";
 
 	Dout_3 <= reg_data0 when (Ard_3="000" ) else
 	    reg_data1 when (Ard_3="001" ) else
@@ -105,7 +105,7 @@ begin
 	    reg_data5 when (Ard_3="101" ) else
 	    reg_data6 when (Ard_3="110" ) else
 	    reg_data7 when (Ard_3="111" ) else
-	    "0000000000000000";
+	   "00000";
 
 	Dout_4 <= reg_data0 when (Ard_4="000" ) else
 	    reg_data1 when (Ard_4="001" ) else
@@ -115,7 +115,7 @@ begin
 	    reg_data5 when (Ard_4="101" ) else
 	    reg_data6 when (Ard_4="110" ) else
 	    reg_data7 when (Ard_4="111" ) else
-	    "0000000000000000";
+	   "00000";
 	Dout_5 <= reg_data0 when (Ard_5="000" ) else
 	    reg_data1 when (Ard_5="001" ) else
 	    reg_data2 when (Ard_5="010" ) else
@@ -124,7 +124,7 @@ begin
 	    reg_data5 when (Ard_5="101" ) else
 	    reg_data6 when (Ard_5="110" ) else
 	    reg_data7 when (Ard_5="111" ) else
-	    "0000000000000000";
+	   "00000";
 	Dout_6 <= reg_data0 when (Ard_6="000" ) else
 	    reg_data1 when (Ard_6="001" ) else
 	    reg_data2 when (Ard_6="010" ) else
@@ -133,7 +133,27 @@ begin
 	    reg_data5 when (Ard_6="101" ) else
 	    reg_data6 when (Ard_6="110" ) else
 	    reg_data7 when (Ard_6="111" ) else
-	    "0000000000000000";
+	   "00000";
+
+	Dout_7 <= reg_data0 when (Ard_7="000" ) else
+	    reg_data1 when (Ard_7="001" ) else
+	    reg_data2 when (Ard_7="010" ) else
+	    reg_data3 when (Ard_7="011" ) else
+	    reg_data4 when (Ard_7="100" ) else
+	    reg_data5 when (Ard_7="101" ) else
+	    reg_data6 when (Ard_7="110" ) else
+	    reg_data7 when (Ard_7="111" ) else
+	   "00000";
+
+	Dout_8 <= reg_data0 when (Ard_8="000" ) else
+	    reg_data1 when (Ard_8="001" ) else
+	    reg_data2 when (Ard_8="010" ) else
+	    reg_data3 when (Ard_8="011" ) else
+	    reg_data4 when (Ard_8="100" ) else
+	    reg_data5 when (Ard_8="101" ) else
+	    reg_data6 when (Ard_8="110" ) else
+	    reg_data7 when (Ard_8="111" ) else
+	   "00000";
 	
 	
 end architecture behave;
