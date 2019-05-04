@@ -38,7 +38,7 @@ begin
 			 "01000000" when ((Awr_1="110") and (RF_write1='1')) else
 			 "10000000" when ((Awr_1="111") and (RF_write1='1')) else
 			"00000000";
-	en_vec1 <= "00000000" when(Awr_1 = Awr_2) else
+	en_vec1 <= "00000000" when ((Awr_1 = Awr_2) and RF_write1 ='1' and RF_write2 = '1') else
 				en_vec1a;
 
 	en_vec2 <= "00000001" when ((Awr_2="000") and (RF_write2='1')) else
