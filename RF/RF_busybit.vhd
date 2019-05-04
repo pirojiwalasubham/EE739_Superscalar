@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.math_real.all;
 use ieee.numeric_std.all;
 
-entity RF_tag is
+entity RF_busybit is
 	port(
 		Ard_1,Ard_2,Ard_3,Ard_4,Awr_1,Awr_2 ,Awr_3,Awr_4 : in std_logic_vector(2 downto 0);
 		Din_1,Din_2, Din_3, Din_4 : in std_logic_vector(4 downto 0);
@@ -12,7 +12,7 @@ entity RF_tag is
 		);
 end entity;
 
-architecture behave of RF_tag is
+architecture behave of RF_busybit is
 	component bit_register is
 	port(
 		clk,wr,clr : in std_logic;
