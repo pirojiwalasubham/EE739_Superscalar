@@ -12,7 +12,7 @@ entity IFetch is
 		pc_en: in std_logic;
 		ra1_invalidate, ra2_invalidate, ra_en : in std_logic;
 		 adder2_out, adder3_out, rb_op2, adder4_out,alu1_out, ZA7_1_out, ZA7_2_out, dmem_dout  : in std_logic_vector(15 downto 0) ;
-		 ra1_inv_out, ra2_inv_out : out std_logic;
+		 ra1_val_out, ra2_val_out : out std_logic;
 		 ra1_pc_out, ra1_ir_out ,ra2_pc_out, ra2_ir_out : out std_logic_vector(15 downto 0));
 end entity;
 
@@ -65,11 +65,11 @@ architecture behave of IFetch is
 
 	signal pc_out, temp_pc, adder1_out, pc_in_plus1, imem_dout1, imem_dout2 : std_logic_vector(15 downto 0);
 	signal pc_in : std_logic_vector(15 downto 0) := "0000000000000000";
-	signal ra1_inv_in, ra2_inv_in : std_logic;
+	signal ra1_val_in, ra2_val_in : std_logic;
 begin
 		
-		ra1_inv_in <= '1' when (ra1_invalidate = '1') else '0';	
-		ra2_inv_in <= '1' when (ra2_invalidate = '1') else '0';
+		ra1_val_in <= '0' when (ra1_invalidate = '1') else '1';	
+		ra2_val_in <= '0' when (ra2_invalidate = '1') else '1';
 				
 		PC : myRegister generic map(data_length16) port map ( clk, pc_en, reset, adder1_out, pc_out); 
 		ADDER1 : add2 port map(temp_pc, adder1_out);
@@ -78,11 +78,11 @@ begin
 
 		RA1_PC : myRegister generic map(data_length16) port map (clk, ra_en, reset, pc_in, ra1_pc_out); 
 		RA1_IR : myRegister generic map(data_length16) port map (clk, ra_en, reset, imem_dout1,ra1_ir_out); 
-		RA1_INV : bit_register port map (clk, ra_en, reset, ra1_inv_in,ra1_inv_out); 
+		RA1_INV : bit_register port map (clk, ra_en, reset, ra1_val_in,ra1_val_out); 
 
 		RA2_PC : myRegister generic map(data_length16) port map (clk, ra_en, reset, pc_in_plus1, ra2_pc_out); 
 		RA2_IR : myRegister generic map(data_length16) port map (clk, ra_en, reset, imem_dout2,ra2_ir_out);
-		RA2_INV : bit_register port map (clk, ra_en, reset, ra2_inv_in,ra2_inv_out); 
+		RA2_INV : bit_register port map (clk, ra_en, reset, ra2_val_in,ra2_val_out); 
 
 		MUX2 : mux9_16 port map (S0,S1,S2,S3, pc_out, adder2_out, adder3_out, rb_op2, adder4_out,alu1_out, ZA7_1_out, ZA7_2_out, dmem_dout, temp_pc); 
 
