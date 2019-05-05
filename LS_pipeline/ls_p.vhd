@@ -95,8 +95,8 @@ architecture behave of ls_p is
 						'1' when ((rc_irout(15 downto 12) = "0111") and (rc_validout = '1')) else
 						'0';
 
-		read_addr <= add_out;
-		write_addr <= add_out;
+		read_addr <= add_out(5 downto 0);
+		write_addr <= add_out(5 downto 0);
 
 		write_data <= rc_op1out when rc_irout(15 downto 12) = "0101" else
 						rc_op2out when rc_irout(15 downto 12) = "0111" ;
