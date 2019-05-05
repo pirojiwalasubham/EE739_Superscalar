@@ -14,7 +14,7 @@ entity ls_p is
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
 
 		write_data,data_read : out std_logic_vector(15 downto 0);
-		read_addr,write_addr : out std_logic_vector(5 downto 0);
+		read_addr,write_addr : out std_logic_vector(15 downto 0);
 		mem_read_en, mem_write_en,lw_r7_resolved : out std_logic
 		);
 end entity;
@@ -95,8 +95,8 @@ architecture behave of ls_p is
 						'1' when ((rc_irout(15 downto 12) = "0111") and (rc_validout = '1')) else
 						'0';
 
-		read_addr <= add_out(5 downto 0);
-		write_addr <= add_out(5 downto 0);
+		read_addr <= add_out;
+		write_addr <= add_out;
 
 		write_data <= rc_op1out when rc_irout(15 downto 12) = "0101" else
 						rc_op2out when rc_irout(15 downto 12) = "0111" ;
