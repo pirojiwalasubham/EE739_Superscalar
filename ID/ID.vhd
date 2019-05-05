@@ -179,7 +179,37 @@ STORE_TAG_DEC2: Add port map (SE_store_tag_reg_out, "1111111111111110",store_tag
 STORE_TAG_INC2: Add port map (SE_store_tag_reg_out, "0000000000000010",store_tag_reg_out_plus_two,c_store_tag4);
 
 
-process(clk)
+process(clk, reset,
+		ra1_val_out, ra2_val_out ,
+		ra1_pc_out, ra1_ir_out ,ra2_pc_out, ra2_ir_out,
+		free_rrf_vec,
+
+		data1, data2, data3, data4 ,
+		busy1, busy2, busy3, busy4 ,
+		tag1, tag2, tag3, tag4 ,
+		C_in,Z_in , C_busybit_in, Z_busybit_in, busy_dest1_in, busy_dest2_in,
+		C_tag_in, Z_tag_in, tag_dest1_in, tag_dest2_in ,
+		taken_branch_detected, not_taken_branch_detected,				-- OR of both execution pipelines
+		spec_tag_rb_in ,		-- execution line wala spec tag
+		rs_full_in, lm_stall_in,
+		lw_r7_resolved, alu_r7_resolved, jlr_resolved,           	-- OR of both execution pipelines
+		store_retirement_count,
+
+		x1_add,x1_adc,x1_adz,x1_adi,x1_ndu,x1_ndc,x1_ndz,x1_lhi,x1_lw,x1_sw,x1_lm,x1_sm,x1_beq,x1_jal,x1_jlr ,
+		 x2_add,x2_adc,x2_adz,x2_adi,x2_ndu,x2_ndc,x2_ndz,x2_lhi,x2_lw,x2_sw,x2_lm,x2_sm,x2_beq,x2_jal,x2_jlr ,
+		 twoRRnotFree ,
+		 penout2,penout1 ,
+		 SE_Ra1_imm9 ,SE_Ra2_imm9,
+		 c_adder2out,c_adder3out ,
+		 spec_tag_reg_en,
+		 store_tag_reg_en ,
+		 spec_tag_reg_in,spec_tag_reg_out ,
+		 store_tag_reg_in,store_tag_reg_out ,
+		 store_tag_reg_out_minus_one, store_tag_reg_out_plus_one ,
+		 store_tag_reg_out_minus_two, store_tag_reg_out_plus_two ,
+		 SE_store_tag_reg_out ,
+		 c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4 
+	)
 
 variable x1_val_var, x2_val_var, x1_beq_var, x2_beq_var, x1_sw_var, x2_sw_var: std_logic;
 begin
