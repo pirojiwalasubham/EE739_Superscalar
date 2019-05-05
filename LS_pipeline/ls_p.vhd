@@ -11,11 +11,11 @@ entity ls_p is
 		rc_pc,rc_op1,rc_op2, rc_ir, read_datafrommem : in std_logic_vector(15 downto 0);
 		rc_dest_rrtag,rc_carrytag,rc_zerotag : in std_logic_vector(4 downto 0);
 		rc_spectag ; in std_logic_vector(1 downto 0);
-		rc_valid,rcdestr7,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
+		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
 
 		write_data,data_read : out std_logic_vector(15 downto 0);
 		read_addr,write_addr : out std_logic_vector(5 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken, mem_read_en, mem_write_en : out std_logic
+		mem_read_en, mem_write_en,lw_r7_resolved : out std_logic
 		);
 end entity;
 
@@ -50,12 +50,14 @@ architecture behave of ls_p is
 	signal rc_pcout,rc_op1out,rc_op2out,add_in_a,add_in_b,add_out,rc_irout,rcimm6out : std_logic_vector (15 downto 0);
 	signal rc_dest_rrtagout,rc_carrytagout, rc_zerotagout : std_logic_vector (4 downto 0);
 	signal rc_spectagout : std_logic_vector(1 downto 0);
-	signal rcdestr7out,alu_p_brach_taken_temp, rc_validout,rc_carryout,rc_zeroout,rc_carryreadyout,rc_zeroreadyout,unused_c: std_logic;
+	signal alu_p_brach_taken_temp, rc_validout,rc_carryout,rc_zeroout,rc_carryreadyout,rc_zeroreadyout,unused_c: std_logic;
 
 	begin
 
 		rcimm6out <= "1111111111" & rc_irout(5 downto 0) when rc_irout(5) = '1' else
 					"0000000000" & rc_irout(5 downto 0);
+
+		rcimm9out <= rc_irout(8 downto 0) & "0000000";
 
 		RC_PC : myRegister generic map (16) port map (clk,'1',reset,rc_pc,rc_pcout);
 		RC_OP1 : myRegister generic map (16) port map (clk,'1',reset,rc_op1,rc_op1out);
@@ -68,7 +70,6 @@ architecture behave of ls_p is
 	
 		RC_SPECTAG : myRegister generic map (2) port map (clk,'1',reset,rc_spectag,rc_spectagout);
 				
-		RC_DEST_R7 : bit_register port map (clk, '1', reset, rcdestr7, rcdestr7out);
 		RC_VALID : bit_register port map (clk, '1', reset, rc_valid, rc_validout);
 		RC_CARRY : bit_register port map (clk, '1', reset, rc_carry, rc_carryout);
 		RC_CARRY_READY : bit_register port map (clk, '1', reset, rc_carryready, rc_carryreadyout);
@@ -100,10 +101,10 @@ architecture behave of ls_p is
 		write_data <= rc_op1out when rc_irout(15 downto 12) = "0101" else
 						rc_op2out when rc_irout(15 downto 12) = "0111" ;
 
-		read_datafrommem <= data_read;
+		data_read <=rcimm9out when rc_irout(15 downto 12) = "0011" else 
+					read_datafrommem;
 
-
-
+		lw_r7_resolved <= '1' when ((rc_irout(15 downto 12) = "0100") and (rc_validout = '1') and (rc_irout(11 downto 9) = "111")) else '0';
 									
 	end architecture behave;
 					 
