@@ -13,7 +13,7 @@ entity RS_RF_Sched is
 		rrf_Awr1_in, rrf_Awr2_in : in std_logic_vector(4 downto 0);
 		rrf_Data1_EX_in, rrf_Data2_EX_in : in std_logic_vector(17 downto 0);
 		rrf_free_vec_ID_in, rrf_free_vec_Rob_in : in std_logic_vector(31 downto 0);
-		rrf_valid_vec_ID_in, rrf_valid_vec_Rob_in : in std_logic_vector(31 downto 0);
+		rrf_valid_vec_EX_in, rrf_valid_vec_Rob_in : in std_logic_vector(31 downto 0);
 
 		rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) 
 
@@ -48,11 +48,11 @@ architecture behave of RS_RF_Sched is
 
 	begin
 
-	ReorderBuffer : for i in 0 to 31 generate
+	RRF : for i in 0 to 31 generate
 		rrf_P_file : myRegister generic map (18) port map (clk, en_for_P(i), reset, rrf_P_in(i), rrf_P_out(i));
 		rrf_busy_file : myRegister generic map (1) port map (clk, '1', reset, rrf_busy_reg_in(i), rrf_busy_reg_out(i));
 		rrf_valid_file : myRegister generic map (1) port map (clk, '1', reset, rrf_valid_reg_in(i), rrf_valid_reg_out(i));
-	end generate ReorderBuffer;
+	end generate RRF;
 
 
   en_vec1 <= "00000000000000000000000000000001" when ((Awr_1="00000") and (RF_write1='1')) else
@@ -125,5 +125,16 @@ architecture behave of RS_RF_Sched is
 
 	en_for_P <= en_vec1 or en_vec2;
 
+
+	Data : for i in 0 to 31 generate 
+		rrf_P_in(i) <= rrf_Data1_EX_in when (en_vec1(i) = '1') when else
+						rrf_Data2_EX_in;
+	end generate Data;
+
+	rrf_busy_reg_in <= not ((not rrf_busy_reg_out) or ((not rrf_busy_reg_out) xor rrf_free_vec_Rob_in) and (not ((not rrf_busy_reg_out) xor rrf_free_vec_ID_in)));
+	rrf_valid_reg_in <= (rrf_valid_reg_out) or (( rrf_valid_reg_out) xor rrf_valid_vec_EX_in) and (not ((rrf_valid_reg_out) xor rrf_valid_vec_Rob_in));
+	rrf_free_vec_out <= not rrf_busy_reg_out;
+	rrf_valid_vec_out <= rrf_valid_reg_out;
+				
 
 
