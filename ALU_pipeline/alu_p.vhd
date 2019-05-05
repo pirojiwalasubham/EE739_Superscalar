@@ -8,14 +8,13 @@ use ieee.std_logic_misc.all;
 entity alu_p is
 	port(
 		clk, reset: in std_logic ;
-		rbpc,rbop1,rbop2 : in std_logic_vector(15 downto 0);
---		rbimm9 : in std_logic_vector(8 downto 0);
-		rbimm6 : in std_logic_vector(5 downto 0);
-		rbdest_rrtag : in std_logic_vector(4 downto 0);
-		rbopcode : in std_logic_vector(3 downto 0);
-		rbvalid,rbdestr7 : in std_logic;
+		rb_pc,rb_op1,rb_op2, rb_ir : in std_logic_vector(15 downto 0);
+		rb_dest_rrtag,rb_carrytag,rb_zerotag : in std_logic_vector(4 downto 0);
+		rb_spectag ; in std_logic_vector(1 downto 0);
+		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
+
 		alu_p_out : out std_logic_vector(15 downto 0);
-		alu_p_c,alu_p_z,alu_p_comp : out std_logic
+		alu_p_c,alu_p_z,alu_p_brach_taken : out std_logic
 		);
 end entity;
 
@@ -52,32 +51,42 @@ architecture behave of alu_p is
 			);	
 	end component bit_register;
 
-	signal rbpcout,rbop1out,rbop2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out : std_logic_vector (15 downto 0);
---	signal rbimm9out : std_logic_vector (8 downto 0);
-	signal rbimm6out : std_logic_vector (5 downto 0);
-	signal rbdest_rrtagout : std_logic_vector (4 downto 0);
-	signal rbopcodeout : std_logic_vector (3 downto 0);
-	signal rbdestr7out : std_logic;
+	signal rb_pcout,rb_op1out,rb_op2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out,rb_irout,rbimm6out : std_logic_vector (15 downto 0);
+	signal rb_dest_rrtagout,rb_carrytagout, rb_zerotagout : std_logic_vector (4 downto 0);
+	signal rb_spectagout : std_logic_vector(1 downto 0);
+	signal rbdestr7out,alu_p_brach_taken_temp, rb_validout,rb_carryout,rb_zeroout,rb_carryreadyout,rb_zeroreadyout,alu_p_comp : std_logic;
 
 	begin
 
-		RB_PC : myRegister generic map (16) port map (clk,rbvalid,reset,rbpc,rbpcout);
-		RB_OP1 : myRegister generic map (16) port map (clk,rbvalid,reset,rbop1,rbop1out);
-		RB_OP2 : myRegister generic map (16) port map (clk,rbvalid,reset,rbop2,rbop2out);
---		RB_IMM9 : myRegister generic map (9) port map (clk,rbvalid,reset,rbimm9,rbimm9out);
-		RB_IMM6 : myRegister generic map (6) port map (clk,rbvalid,reset,rbimm6,rbimm6out);
-		RB_RRTAG : myRegister generic map (5) port map (clk,rbvalid,reset,rbdest_rrtag,rbdest_rrtagout);
-		RB_OPCODE : myRegister generic map (4) port map (clk,rbvalid,reset,rbopcode,rbopcodeout);
-		RB_DEST_R7 : bit_register port map (clk, rbvalid, reset, rbdestr7, rbdestr7out);
+		rbimm6out <= "1111111111" & rb_irout(5 downto 0) when rb_irout(5) = '1' else
+					"0000000000" & rb_irout(5 downto 0);
+
+		RB_PC : myRegister generic map (16) port map (clk,'1',reset,rb_pc,rb_pcout);
+		RB_OP1 : myRegister generic map (16) port map (clk,'1',reset,rb_op1,rb_op1out);
+		RB_OP2 : myRegister generic map (16) port map (clk,'1',reset,rb_op2,rb_op2out);
+		RB_IR : myRegister generic map (16) port map (clk,'1',reset,rb_ir,rb_irout);
+
+		RB_CARRY_TAG : myRegister generic map (5) port map (clk,'1',reset,rb_carrytag,rb_carrytagout);
+		RB_ZERO_TAG : myRegister generic map (5) port map (clk,'1',reset,rb_zerotag,rb_zerotagout);
+		RB_RRTAG : myRegister generic map (5) port map (clk,'1',reset,rb_dest_rrtag,rb_dest_rrtagout);
+		
+		RB_SPECTAG : myRegister generic map (2) port map (clk,'1',reset,rb_spectag,rb_spectagout);
+				
+		RB_DEST_R7 : bit_register port map (clk, '1', reset, rbdestr7, rbdestr7out);
+		RB_VALID : bit_register port map (clk, '1', reset, rb_valid, rb_validout);
+		RB_CARRY : bit_register port map (clk, '1', reset, rb_carry, rb_carryout);
+		RB_CARRY_READY : bit_register port map (clk, '1', reset, rb_carryready, rb_carryreadyout);
+		RB_ZERO : bit_register port map (clk, '1', reset, rb_zero, rb_zeroout);
+		RB_ZERO_READY : bit_register port map (clk, '1', reset, rb_zeroready, rb_zeroreadyout);
 
 		
-		alu_in_a <= rbop1out when rbopcodeout(3 downto 2) = "00" else
-					rbpcout when rbopcodeout = "1100" else "0000000000000000";
+		alu_in_a <= rb_op1out when rb_irout(15 downto 14) = "00" else
+					rb_pcout when rb_irout(15 downto 12) = "1100" else "0000000000000000";
 
-		alu_in_b <= rbop2out when rbopcodeout = "0000" else
-					rbop2out when rbopcodeout = "0010" else
-					rbimm6out when rbopcodeout = "0001" else
-					rbimm6out when rbopcodeout = "1100" else "0000000000000000";
+		alu_in_b <= rb_op2out when rb_irout(15 downto 12) = "0000" else
+					rb_op2out when rb_irout(15 downto 12) = "0010" else
+					rbimm6out when rb_irout(15 downto 12) = "0001" else
+					rbimm6out when rb_irout(15 downto 12) = "1100" else "0000000000000000";
 
 		ALU_ADD : Add port map (alu_in_a,alu_in_b,alu_add_out,alu_p_c);
 		alu_nand_out <= (alu_in_a nand alu_in_b);
@@ -90,5 +99,14 @@ architecture behave of alu_p is
 
 		alu_p_z <= '1' when alu_p_out = "0000000000000000" else '0';
 
+		alu_p_brach_taken_temp <= alu_p_comp when rb_irout(15 downto 12) = "1100" else
+									'1' when ((rb_irout(15 downto 12) = "0000") and (rb_irout(1 downto 0) = "10") and (rb_irout(5 downto 3) = "111")) else
+									'1' when ((rb_irout(15 downto 12) = "0000") and (rb_irout(1 downto 0) = "01") and (rb_irout(5 downto 3) = "111")) else
+									'1' when ((rb_irout(15 downto 12) = "0010") and (rb_irout(1 downto 0) = "10") and (rb_irout(5 downto 3) = "111")) else
+									'1' when ((rb_irout(15 downto 12) = "0010") and (rb_irout(1 downto 0) = "01") and (rb_irout(5 downto 3) = "111")) else
+									'0';
+
+		alu_p_brach_taken <= alu_p_brach_taken_temp and rb_validout;
+									
 	end architecture behave;
 					 
