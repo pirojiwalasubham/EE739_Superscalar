@@ -1,0 +1,993 @@
+Analysis & Synthesis report for ID
+Sun May  5 20:44:57 2019
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 10. Parameter Settings for User Entity Instance: myRegister:SPEC_TAG_REG
+ 11. Port Connectivity Checks: "Add:ADDER3"
+ 12. Port Connectivity Checks: "Add:ADDER2|FullAdder:F0"
+ 13. Port Connectivity Checks: "Add:ADDER2"
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun May  5 20:44:57 2019      ;
+; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
+; Revision Name                      ; ID                                         ;
+; Top-level Entity Name              ; ID                                         ;
+; Family                             ; Cyclone II                                 ;
+; Total logic elements               ; 713                                        ;
+;     Total combinational functions  ; 713                                        ;
+;     Dedicated logic registers      ; 2                                          ;
+; Total registers                    ; 2                                          ;
+; Total pins                         ; 561                                        ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP2C70F896C6       ;                    ;
+; Top-level entity name                                                      ; ID                 ; ID                 ;
+; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                    ;
++----------------------------------+-----------------+-----------------+--------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                             ; Library ;
++----------------------------------+-----------------+-----------------+--------------------------------------------------------------------------+---------+
+; register.vhd                     ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/register.vhd            ;         ;
+; pen32bitwith2output.vhd          ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/pen32bitwith2output.vhd ;         ;
+; pen32bit.vhd                     ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/pen32bit.vhd            ;         ;
+; ID.vhd                           ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/ID.vhd                  ;         ;
+; FullAdder.vhd                    ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/FullAdder.vhd           ;         ;
+; add.vhd                          ; yes             ; User VHDL File  ; /media/psf/mac-linux/GitHub/EE739_Superscalar/ID/add.vhd                 ;         ;
++----------------------------------+-----------------+-----------------+--------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 713            ;
+;                                             ;                ;
+; Total combinational functions               ; 713            ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 459            ;
+;     -- 3 input functions                    ; 169            ;
+;     -- <=2 input functions                  ; 85             ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 713            ;
+;     -- arithmetic mode                      ; 0              ;
+;                                             ;                ;
+; Total registers                             ; 2              ;
+;     -- Dedicated logic registers            ; 2              ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 561            ;
+; Embedded Multiplier 9-bit elements          ; 0              ;
+; Maximum fan-out node                        ; ra1_ir_out[12] ;
+; Maximum fan-out                             ; 53             ;
+; Total fan-out                               ; 2837           ;
+; Average fan-out                             ; 2.22           ;
++---------------------------------------------+----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                    ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+--------------+
+; Compilation Hierarchy Node       ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                      ; Library Name ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+--------------+
+; |ID                              ; 713 (482)         ; 2 (0)        ; 0           ; 0            ; 0       ; 0         ; 561  ; 0            ; |ID                                      ;              ;
+;    |Add:ADDER2|                  ; 34 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2                           ;              ;
+;       |FullAdder:F0|             ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:F0              ;              ;
+;       |FullAdder:\ist_add:10:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:10:F1  ;              ;
+;       |FullAdder:\ist_add:11:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:11:F1  ;              ;
+;       |FullAdder:\ist_add:12:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:12:F1  ;              ;
+;       |FullAdder:\ist_add:13:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:13:F1  ;              ;
+;       |FullAdder:\ist_add:14:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:14:F1  ;              ;
+;       |FullAdder:\ist_add:15:F1| ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:15:F1  ;              ;
+;       |FullAdder:\ist_add:1:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:1:F1   ;              ;
+;       |FullAdder:\ist_add:2:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:2:F1   ;              ;
+;       |FullAdder:\ist_add:3:F1|  ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:3:F1   ;              ;
+;       |FullAdder:\ist_add:4:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:4:F1   ;              ;
+;       |FullAdder:\ist_add:5:F1|  ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:5:F1   ;              ;
+;       |FullAdder:\ist_add:6:F1|  ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:6:F1   ;              ;
+;       |FullAdder:\ist_add:7:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:7:F1   ;              ;
+;       |FullAdder:\ist_add:8:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:8:F1   ;              ;
+;       |FullAdder:\ist_add:9:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER2|FullAdder:\ist_add:9:F1   ;              ;
+;    |Add:ADDER3|                  ; 30 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3                           ;              ;
+;       |FullAdder:F0|             ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:F0              ;              ;
+;       |FullAdder:\ist_add:10:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:10:F1  ;              ;
+;       |FullAdder:\ist_add:11:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:11:F1  ;              ;
+;       |FullAdder:\ist_add:12:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:12:F1  ;              ;
+;       |FullAdder:\ist_add:13:F1| ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:13:F1  ;              ;
+;       |FullAdder:\ist_add:14:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:14:F1  ;              ;
+;       |FullAdder:\ist_add:15:F1| ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:15:F1  ;              ;
+;       |FullAdder:\ist_add:1:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:1:F1   ;              ;
+;       |FullAdder:\ist_add:2:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:2:F1   ;              ;
+;       |FullAdder:\ist_add:3:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:3:F1   ;              ;
+;       |FullAdder:\ist_add:4:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:4:F1   ;              ;
+;       |FullAdder:\ist_add:5:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:5:F1   ;              ;
+;       |FullAdder:\ist_add:6:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:6:F1   ;              ;
+;       |FullAdder:\ist_add:7:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:7:F1   ;              ;
+;       |FullAdder:\ist_add:8:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:8:F1   ;              ;
+;       |FullAdder:\ist_add:9:F1|  ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|Add:ADDER3|FullAdder:\ist_add:9:F1   ;              ;
+;    |myRegister:SPEC_TAG_REG|     ; 0 (0)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|myRegister:SPEC_TAG_REG              ;              ;
+;    |pen32bitwith2output:PE|      ; 167 (1)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|pen32bitwith2output:PE               ;              ;
+;       |pen32bit:pen1|            ; 72 (72)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|pen32bitwith2output:PE|pen32bit:pen1 ;              ;
+;       |pen32bit:pen2|            ; 94 (94)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ID|pen32bitwith2output:PE|pen32bit:pen2 ;              ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 2     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 2     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 2     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; No         ; |ID|C_tag_out_arf          ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; No         ; |ID|C_2_tag_out_arf        ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |ID|Z_tag_out_rs           ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |ID|Z_2_tag_out_rs         ;
+; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; No         ; |ID|dest_AR_tag_out        ;
+; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; No         ; |ID|dest_AR_tag_2_out      ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |ID|x1_op1                 ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |ID|x1_op1                 ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |ID|x2_op1                 ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |ID|x2_op1                 ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; No         ; |ID|C_tag_out_rs           ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 7 LEs                ; 21 LEs                 ; No         ; |ID|C_2_out                ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |ID|x1_op1                 ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |ID|x2_op1                 ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |ID|Ard1b                  ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |ID|Ard2b                  ;
+; 93:1               ; 3 bits    ; 186 LEs       ; 45 LEs               ; 141 LEs                ; No         ; |ID|x1_op2                 ;
+; 93:1               ; 3 bits    ; 186 LEs       ; 45 LEs               ; 141 LEs                ; No         ; |ID|x2_op2                 ;
+; 9:1                ; 5 bits    ; 30 LEs        ; 5 LEs                ; 25 LEs                 ; No         ; |ID|Z_tag_out_arf          ;
+; 9:1                ; 5 bits    ; 30 LEs        ; 5 LEs                ; 25 LEs                 ; No         ; |ID|Z_2_tag_out_arf        ;
+; 7:1                ; 11 bits   ; 44 LEs        ; 44 LEs               ; 0 LEs                  ; No         ; |ID|x1_op2                 ;
+; 7:1                ; 11 bits   ; 44 LEs        ; 44 LEs               ; 0 LEs                  ; No         ; |ID|x2_op2                 ;
+; 9:1                ; 3 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; No         ; |ID|Awr1                   ;
+; 9:1                ; 3 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; No         ; |ID|Awr2                   ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 12 LEs               ; 3 LEs                  ; No         ; |ID|Ard1a                  ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 12 LEs               ; 3 LEs                  ; No         ; |ID|Ard2a                  ;
+; 11:1               ; 3 bits    ; 21 LEs        ; 6 LEs                ; 15 LEs                 ; No         ; |ID|x1_val                 ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |ID|x1_op2                 ;
+; 9:1                ; 2 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |ID|x2_op2                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: myRegister:SPEC_TAG_REG ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; data_length    ; 2     ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Add:ADDER3"                                                                          ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; c_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "Add:ADDER2|FullAdder:F0" ;
++------+-------+----------+---------------------------+
+; Port ; Type  ; Severity ; Details                   ;
++------+-------+----------+---------------------------+
+; cin  ; Input ; Info     ; Stuck at GND              ;
++------+-------+----------+---------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Add:ADDER2"                                                                          ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; c_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:03     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+    Info: Processing started: Sun May  5 20:44:52 2019
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ID -c ID
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file RF_tag.vhd
+    Info (12022): Found design unit 1: RF_tag-behave
+    Info (12023): Found entity 1: RF_tag
+Info (12021): Found 2 design units, including 1 entities, in source file RF_busybit.vhd
+    Info (12022): Found design unit 1: RF_busybit-behave
+    Info (12023): Found entity 1: RF_busybit
+Info (12021): Found 2 design units, including 1 entities, in source file RF.vhd
+    Info (12022): Found design unit 1: RF-behave
+    Info (12023): Found entity 1: RF
+Info (12021): Found 2 design units, including 1 entities, in source file register.vhd
+    Info (12022): Found design unit 1: myRegister-behave
+    Info (12023): Found entity 1: myRegister
+Info (12021): Found 2 design units, including 1 entities, in source file pen32bitwith2output.vhd
+    Info (12022): Found design unit 1: pen32bitwith2output-behave
+    Info (12023): Found entity 1: pen32bitwith2output
+Info (12021): Found 2 design units, including 1 entities, in source file pen32bit.vhd
+    Info (12022): Found design unit 1: pen32bit-behave
+    Info (12023): Found entity 1: pen32bit
+Info (12021): Found 2 design units, including 1 entities, in source file ID.vhd
+    Info (12022): Found design unit 1: ID-behave
+    Info (12023): Found entity 1: ID
+Info (12021): Found 2 design units, including 1 entities, in source file FullAdder.vhd
+    Info (12022): Found design unit 1: FullAdder-Struct
+    Info (12023): Found entity 1: FullAdder
+Info (12021): Found 2 design units, including 1 entities, in source file add.vhd
+    Info (12022): Found design unit 1: Add-Struct
+    Info (12023): Found entity 1: Add
+Info (12127): Elaborating entity "ID" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at ID.vhd(107): object "c_adder2out" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at ID.vhd(107): object "c_adder3out" assigned a value but never read
+Warning (10492): VHDL Process Statement warning at ID.vhd(173): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(174): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(175): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(176): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(177): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(178): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(180): signal "x1_add" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(181): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(182): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(184): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(185): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(186): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(189): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(193): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(194): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(197): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(213): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(214): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(215): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(218): signal "x1_adc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(219): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(220): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(222): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(223): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(224): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(227): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(231): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(232): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(235): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(242): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(245): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(251): signal "C_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(252): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(261): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(262): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(263): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(266): signal "x1_adz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(267): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(268): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(270): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(271): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(272): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(275): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(279): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(280): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(283): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(290): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(296): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(301): signal "Z_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(303): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(309): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(310): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(311): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(314): signal "x1_adi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(315): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(318): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(320): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(321): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(324): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(328): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(329): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(332): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(348): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(349): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(350): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(352): signal "x1_ndu" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(353): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(354): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(356): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(357): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(358): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(361): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(365): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(366): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(369): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(383): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(385): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(386): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(387): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(390): signal "x1_ndc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(391): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(392): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(394): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(395): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(396): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(399): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(403): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(404): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(407): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(414): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(417): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(423): signal "C_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(424): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(431): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(433): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(434): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(435): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(437): signal "x1_ndz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(438): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(439): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(441): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(442): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(443): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(446): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(450): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(451): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(454): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(461): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(467): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(472): signal "Z_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(474): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(478): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(480): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(481): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(482): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(485): signal "x1_lhi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(489): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(491): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(506): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(507): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(508): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(509): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(510): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(512): signal "x1_lw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(513): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(516): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(518): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(519): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(522): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(526): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(527): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(530): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(544): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(546): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(547): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(548): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(551): signal "x1_sw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(552): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(553): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(557): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(558): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(561): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(565): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(566): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(569): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(582): signal "busy_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(583): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(584): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(585): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(586): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(587): signal "tag_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(589): signal "x1_lm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(589): signal "x1_sm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(590): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(591): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(595): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(596): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(599): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(603): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(604): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(607): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(620): signal "busy_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(621): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(622): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(623): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(624): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(625): signal "tag_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(628): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(629): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(630): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(634): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(635): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(638): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(642): signal "busy2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(643): signal "tag2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(646): signal "data2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(659): signal "busy_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(660): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(661): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(662): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(663): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(664): signal "tag_dest1_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(667): signal "x1_jal" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(671): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(689): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(690): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(691): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(692): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(693): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(696): signal "x1_jlr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(697): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(700): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(702): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(703): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(706): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(724): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(725): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(726): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(727): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(728): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(731): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(734): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(736): signal "busy1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(737): signal "tag1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(740): signal "data1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(758): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(759): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(760): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(761): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(762): signal "penout1" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(773): signal "x2_add" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(774): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(775): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(777): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(778): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(779): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(782): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(786): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(787): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(790): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(806): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(807): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(808): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(811): signal "x2_adc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(812): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(813): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(815): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(816): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(817): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(820): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(824): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(825): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(828): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(835): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(838): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(844): signal "C_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(845): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(854): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(855): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(856): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(859): signal "x2_adz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(860): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(861): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(863): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(864): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(865): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(868): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(872): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(873): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(876): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(883): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(889): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(894): signal "Z_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(896): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(902): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(903): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(904): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(907): signal "x2_adi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(908): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(911): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(913): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(914): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(917): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(921): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(922): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(925): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(941): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(942): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(943): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(945): signal "x2_ndu" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(946): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(947): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(949): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(950): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(951): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(954): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(958): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(959): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(962): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(976): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(978): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(979): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(980): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(983): signal "x2_ndc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(984): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(985): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(987): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(988): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(989): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(992): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(996): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(997): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1000): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1007): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1010): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1016): signal "C_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1017): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1024): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1026): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1027): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1028): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1030): signal "x2_ndz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1031): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1032): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1034): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1035): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1036): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1039): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1043): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1044): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1047): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1054): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1060): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1065): signal "Z_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1067): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1071): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1073): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1074): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1075): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1078): signal "x2_lhi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1082): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1084): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1099): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1100): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1101): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1102): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1103): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1105): signal "x2_lw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1106): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1109): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1111): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1112): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1115): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1119): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1120): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1123): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1137): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1139): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1140): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1141): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1144): signal "x2_sw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1145): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1146): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1150): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1151): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1154): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1158): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1159): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1162): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1175): signal "busy_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1176): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1177): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1178): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1179): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1180): signal "tag_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1182): signal "x2_lm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1182): signal "x2_sm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1183): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1184): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1188): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1189): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1192): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1196): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1197): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1200): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1213): signal "busy_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1214): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1215): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1216): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1217): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1218): signal "tag_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1221): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1222): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1223): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1227): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1228): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1231): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1235): signal "busy4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1236): signal "tag4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1239): signal "data4" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1252): signal "busy_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1253): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1254): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1255): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1256): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1257): signal "tag_dest2_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1260): signal "x2_jal" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1264): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1282): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1283): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1284): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1285): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1286): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1289): signal "x2_jlr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1290): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1293): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1295): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1296): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1299): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1317): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1318): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1319): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1320): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1321): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1324): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1327): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1329): signal "busy3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1330): signal "tag3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1333): signal "data3" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1351): signal "C_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1352): signal "Z_busybit_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1353): signal "C_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1354): signal "Z_tag_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1355): signal "penout2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1364): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1365): signal "x1_add" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1365): signal "x1_ndu" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1365): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1368): signal "x2_add" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1368): signal "x2_ndu" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1368): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1371): signal "x1_adi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1371): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1374): signal "x2_adi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1374): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1377): signal "x1_lw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1377): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1380): signal "x2_lw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1380): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1383): signal "x1_lm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1383): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1386): signal "x2_lm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1386): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1389): signal "x1_jlr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1389): signal "x2_jlr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1397): signal "alu_r7_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1397): signal "jlr_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1397): signal "lw_r7_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1411): signal "rs_full_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1411): signal "twoRRnotFree" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1411): signal "lm_stall_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1425): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1425): signal "twoRRnotFree" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1430): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1431): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1432): signal "ra1_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1435): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1435): signal "twoRRnotFree" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_add" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_adc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_adz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_ndu" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_ndc" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "x1_ndz" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1439): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1443): signal "x1_adi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1443): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1447): signal "x1_lw" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1447): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1451): signal "x1_lm" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1451): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1455): signal "x1_jlr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1459): signal "x1_lhi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1459): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1463): signal "x1_jal" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1468): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1469): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1470): signal "ra2_val_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1480): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1486): signal "alu_r7_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1486): signal "jlr_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1486): signal "lw_r7_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1487): signal "alu_r7_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1493): signal "jlr_resolved" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1506): signal "x1_jal" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1512): signal "x1_lhi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1512): signal "ra1_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1518): signal "x2_jal" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1524): signal "x2_lhi" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1524): signal "ra2_ir_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1547): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1547): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1547): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1548): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1550): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1551): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1552): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1552): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1552): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1553): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1558): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1563): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1574): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1574): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1574): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1575): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1580): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1585): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1596): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1596): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1596): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1597): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1602): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1607): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1618): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1618): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1618): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1619): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1624): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1629): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1641): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1641): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1641): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1642): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1647): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1652): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1663): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1663): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1663): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1664): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1677): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1682): signal "spec_tag_rb_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1693): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1693): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1693): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1694): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1707): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1712): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1724): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1724): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1724): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1724): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1725): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1727): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1728): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1730): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1730): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1730): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1730): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1731): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1744): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1749): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1760): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1760): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1760): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1760): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1761): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1774): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1779): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1790): signal "x1_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1790): signal "x2_beq" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1790): signal "not_taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1790): signal "taken_branch_detected" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1791): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1804): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at ID.vhd(1817): signal "spec_tag_reg_out" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Info (12128): Elaborating entity "Add" for hierarchy "Add:ADDER2"
+Info (12128): Elaborating entity "FullAdder" for hierarchy "Add:ADDER2|FullAdder:F0"
+Info (12128): Elaborating entity "pen32bitwith2output" for hierarchy "pen32bitwith2output:PE"
+Info (12128): Elaborating entity "pen32bit" for hierarchy "pen32bitwith2output:PE|pen32bit:pen1"
+Info (12128): Elaborating entity "myRegister" for hierarchy "myRegister:SPEC_TAG_REG"
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "free_rrf_vec_out[0]" is stuck at GND
+    Warning (13410): Pin "free_rrf_vec_out[1]" is stuck at GND
+    Warning (13410): Pin "Ard1c[0]" is stuck at GND
+    Warning (13410): Pin "Ard1c[1]" is stuck at GND
+    Warning (13410): Pin "Ard1c[2]" is stuck at GND
+    Warning (13410): Pin "Ard2c[0]" is stuck at GND
+    Warning (13410): Pin "Ard2c[1]" is stuck at GND
+    Warning (13410): Pin "Ard2c[2]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[0]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[1]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[2]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[3]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[4]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[5]" is stuck at GND
+    Warning (13410): Pin "ZA7_1_out[6]" is stuck at GND
+    Warning (13410): Pin "ZA7_2_out[0]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[1]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[2]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[3]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[4]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[5]" is stuck at VCC
+    Warning (13410): Pin "ZA7_2_out[6]" is stuck at VCC
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1274 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 223 input pins
+    Info (21059): Implemented 338 output pins
+    Info (21061): Implemented 713 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 581 warnings
+    Info: Peak virtual memory: 660 megabytes
+    Info: Processing ended: Sun May  5 20:44:57 2019
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:05
+
+

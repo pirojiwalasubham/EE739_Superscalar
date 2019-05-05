@@ -4,9 +4,10 @@ use ieee.std_logic_1164.all;
 
 
 entity ID is
-	port(clk, reset: in std_logic ;
+	port(clk, reset, reset_bar: in std_logic ;
 		ra1_val_out, ra2_val_out : in std_logic;
 		ra1_pc_out, ra1_ir_out ,ra2_pc_out, ra2_ir_out  : in std_logic_vector(15 downto 0);
+		rb_pc, rb_ir, rb_op1, rb_op2 : in  std_logic_vector(15 downto 0);
 		free_rrf_vec: in std_logic_vector(31 downto 0);
 
 		data1, data2, data3, data4 : in std_logic_vector(15 downto 0);
@@ -35,8 +36,7 @@ entity ID is
 		ra1_invalidate_out, ra2_invalidate_out : out std_logic;
 		pc_en_out, ra_en_out : out std_logic;
 		arf_busy_wr_en1, arf_busy_wr_en2, arf_tag_wr_en1, arf_tag_wr_en2 : out std_logic;
-		adder2_out, adder3_out, ZA7_1_out, ZA7_2_out : out std_logic_vector(15 downto 0);
-		S0,S1,S2,S3 : out std_logic
+		adder2_out, adder3_out, ZA7_1_out, ZA7_2_out : out std_logic_vector(15 downto 0)
 
 		 );
 end entity;
@@ -103,10 +103,10 @@ signal x1_add,x1_adc,x1_adz,x1_adi,x1_ndu,x1_ndc,x1_ndz,x1_lhi,x1_lw,x1_sw,x1_lm
 signal x2_add,x2_adc,x2_adz,x2_adi,x2_ndu,x2_ndc,x2_ndz,x2_lhi,x2_lw,x2_sw,x2_lm,x2_sm,x2_beq,x2_jal,x2_jlr : std_logic :='0';
 signal twoRRnotFree : std_logic;
 signal penout2,penout1 : std_logic_vector(4 downto 0);
-signal SE_Ra1_imm9 ,SE_Ra2_imm9 : std_logic_vector(15 downto 0);
+signal SE_Ra1_imm9 : std_logic_vector(15 downto 0);
 signal c_adder2out,c_adder3out : std_logic;
-signal spec_tag_reg_en :  std_logic;
-signal spec_tag_reg_in,spec_tag_reg_out : std_logic_vector(1 downto 0);
+spec_tag_reg_en :  std_logic;
+spec_tag_reg_in,spec_tag_reg_out : std_logic_vector(1 downto 0);
 
 					
 
@@ -146,10 +146,17 @@ x2_beq <= '1' when((ra2_ir_out(15 downto 12) = "1100")  and ra2_val_out = '1' ) 
 x2_jal <= '1' when((ra2_ir_out(15 downto 12) = "1000")  and ra2_val_out = '1' ) else '0';
 x2_jlr <= '1' when((ra2_ir_out(15 downto 12) = "1001")  and ra2_val_out = '1' ) else '0';
 
-SE_Ra1_imm9 <= ("1111111" & ra1_ir_out(8 downto 0)) when (ra1_ir_out(8) = '1') else
-					("0000000" & ra1_ir_out(8 downto 0));
-SE_Ra2_imm9 <= ("1111111" & ra2_ir_out(8 downto 0)) when (ra2_ir_out(8) = '1') else
-					("0000000" & ra2_ir_out(8 downto 0));
+if(ra1_ir_out(8) = '1') then
+	SE_Ra1_imm9 <= "1111111" & ra1_ir_out(8 downto 0);
+else
+	SE_Ra1_imm9 <= "0000000" & ra1_ir_out(8 downto 0);
+end if;
+if(ra2_ir_out(8) = '1') then
+	SE_Ra2_imm9 <= "1111111" & ra2_ir_out(8 downto 0);
+else
+	SE_Ra2_imm9 <= "0000000" & ra2_ir_out(8 downto 0);
+end if;
+
 
 ADDER2 : Add port map (ra1_pc_out, SE_Ra1_imm9, adder2_out, c_adder2out); 	--next pc jal
 ADDER3 : Add port map (ra2_pc_out, SE_Ra2_imm9, adder3_out, c_adder3out);
@@ -157,7 +164,7 @@ ZA7_1_out <= ra1_ir_out(8 downto 0) & "0000000";
 ZA7_2_out <= ra2_ir_out(8 downto 0) & "1111111";
 
 pc1 <= ra1_pc_out;
-pc2 <= ra2_pc_out; 
+pc2 <= ra2_val_out; 
 ir1 <= ra1_ir_out;
 ir2 <= ra2_ir_out;
 
@@ -165,7 +172,7 @@ ir2 <= ra2_ir_out;
 PE: pen32bitwith2output port map(free_rrf_vec,twoRRnotFree,free_rrf_vec_out,penout1, penout2);
 SPEC_TAG_REG: myRegister generic map(2) port map(clk, spec_tag_reg_en, reset, spec_tag_reg_in, spec_tag_reg_out);
 
-process(clk)
+process()
 begin
 
 	pc_en_out <= '1';
@@ -184,7 +191,7 @@ begin
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -192,7 +199,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -222,7 +229,7 @@ begin
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -230,7 +237,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -270,7 +277,7 @@ begin
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -278,10 +285,10 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
-			x1_op2_ready <= '1';
+			op2_ready <= '1';
 		end if;
 
 		C_wr <= '1';
@@ -349,14 +356,14 @@ begin
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
 ------------------------------------------------
-	elsif(x1_ndu = '1') then
+	if(x1_ndu = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
 		Ard1b <= ra1_ir_out(8 downto 6);
 		Ard1c <= "000";
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -364,10 +371,10 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
-			x1_op2_ready <= '1';
+			op2_ready <= '1';
 		end if;
 
 		C_wr <= '0';
@@ -394,7 +401,7 @@ begin
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -402,7 +409,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -441,7 +448,7 @@ begin
 		Awr1  <= ra1_ir_out(5 downto 3);
 		if(busy1 = '1') then
 			x1_op1 <= "00000000000" & tag1;	
-			x1_op1_ready <= '0';		
+			x1_op1_ready <= '0';		;
 		else
 			x1_op1 <= Data1;
 			x1_op1_ready <= '1';
@@ -449,7 +456,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -564,7 +571,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -586,7 +593,7 @@ begin
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= tag_dest1_in;
 ---------------------------------------------------------
-	elsif (x1_lm = '1' or x1_sm = '1') then  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
+	elsif (x1_lm = '1' or x1_sm = '1') then.  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
 		Ard1a <= ra1_ir_out(11 downto 9);
 		Ard1b <= ra1_ir_out(8 downto 6);
 		Ard1c <= "000";
@@ -602,7 +609,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -641,7 +648,7 @@ begin
 
 		if(busy2 = '1') then
 			x1_op2 <= "00000000000" & tag2;	
-			x1_op2_ready <= '0';		
+			x1_op2_ready <= '0';		;
 		else
 			x1_op2 <= Data2;
 			x1_op2_ready <= '1';
@@ -777,7 +784,7 @@ begin
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -785,7 +792,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -815,7 +822,7 @@ begin
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -823,7 +830,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -863,7 +870,7 @@ begin
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -871,7 +878,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -942,14 +949,14 @@ begin
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
 ------------------------------------------------
-	elsif(x2_ndu = '1') then
+	if(x2_ndu = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
 		Ard2b <= ra2_ir_out(8 downto 6);
 		Ard2c <= "000";
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -957,7 +964,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -987,7 +994,7 @@ begin
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -995,7 +1002,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -1034,7 +1041,7 @@ begin
 		Awr2  <= ra2_ir_out(5 downto 3);
 		if(busy3 = '1') then
 			x2_op1 <= "00000000000" & tag3;	
-			x2_op1_ready <= '0';		
+			x2_op1_ready <= '0';		;
 		else
 			x2_op1 <= Data3;
 			x2_op1_ready <= '1';
@@ -1042,7 +1049,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -1157,7 +1164,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -1172,14 +1179,14 @@ begin
 		C_2_tag_out_rs <= "00000";
 		Z_2_tag_out_rs <= "00000";
 
-		busy_dest2_out <= busy_dest2_in;
+		busy_dest2_out <= busy_dest1_in;
 		C_2_busybit_out <= C_busybit_in;
 		Z_2_busybit_out <= Z_busybit_in;
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= Z_tag_in;
-		dest_AR_tag_2_out <= tag_dest2_in;
+		dest_AR_tag_2_out <= tag_dest1_in;
 ---------------------------------------------------------
-	elsif (x2_lm = '1' or x2_sm = '1') then  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
+	elsif (x2_lm = '1' or x2_sm = '1') then.  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
 		Ard2a <= ra2_ir_out(11 downto 9);
 		Ard2b <= ra2_ir_out(8 downto 6);
 		Ard2c <= "000";
@@ -1195,7 +1202,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -1210,12 +1217,12 @@ begin
 		C_2_tag_out_rs <= "00000";
 		Z_2_tag_out_rs <= "00000";
 
-		busy_dest2_out <= busy_dest2_in;
+		busy_dest2_out <= busy_dest1_in;
 		C_2_busybit_out <= C_busybit_in;
 		Z_2_busybit_out <= Z_busybit_in;
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= Z_tag_in;
-		dest_AR_tag_2_out <= tag_dest2_in;
+		dest_AR_tag_2_out <= tag_dest1_in;
 
 -------------------------------------------------
 	elsif (x2_beq = '1') then
@@ -1234,7 +1241,7 @@ begin
 
 		if(busy4 = '1') then
 			x2_op2 <= "00000000000" & tag4;	
-			x2_op2_ready <= '0';		
+			x2_op2_ready <= '0';		;
 		else
 			x2_op2 <= Data4;
 			x2_op2_ready <= '1';
@@ -1249,12 +1256,12 @@ begin
 		C_2_tag_out_rs <= "00000";
 		Z_2_tag_out_rs <= "00000";
 
-		busy_dest2_out <= busy_dest2_in;
+		busy_dest2_out <= busy_dest1_in;
 		C_2_busybit_out <= C_busybit_in;
 		Z_2_busybit_out <= Z_busybit_in;
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= Z_tag_in;
-		dest_AR_tag_2_out <= tag_dest2_in;
+		dest_AR_tag_2_out <= tag_dest1_in;
 
 -------------------------------------------------
 	elsif (x2_jal = '1') then
@@ -1400,7 +1407,6 @@ else
 	else
 		ra1_invalidate_out <= '1';
 		ra2_invalidate_out <= '1';
-	end if;
 end if;
 	--------------------------------------------------------------------------------------------------------------------------------
 
@@ -1422,7 +1428,7 @@ end if;
 
 --------------------------------------------------------------------------------------------------------------------------------
 	
-if(taken_branch_detected = '1' or twoRRnotFree = '1') then
+if(taken_branch_detected = '1' or twoRRnotFree = '1')
 	x1_val <= '0';
 	arf_busy_wr_en1 <= '0';
 	arf_tag_wr_en1  <= '0';
@@ -1502,7 +1508,7 @@ elsif (alu_r7_resolved = '1' or jlr_resolved = '1' or lw_r7_resolved = '1' ) the
 		S2 <= '0';
 		S1 <= '0';
 		S0 <= '0';
-	end if;
+	end if
 elsif (x1_jal = '1') then
 	--0001
 		S3 <= '0';
@@ -1550,7 +1556,7 @@ if(x1_beq = '0' and x2_beq = '0' and taken_branch_detected = '1') then
 	spec_tag_rs_out1 <= spec_tag_rb_in;
 	spec_tag_rs_out2 <= spec_tag_rb_in;
 elsif (x1_beq = '0' and x2_beq = '0' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "10";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1616,7 +1622,7 @@ elsif (x1_beq = '0' and x2_beq = '1' and taken_branch_detected = '1') then
 		spec_tag_rs_out2 <= "00";
 	end if;
 elsif (x1_beq = '1' and x2_beq = '0' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "11";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1639,7 +1645,7 @@ elsif (x1_beq = '1' and x2_beq = '0' and not_taken_branch_detected = '1') then
 	end if;
 
 elsif (x1_beq = '0' and x2_beq = '1' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "11";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1691,7 +1697,7 @@ elsif (x1_beq = '1' and x2_beq = '1' and taken_branch_detected = '1') then
 		spec_tag_rs_out2 <= "00";
 	end if;
 elsif (x1_beq = '1' and x2_beq = '1' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "10";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1728,7 +1734,7 @@ elsif (x1_beq = '0' and x2_beq = '0' and not_taken_branch_detected = '0' and tak
 		spec_tag_rs_out2 <= spec_tag_reg_out;
 	
 elsif (x1_beq = '1' and x2_beq = '0' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "11";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1758,7 +1764,7 @@ elsif (x1_beq = '1' and x2_beq = '0' and not_taken_branch_detected = '0' and tak
 		spec_tag_rs_out2 <= "01";
 	end if;
 elsif (x1_beq = '0' and x2_beq = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "11";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1788,7 +1794,7 @@ elsif (x1_beq = '0' and x2_beq = '1' and not_taken_branch_detected = '0' and tak
 		spec_tag_rs_out2 <= "00";
 	end if;
 elsif (x1_beq = '1' and x2_beq = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
+	if(spec_tag_reg_out = "11")
 		spec_tag_reg_in <= "11";
 		spec_tag_reg_en <= '1';
 		spec_tag_rs_out1 <= "10";
@@ -1825,12 +1831,112 @@ elsif (x1_beq = '1' and x2_beq = '1' and not_taken_branch_detected = '0' and tak
 		spec_tag_rs_out1 <= "00";
 		spec_tag_rs_out2 <= "01";
 	end if;
-else 
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '0';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-end if;
 
-end process;
+
+
+
+
+	
+	
+		
+		
+	
+
+
+	
+
+
+		
+
+		
+
+
+	
+	
+	
+	
+
+
+
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end architecture behave;
