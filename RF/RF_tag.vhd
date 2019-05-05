@@ -53,7 +53,7 @@ begin
 			Din_1;
 	Data1 <= Din_2 when(en_vec2(1) = '1') else
 			Din_1;
-	Data2 <=Din_2 when(en_vec2(2) = '1') else
+	Data2 <= Din_2 when(en_vec2(2) = '1') else
 			Din_1;
 	Data3 <= Din_2 when(en_vec2(3) = '1') else
 			Din_1;
@@ -63,7 +63,7 @@ begin
 			Din_1;
 	Data6 <= Din_2 when(en_vec2(6) = '1') else
 			Din_1;
-	Data7 <=Din_2 when(en_vec2(7) = '1') else
+	Data7 <= Din_2 when(en_vec2(7) = '1') else
 			Din_1;
 	en_vec <= en_vec1 or en_vec2;
 
