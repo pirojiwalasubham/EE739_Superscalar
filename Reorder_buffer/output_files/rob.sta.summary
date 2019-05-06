@@ -1,0 +1,101 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Setup 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -28.163
+TNS   : -861.168
+
+Type  : Slow 1100mV 85C Model Setup 'clk'
+Slack : -13.194
+TNS   : -24732.424
+
+Type  : Slow 1100mV 85C Model Hold 'clk'
+Slack : -3.072
+TNS   : -6.142
+
+Type  : Slow 1100mV 85C Model Hold 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -2.262
+TNS   : -3.966
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -10.195
+TNS   : -4452.773
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk'
+Slack : -0.538
+TNS   : -2061.059
+
+Type  : Slow 1100mV 0C Model Setup 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -27.558
+TNS   : -844.749
+
+Type  : Slow 1100mV 0C Model Setup 'clk'
+Slack : -12.900
+TNS   : -24322.776
+
+Type  : Slow 1100mV 0C Model Hold 'clk'
+Slack : -3.149
+TNS   : -6.297
+
+Type  : Slow 1100mV 0C Model Hold 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -2.429
+TNS   : -4.283
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -9.762
+TNS   : -4348.170
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk'
+Slack : -0.538
+TNS   : -2142.758
+
+Type  : Fast 1100mV 85C Model Setup 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -15.882
+TNS   : -478.614
+
+Type  : Fast 1100mV 85C Model Setup 'clk'
+Slack : -6.974
+TNS   : -11554.060
+
+Type  : Fast 1100mV 85C Model Hold 'clk'
+Slack : -1.515
+TNS   : -3.029
+
+Type  : Fast 1100mV 85C Model Hold 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -1.117
+TNS   : -2.921
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -5.892
+TNS   : -2013.121
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk'
+Slack : -0.076
+TNS   : -179.010
+
+Type  : Fast 1100mV 0C Model Setup 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -14.073
+TNS   : -425.018
+
+Type  : Fast 1100mV 0C Model Setup 'clk'
+Slack : -6.077
+TNS   : -10115.830
+
+Type  : Fast 1100mV 0C Model Hold 'clk'
+Slack : -1.504
+TNS   : -3.007
+
+Type  : Fast 1100mV 0C Model Hold 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -1.066
+TNS   : -2.547
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'bit_register:\ReorderBuffer:0:rob_complete_exec|dout'
+Slack : -5.057
+TNS   : -1752.109
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk'
+Slack : -0.078
+TNS   : -186.015
+
+------------------------------------------------------------

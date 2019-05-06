@@ -68,7 +68,7 @@ architecture behave of rob is
 	type s_5 is array (0 to 31) of std_logic_vector(4 downto 0);
 	type s_1 is array (0 to 31) of std_logic;
 	
-	signal pc, dest1,dest2,dest, ir, result,pc_exec, pc_out, dest_out, ir_out, result_out, pc_exec_out : s_16;
+	signal pc,dest, ir, result,pc_exec, pc_out, dest_out, ir_out, result_out, pc_exec_out : s_16;
 	signal dest_tag_out, dest_tag, c_tag_out, z_tag_out, c_tag, z_tag : s_5;
 	--signal spec_tag_out, spec_tag : s_1;
 	signal en,valid, complete_exec, mr, c, z, cwr, zwr, valid_out, complete_exec_out, mr_out, c_out, z_out, cwr_out, zwr_out : s_1;
@@ -78,6 +78,8 @@ architecture behave of rob is
 	signal mr1,mr2,c_en_temp,z_en_temp,mem_en_1_temp,mem_en_2_temp,arf_en_1_temp, arf_en_2_temp : std_logic;
 
 	signal exec_ptr_1, exec_ptr_2: std_logic_vector(4 downto 0);
+
+	signal dest1, dest2 : std_logic_vector(15 downto 0);
 
 	begin
 
@@ -104,10 +106,15 @@ architecture behave of rob is
 	head_ptr_reg : myRegister generic map (5) port map (clk,'1',reset,head_ptr,head_ptr_out);
 	tail_ptr_reg : myRegister generic map (5) port map (clk,'1',reset,tail_ptr,tail_ptr_out);
 
-	head_ptr_out_plus1 <= head_ptr + "00001";
-	head_ptr_out_plus2 <= head_ptr + "00010";
-	tail_ptr_out_plus1 <= tail_ptr + "00001";
-	tail_ptr_out_plus2 <= tail_ptr + "00010";
+	--head_ptr_out_plus1 <= head_ptr + "00001";
+	--head_ptr_out_plus2 <= head_ptr + "00010";
+	--tail_ptr_out_plus1 <= tail_ptr + "00001";
+	--tail_ptr_out_plus2 <= tail_ptr + "00010";
+	
+	a1 : Add5 port map (head_ptr,"00001",head_ptr_out_plus1);
+	a2 : Add5 port map (head_ptr,"00010",head_ptr_out_plus2);
+	a3 : Add5 port map (tail_ptr,"00001",tail_ptr_out_plus1);
+	a4 : Add5 port map (tail_ptr,"00010",tail_ptr_out_plus2);
 
 
 process(all)
@@ -627,7 +634,7 @@ process(all)
 		if (arf_tag_in_2 = dest_tag_out(to_integer(unsigned(head_ptr_out)))) then
 			arf_busy_en_2 <= '1';
 		else 
-			arf_busy_en_1 <= '0';
+			arf_busy_en_2 <= '0';
 		end if;
 
 		if ((c_tag_in = c_tag_out(to_integer(unsigned(head_ptr_out))) or c_tag_in = c_tag_out(to_integer(unsigned(head_ptr_out_plus1))))) then
@@ -694,7 +701,7 @@ process(all)
 			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 		end if;		
 		
-		val_rrf_vect_out <= val_rrf_vect_out;
+		val_rrf_vect_out <= val_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
 			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
@@ -809,7 +816,7 @@ process(all)
 			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
 		end if;
 
-		val_rrf_vect_out <= val_rrf_vect_out;
+		val_rrf_vect_out <= val_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
 			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
@@ -883,7 +890,7 @@ process(all)
 		no_of_stores_cleared <= "00";
 
 		free_rrf_vect_out <= free_rrf_vect_in;		
-		val_rrf_vect_out <= val_rrf_vect_out;
+		val_rrf_vect_out <= val_rrf_vect_in;
 
 		head_ptr <= head_ptr_out;
 
