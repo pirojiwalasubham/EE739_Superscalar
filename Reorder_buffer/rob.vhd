@@ -364,21 +364,125 @@ process(all)
 
 		free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0' when arf_en_1_temp = '1' else
 																										free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
-		free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0' when arf_en_1_temp = '1' else
+		free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0' when arf_en_2_temp = '1' else
 																										free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 
 		val_rrf_vect_out <= val_rrf_vect_out;
 
 		val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0' when arf_en_1_temp = '1' else
 																										val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
-		val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0' when arf_en_1_temp = '1' else
+		val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0' when arf_en_2_temp = '1' else
 																										val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 
 		head_ptr <= head_ptr_out_plus2;
 
-
+		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
+		complete_exec(to_integer(unsigned(head_ptr_out_plus1))) <= '0';
 
 	elsif (complete_exec_out(to_integer(unsigned(head_ptr_out))) = '1' and complete_exec_out(to_integer(unsigned(head_ptr_out_plus1))) = '0') then
+
+		mem_en_1_temp <= '1' when mr_out(to_integer(unsigned(head_ptr_out))) = '1' else '0';
+		mem_en_2_temp <= '1' when mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1' else '0'
+		mem_en_1 <= mem_en_1_temp;
+		mem_en_2 <= '0';
+		arf_en_1_temp <= '0' when ((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1')) else '1';
+		arf_en_2_temp <= '0' when ((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1')) else '1';
+		arf_en_1 <= arf_en_1_temp;
+		arf_en_2 <= '0';
+
+		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out)));
+		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out)));
+		c_en <= c_en_temp;
+		z_en <= z_en_temp;
+
+
+		arf_busy_en_1 <= '1' when arf_tag_in_1 = dest_tag_out(to_integer(unsigned(head_ptr_out))) else '0';
+		arf_busy_en_2 <= '0';
+
+		c_busy_en <= c_en_temp when (c_tag_in = c_tag_out(to_integer(unsigned(head_ptr_out))); 
+		z_busy_en <= z_en_temp when (z_tag_in = z_tag_out(to_integer(unsigned(head_ptr_out))); 
+		
+		finalc_out <= c_out(to_integer(unsigned(head_ptr_out))) when cwr_out(to_integer(unsigned(head_ptr_out))) = '1' else
+						'0';
+		finalz_out <= z_out(to_integer(unsigned(head_ptr_out))) when zwr_out(to_integer(unsigned(head_ptr_out))) = '1' else
+						'0';
+
+		data_out_1 <= result_out(to_integer(unsigned(head_ptr_out)));
+		data_out_2 <= "0000000000000000";
+
+		arf_addr_out_1 <= dest_out(to_integer(unsigned(head_ptr_out)))(2 downto 0);
+		arf_addr_out_1 <= "000";
+		
+		rrf_addr_out_1 <= dest_tag_out(to_integer(unsigned(head_ptr_out)));
+		rrf_addr_out_2 <= "00000";			
+
+		mem_addr_1 <= dest_out(to_integer(unsigned(head_ptr_out)));
+		mem_addr_2 <= dest_out(to_integer(unsigned(head_ptr_out_plus1)));
+
+		no_of_stores_cleared <= "01" when mem_en_1_temp = '1' else
+								"00";
+
+		free_rrf_vect_out <= free_rrf_vect_in;
+
+		free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0' when arf_en_1_temp = '1' else
+																										free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
+
+		val_rrf_vect_out <= val_rrf_vect_out;
+
+		val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0' when arf_en_1_temp = '1' else
+																										val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
+
+		head_ptr <= head_ptr_out_plus1;
+
+		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
+
+
+	else
+
+		mem_en_1_temp <= '1' when mr_out(to_integer(unsigned(head_ptr_out))) = '1' else '0';
+		mem_en_2_temp <= '1' when mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1' else '0'
+		mem_en_1 <= '0';
+		mem_en_2 <= '0';
+		arf_en_1_temp <= '0' when ((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1')) else '1';
+		arf_en_2_temp <= '0' when ((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1')) else '1';
+		arf_en_1 <= '0';
+		arf_en_2 <= '0';
+
+		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out)));
+		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out)));
+		c_en <= '0';
+		z_en <= '0';
+
+
+		arf_busy_en_1 <= '0';
+		arf_busy_en_2 <= '0';
+
+		c_busy_en <= '0'; 
+		z_busy_en <= '0'; 
+		
+		finalc_out <= '0';
+		finalz_out <= '0';
+
+		data_out_1 <= "0000000000000000";
+		data_out_2 <= "0000000000000000";
+
+		arf_addr_out_1 <= "000";
+		arf_addr_out_1 <= "000";
+		
+		rrf_addr_out_1 <= "00000";
+		rrf_addr_out_2 <= "00000";			
+
+		mem_addr_1 <= "0000000000000000";
+		mem_addr_2 <= "0000000000000000";
+
+		no_of_stores_cleared <= "00";
+
+		free_rrf_vect_out <= free_rrf_vect_in;		
+		val_rrf_vect_out <= val_rrf_vect_out;
+
+		head_ptr <= head_ptr_out;
+
+		
 
 	end if;
 
