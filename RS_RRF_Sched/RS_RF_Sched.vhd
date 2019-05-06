@@ -16,9 +16,11 @@ entity RS_RF_Sched is
 		rrf_free_vec_ID_in, rrf_free_vec_Rob_in : in std_logic_vector(31 downto 0);
 		rrf_valid_vec_EX_in, rrf_valid_vec_Rob_in : in std_logic_vector(31 downto 0);
 
-		rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) 
+		rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) ;
 		------------------------------------------------------------------------------------
-		id_pc_in : in std_logic_vector(15 downto 0)
+		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
+		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry1_in,id_carry2_in,id_zero1_in,id_zero2_in : in std_logic_vector(4 downto 0);
+		store_retirement_count : in std_logic_vector(1 downto 0)
 
 
 
@@ -44,12 +46,12 @@ architecture behave of RS_RF_Sched is
 			);	
 	end component bit_register;
 
-	component pen32bitwith2output is 
-	port (penin: in std_logic_vector(31 downto 0);
+component pen16bitwith2output is 
+	port (penin: in std_logic_vector(15 downto 0);
 			twoRRnotFree : out std_logic;
-			pennext_twoallotted, pennext_oneallotted: out std_logic_vector(31 downto 0);
-			penout1, penout2: out std_logic_vector(4 downto 0));
-	end component;
+			pennext_twoallotted, pennext_oneallotted: out std_logic_vector(15 downto 0);
+			penout1, penout2: out std_logic_vector(3 downto 0));
+end component;
 
 	type s_18 is array (0 to 31) of std_logic_vector(17 downto 0);
 	type s_16 is array (0 to 31) of std_logic_vector(15 downto 0);
@@ -64,13 +66,14 @@ architecture behave of RS_RF_Sched is
 
 	------------------------------------------------------------------------------------------------------------------------------
     -- RS ke signals
-
-   	signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16
+    signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16
 	signal rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
 	signal rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
-	signal twoRSnotFree_rs : std_logic;
-	signal pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic;
+	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in,twoRSnotFree_rs : std_logic;
+	signal id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
+	signal id_1_store_tag_in,id_2_store_tag_in : std_logic_vector(4 downto 0);
+
 begin
 	RRF : for i in 0 to 31 generate
 		rrf_P_file : myRegister generic map (18) port map (clk, en_for_P(i), reset, rrf_P_in(i), rrf_P_out(i));
@@ -167,7 +170,7 @@ begin
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RS
+--RS
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -187,9 +190,9 @@ RS
 		RS_ZERO_READY:bit_register port map (clk,rs_zero_ready_en(i),reset,rs_zero_ready_in(i),rs_zero_ready_out(i));
 
 		RS_DEST_RR_TAG : myRegister generic map (5) port map (clk,rs_dest_rr_tag_en(i),reset,rs_dest_rr_tag_in(i),rs_dest_rr_tag_out(i));
-		RS_CARRY_TAG : myRegister generic map (5) port map (clk,rs_carry_tag_en(i),reset,rs_carry_tag_in(i),rs_carry_tag_out(i));
+		RS_CARRY_TAG   : myRegister generic map (5) port map (clk,rs_carry_tag_en(i),reset,rs_carry_tag_in(i),rs_carry_tag_out(i));
 		RS_ZERO_RR_TAG : myRegister generic map (5) port map (clk,rs_zero_tag_en(i),reset,rs_zero_tag_in(i),rs_zero_tag_out(i));
-		RS_STORE_RR_TAG : myRegister generic map (5) port map (clk,rs_store_tag_en(i),reset,rs_store_tag_in(i),rs_store_tag_out(i));
+		RS_STORE_RR_TAG: myRegister generic map (5) port map (clk,rs_store_tag_en(i),reset,rs_store_tag_in(i),rs_store_tag_out(i));
 
 	end generate RS;
 
@@ -197,21 +200,163 @@ RS
 	valid_vector : for i in 0 to 15 generate 
 		rs_inst_val_out_vector(i) <= rs_inst_val_out(i);
 	end generate valid_vector;
-	TWO_FREE_ENTRIES : pen32bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
+	TWO_FREE_ENTRIES : pen16bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
 
 
 	--RS_PC
 	a1 : for i in 0 to 15 generate 
-		pc_en(i) <= '1' when (i = (to_integer(unsigned(tail_ptr_out_plus2))) ) else
+		pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
 					'0';
-		pc_in(i)   <= id_pc_in when (i = (to_integer(unsigned(tail_ptr_out_plus2))) ) else
+		pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+					  id_pc2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+					 "0000000000000000";
+		rs_dest_rr_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+								'0';
+		rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+					  			id_dest_rr_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							   "00000";
+		rs_ir_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
 					'0';
-		rs_dest_rr_tag_en(i) <= '1' when (i = (to_integer(unsigned(tail_ptr_out_plus2))) ) else
-					'0';
+		rs_ir_in(i) <= id_ir1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+					  id_ir2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+					 "0000000000000000";
+		rs_carry_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+								'0';
+		rs_carry_in(i) <= id_carry1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			  			id_carry2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+					   "00000";
+		rs_zero_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+								'0';
+		rs_zero_in(i) <= id_zero1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			  			id_zero2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+					   "00000";
 	end generate a1;
 
 
 
+	process()
+
+	begin
+
+
+	a2: for i in 0 to 15 generate
+		if(rs_inst_val_out(i) = '0') then
+			rs_op1_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_op1_in(i) <= id_1_op1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_op1_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 "0000000000000000";
+			rs_op2_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_op2_in(i) <= id_1_op2_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_op2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 "0000000000000000";
+			rs_op1_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_op1_val_in(i) <= id_1_op1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_op1_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_op2_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_op2_val_in(i) <= id_1_op2_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_op2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_inst_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_inst_val_in(i) <=  id_1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_carry_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_carry_in(i) <=  id_1_carry_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_carry_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_carry_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+									'0';
+			rs_carry_ready_in(i) <=  id_1_carry_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_carry_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_zero_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+			rs_zero_in(i) <=  id_1_zero_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_zero_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_zero_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+									'0';
+			rs_zero_ready_in(i) <=  id_1_zero_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_zero_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 '0';
+			rs_store_tag_en(i) <=  '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+								'0';
+			rs_store_tag_in(i) <= id_1_store_tag_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_2_store_tag_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 "00000";
+		else
+			rs_op1_in(i) <= rrf_P_out(to_integer(unsigned(rs_op1_out(i)(4 downto 0))))(17 downto 2);
+			rs_op2_in(i) <= rrf_P_out(to_integer(unsigned(rs_op2_out(i)(4 downto 0))))(17 downto 2);
+			rs_op1_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else
+							'0';
+			rs_op2_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1'); else
+							'0';
+			rs_op1_val_in(i) <= '1';
+			rs_op2_val_in(i) <= '1';
+			rs_op1_val_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else 
+							'0';
+			rs_op2_val_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') else 
+							'0';
+			rs_carry_in(i)  <= rrf_P_out(to_integer(unsigned(rs_carry_tag_out(i))))(1);
+			rs_zero_in(i)   <= rrf_P_out(to_integer(unsigned(rs_zero_tag_out(i) )))(0);
+			rs_carry_en(i)  <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
+								'0';
+			rs_zero_en(i)  <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
+								'0';
+			rs_carry_ready_in(i) <= '1' ;
+			rs_zero_ready_in(i) <= '1';
+			rs_carry_ready_en(i) <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
+								'0';
+			rs_zero_ready_en(i) <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
+								'0';
+			-------------
+			if(store_retirement_count = "00") then
+				rs_store_tag_en(i) <= '0';
+				rs_store_tag_in(i) <= rs_store_tag_out(i);
+			elsif(store_retirement_count = "01") then
+				if(rs_store_tag_out(i) = "00000") then
+					rs_store_tag_in(i) <= "00000";
+					rs_store_tag_en(i) <= '1';
+				else 
+					rs_store_tag_in(i) <= rs_store_tag_out(i) + "11111";
+					rs_store_tag_en(i) <= '1';
+				end if;
+			elsif(store_retirement_count = "10") then
+				if(rs_store_tag_out(i) = "00000" or rs_store_tag_out(i) = "00001") then
+					rs_store_tag_in(i) <= "00000";
+					rs_store_tag_en(i) <= '1';
+				else 
+					rs_store_tag_in(i) <= rs_store_tag_out(i) + "11110";
+					rs_store_tag_en(i) <= '1';
+				end if;
+			else
+				rs_store_tag_en(i) <= '0';
+				rs_store_tag_in(i) <= rs_store_tag_out(i);
+			end if;
+			---------------
+			rs_inst_val_in(i) <= '0';
+			rs_inst_val_en(i) <= '1' when (inst_scheduled(i) = '1') else
+								'0';
+		end if;
+
+	end generate a2;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Scheduler
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	fo
 
 
 
