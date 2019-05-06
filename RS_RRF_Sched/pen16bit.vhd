@@ -20,7 +20,7 @@ begin
 
 	proc_pen : process(penin)
 	
-		variable next_var : std_logic_vector(31 downto 0);
+		variable next_var : std_logic_vector(15 downto 0);
 	
 	begin
 		

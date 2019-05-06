@@ -87,9 +87,9 @@ end component;
 
 	------------------------------------------------------------------------------------------------------------------------------
     -- RS ke signals
-    signal sign_extended_store_tag_minus2, store_tag_minus2, sign_extended_store_tag_minus1, sign_extended_store_tag, store_tag_minus1, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
+    signal sign_extended_store_tag_minus2,  sign_extended_store_tag_minus1, sign_extended_store_tag, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
 	signal store_tag_minus2_carry, store_tag_minus1_carry, rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
-	signal rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
+	signal store_tag_minus1,store_tag_minus2,rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
 	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: std_logic;
 	signal id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
@@ -98,7 +98,7 @@ end component;
 	signal twoRSnotFree_rs_signal : std_logic;
 	------------------------------------------------------------------------------------------------------------------------------
     -- Scheduler ke signals
-    signal alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  : std_logic_vector(15 downto 0) := "000000000000000";
+    signal alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  : std_logic_vector(15 downto 0) := "0000000000000000";
     signal no1found_alu_sched,no1found_ls_sched: std_logic;
     signal penout_alu_sched,penout_ls_sched : std_logic_vector(3 downto 0);
 	 
@@ -235,11 +235,8 @@ begin
 	TWO_FREE_ENTRIES : pen16bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs_signal,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
 
 	Subtract1 : for i in 0 to 15 generate
-		if (rs_store_tag_out(i)(4) = '1') then
-			sign_extended_store_tag(i) <= "11111111111" & rs_store_tag_out(i);
-		else
-			sign_extended_store_tag(i) <= "00000000000" & rs_store_tag_out(i);
-		end if ;
+		sign_extended_store_tag(i) <= ("11111111111" & rs_store_tag_out(i)) when(rs_store_tag_out(i)(4) = '1') else
+									("00000000000" & rs_store_tag_out(i));
 		MINUSONE : Add port map(sign_extended_store_tag(i), "1111111111111111", sign_extended_store_tag_minus1(i),store_tag_minus1_carry(i));
 		store_tag_minus1(i) <= sign_extended_store_tag_minus1(i)(4 downto 0);
 
@@ -591,7 +588,7 @@ begin
 
 	rb_pc 			<= pc_out(to_integer(unsigned(penout_alu_sched)));
 	rb_op1			<= rs_op1_out(to_integer(unsigned(penout_alu_sched)));
-	rb_op1			<= rs_op2_out(to_integer(unsigned(penout_alu_sched)));
+	rb_op2			<= rs_op2_out(to_integer(unsigned(penout_alu_sched)));
 	rb_ir 			<= rs_ir_out(to_integer(unsigned(penout_alu_sched)));
 	rb_dest_rrtag   <= rs_dest_rr_tag_out(to_integer(unsigned(penout_alu_sched)));
 	rb_carry		<= rs_carry_out(to_integer(unsigned(penout_alu_sched)));
@@ -602,7 +599,7 @@ begin
 
 	rc_pc 			<= pc_out(to_integer(unsigned(penout_ls_sched)));
 	rc_op1			<= rs_op1_out(to_integer(unsigned(penout_ls_sched)));
-	rc_op1			<= rs_op2_out(to_integer(unsigned(penout_ls_sched)));
+	rc_op2			<= rs_op2_out(to_integer(unsigned(penout_ls_sched)));
 	rc_ir 			<= rs_ir_out(to_integer(unsigned(penout_ls_sched)));
 	rc_dest_rrtag   <= rs_dest_rr_tag_out(to_integer(unsigned(penout_ls_sched)));
 	rc_carry		<= rs_carry_out(to_integer(unsigned(penout_ls_sched)));
