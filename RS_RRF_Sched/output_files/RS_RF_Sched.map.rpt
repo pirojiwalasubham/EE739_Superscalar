@@ -1,6 +1,6 @@
 Analysis & Synthesis report for RS_RF_Sched
-Tue May  7 00:17:49 2019
-Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+Tue May 07 01:53:27 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
 ---------------------
@@ -17,38 +17,38 @@ Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2013 Altera Corporation
-Your use of Altera Corporation's design tools, logic functions 
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Altera Program License 
-Subscription Agreement, Altera MegaCore Function License 
-Agreement, or other applicable license agreement, including, 
-without limitation, that your use is for the sole purpose of 
-programming logic devices manufactured by Altera and sold by 
-Altera or its authorized distributors.  Please refer to the 
-applicable agreement for further details.
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
 
 
 
-+--------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                             ;
-+-----------------------------+--------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Tue May  7 00:17:49 2019          ;
-; Quartus II 64-Bit Version   ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
-; Revision Name               ; RS_RF_Sched                                ;
-; Top-level Entity Name       ; RS_RF_Sched                                ;
-; Family                      ; Cyclone V                                  ;
-; Logic utilization (in ALMs) ; N/A until Partition Merge                  ;
-; Total registers             ; N/A until Partition Merge                  ;
-; Total pins                  ; N/A until Partition Merge                  ;
-; Total virtual pins          ; N/A until Partition Merge                  ;
-; Total block memory bits     ; N/A until Partition Merge                  ;
-; Total PLLs                  ; N/A until Partition Merge                  ;
-; Total DLLs                  ; N/A until Partition Merge                  ;
-+-----------------------------+--------------------------------------------+
++---------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                              ;
++-----------------------------+---------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Tue May 07 01:53:27 2019           ;
+; Quartus Prime Version       ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name               ; RS_RF_Sched                                 ;
+; Top-level Entity Name       ; RS_RF_Sched                                 ;
+; Family                      ; Cyclone V                                   ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                   ;
+; Total registers             ; N/A until Partition Merge                   ;
+; Total pins                  ; N/A until Partition Merge                   ;
+; Total virtual pins          ; N/A until Partition Merge                   ;
+; Total block memory bits     ; N/A until Partition Merge                   ;
+; Total PLLs                  ; N/A until Partition Merge                   ;
+; Total DLLs                  ; N/A until Partition Merge                   ;
++-----------------------------+---------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -58,15 +58,15 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                          ; 5CGXFC7C7F23C8     ;                    ;
 ; Top-level entity name                                                           ; RS_RF_Sched        ; RS_RF_Sched        ;
-; Family name                                                                     ; Cyclone V          ; Cyclone IV GX      ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
-; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                 ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
 ; Enable compact report table                                                     ; Off                ; Off                ;
 ; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
 ; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
 ; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
 ; Preserve fewer node names                                                       ; On                 ; On                 ;
-; Disable OpenCore Plus hardware evaluation                                       ; Off                ; Off                ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
 ; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
 ; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
 ; State Machine Processing                                                        ; Auto               ; Auto               ;
@@ -117,7 +117,7 @@ applicable agreement for further details.
 ; Report Connectivity Checks                                                      ; On                 ; On                 ;
 ; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
 ; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
-; PowerPlay Power Optimization                                                    ; Normal compilation ; Normal compilation ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
 ; HDL message level                                                               ; Level2             ; Level2             ;
 ; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
 ; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
@@ -133,8 +133,8 @@ applicable agreement for further details.
 ; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
 ; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
 ; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
-; Synthesis Seed                                                                  ; 1                  ; 1                  ;
-; Automatic Parallel Synthesis                                                    ; Off                ; Off                ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 
 
@@ -143,7 +143,7 @@ applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 2           ;
+; Number detected on machine ; 4           ;
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
@@ -151,7 +151,6 @@ applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -159,41 +158,27 @@ applicable agreement for further details.
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
-Info: Running Quartus II 64-Bit Analysis & Synthesis
-    Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Tue May  7 00:17:48 2019
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+    Info: Processing started: Tue May 07 01:53:12 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off RS_RF_Sched -c RS_RF_Sched
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(267) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 267
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(269) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 269
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(272) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 272
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(274) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 274
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(277) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 277
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(279) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 279
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(282) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 282
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(284) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 284
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(287) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 287
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(289) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 289
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(309) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 309
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(311) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 311
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(314) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 314
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(316) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 316
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(319) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 319
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(321) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 321
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(324) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 324
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(326) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 326
-Error (10500): VHDL syntax error at RS_RF_Sched.vhd(329) near text "when";  expecting ";" File: /media/psf/mac-linux/EE739_Superscalar/RS_RRF_Sched/RS_RF_Sched.vhd Line: 329
-Info (12021): Found 0 design units, including 0 entities, in source file RS_RF_Sched.vhd
+Error (10500): VHDL syntax error at RS_RF_Sched.vhd(238) near text "if";  expecting "end", or "(", or an identifier ("if" is a reserved keyword), or "begin", or a concurrent statement File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/RS_RF_Sched.vhd Line: 238
+Error (10500): VHDL syntax error at RS_RF_Sched.vhd(238) near text "then";  expecting "<=" File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/RS_RF_Sched.vhd Line: 238
+Error (10500): VHDL syntax error at RS_RF_Sched.vhd(240) near text "else" File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/RS_RF_Sched.vhd Line: 240
+Error (10500): VHDL syntax error at RS_RF_Sched.vhd(242) near text "if";  expecting ";", or an identifier ("if" is a reserved keyword) File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/RS_RF_Sched.vhd Line: 242
+Info (12021): Found 0 design units, including 0 entities, in source file rs_rf_sched.vhd
 Info (12021): Found 2 design units, including 1 entities, in source file register.vhd
-    Info (12022): Found design unit 1: myRegister-behave
-    Info (12023): Found entity 1: myRegister
+    Info (12022): Found design unit 1: myRegister-behave File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/register.vhd Line: 16
+    Info (12023): Found entity 1: myRegister File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/register.vhd Line: 7
 Info (12021): Found 2 design units, including 1 entities, in source file bit_register.vhd
-    Info (12022): Found design unit 1: bit_register-behave
-    Info (12023): Found entity 1: bit_register
-Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 19 errors, 0 warnings
-    Error: Peak virtual memory: 654 megabytes
-    Error: Processing ended: Tue May  7 00:17:49 2019
-    Error: Elapsed time: 00:00:01
-    Error: Total CPU time (on all processors): 00:00:01
+    Info (12022): Found design unit 1: bit_register-behave File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/bit_register.vhd Line: 14
+    Info (12023): Found entity 1: bit_register File: C:/Users/Pranil Joshi/Desktop/My Project/RS_RRF_Sched/bit_register.vhd Line: 6
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 4 errors, 1 warning
+    Error: Peak virtual memory: 4855 megabytes
+    Error: Processing ended: Tue May 07 01:53:27 2019
+    Error: Elapsed time: 00:00:15
+    Error: Total CPU time (on all processors): 00:00:34
 
 

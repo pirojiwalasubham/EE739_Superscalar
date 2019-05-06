@@ -67,6 +67,13 @@ component pen16bit is
 			penout: out std_logic_vector(3 downto 0));
 end component;
 
+component Add is
+   port(x,y: in std_logic_vector(15 downto 0);
+	
+	s0: out std_logic_vector(15 downto 0);
+        c_out: out std_logic);
+end component;
+
 	type s_18 is array (0 to 31) of std_logic_vector(17 downto 0);
 	type s_16 is array (0 to 31) of std_logic_vector(15 downto 0);
 	type s_5 is array (0 to 31) of std_logic_vector(4 downto 0);
@@ -80,14 +87,15 @@ end component;
 
 	------------------------------------------------------------------------------------------------------------------------------
     -- RS ke signals
-    signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
-	signal rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
+    signal sign_extended_store_tag_minus2, store_tag_minus2, sign_extended_store_tag_minus1, sign_extended_store_tag, store_tag_minus1, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
+	signal store_tag_minus2_carry, store_tag_minus1_carry, rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
 	signal rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
 	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: std_logic;
 	signal id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
 	signal id_1_store_tag_in,id_2_store_tag_in : std_logic_vector(4 downto 0);
-	signal inst_scheduled :std_logic_vector(15 downto 0);
+	signal rs_inst_val_out_vector,inst_scheduled :std_logic_vector(15 downto 0);
+	signal twoRSnotFree_rs_signal : std_logic;
 	------------------------------------------------------------------------------------------------------------------------------
     -- Scheduler ke signals
     signal alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  : std_logic_vector(15 downto 0) := "000000000000000";
@@ -223,9 +231,21 @@ begin
 	valid_vector : for i in 0 to 15 generate 
 		rs_inst_val_out_vector(i) <= rs_inst_val_out(i);
 	end generate valid_vector;
-	TWO_FREE_ENTRIES : pen16bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
+	
+	TWO_FREE_ENTRIES : pen16bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs_signal,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
 
+	Subtract1 : for i in 0 to 15 generate
+		if (rs_store_tag_out(i)(4) = '1') then
+			sign_extended_store_tag(i) <= "11111111111" & rs_store_tag_out(i);
+		else
+			sign_extended_store_tag(i) <= "00000000000" & rs_store_tag_out(i);
+		end if ;
+		MINUSONE : Add port map(sign_extended_store_tag(i), "1111111111111111", sign_extended_store_tag_minus1(i),store_tag_minus1_carry(i));
+		store_tag_minus1(i) <= sign_extended_store_tag_minus1(i)(4 downto 0);
 
+		MINUSTWO : Add port map(sign_extended_store_tag(i), "1111111111111110", sign_extended_store_tag_minus2(i),store_tag_minus2_carry(i));
+		store_tag_minus2(i) <= sign_extended_store_tag_minus2(i)(4 downto 0);
+	end generate Subtract1;
 	--RS_PC
 
 	process(clk,reset, 
@@ -260,35 +280,67 @@ begin
 		)
 
 	begin
-	if(twoRSnotFree_rs = '0') then 
-		a1 : for i in 0 to 15 loop 
-				pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-				pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_pc2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 "0000000000000000";
-				rs_dest_rr_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-										'0';
-				rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  			id_dest_rr_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-									   "00000";
-				rs_ir_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-				rs_ir_in(i) <= id_ir1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_ir2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 "0000000000000000";
-				rs_carry_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-										'0';
-				rs_carry_tag_in(i) <= id_carry_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-					  			id_carry_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							   "00000";
-				rs_zero_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-										'0';
-				rs_zero_tag_in(i) <= id_zero_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-					  			id_zero_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							   "00000";		
-	end loop a1;
-	else
+	a1 : for i in 0 to 15 loop 
+		if(twoRSnotFree_rs_signal = '0') then 
+			if ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) then
+				pc_en(i) <= '1';
+				rs_dest_rr_tag_en(i) <= '1';
+				rs_ir_en(i) <= '1';
+				rs_carry_tag_en(i) <= '1';
+				rs_zero_tag_en(i) <= '1';
+			else
+				pc_en(i) <= '0';
+				rs_dest_rr_tag_en(i) <= '0';
+				rs_ir_en(i) <= '0';
+				rs_carry_tag_en(i) <= '0';
+				rs_zero_tag_en(i) <= '0';
+			end if ;
+
+			if (i = (to_integer(unsigned(penout1_rs_val))) ) then
+				pc_in(i)   <= id_pc1_in;
+				rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in;
+				rs_ir_in(i) <= id_ir1_in;
+				rs_carry_tag_in(i) <= id_carry_tag1_in;
+				rs_zero_tag_in(i) <= id_zero_tag1_in;
+			elsif (i = (to_integer(unsigned(penout2_rs_val))) ) then
+				pc_in(i)   <= id_pc2_in;
+				rs_dest_rr_tag_in(i) <= id_dest_rr_tag2_in;
+				rs_ir_in(i) <= id_ir2_in;
+				rs_carry_tag_in(i) <= id_carry_tag2_in;
+				rs_zero_tag_in(i) <= id_zero_tag2_in;
+			else
+				pc_in(i)   <= "0000000000000000";
+				rs_dest_rr_tag_in(i) <= "00000";
+				rs_ir_in(i) <= "0000000000000000";
+				rs_carry_tag_in(i) <= "00000";
+				rs_zero_tag_in(i) <= "00000";
+			end if ;
+				--pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+				--			'0';
+				--pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+				--			  id_pc2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+				--			 "0000000000000000";
+				--rs_dest_rr_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+				--						'0';
+				--rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+				--			  			id_dest_rr_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+				--					   "00000";
+				--rs_ir_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+				--			'0';
+				--rs_ir_in(i) <= id_ir1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+				--			  id_ir2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+				--			 "0000000000000000";
+				--rs_carry_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+				--						'0';
+				--rs_carry_tag_in(i) <= id_carry_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+				--	  			id_carry_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+				--			   "00000";
+				--rs_zero_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+				--						'0';
+				--rs_zero_tag_in(i) <= id_zero_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+				--	  			id_zero_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+				--			   "00000";		
+		else
 				pc_en(i) <= '0';
 				pc_in(i)   <= "0000000000000000";
 				rs_dest_rr_tag_en(i) <= '0';
@@ -300,85 +352,187 @@ begin
 				rs_zero_tag_en(i) <= '0';
 				rs_zero_tag_in(i) <= "00000";	
 
-	end if;
+		end if;
+	end loop a1;
+	
 
 	a2: for i in 0 to 15 loop 
-		if(rs_inst_val_out(i) = '0' and twoRSnotFree_rs = '0') then
-			rs_op1_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_op1_in(i) <= id_1_op1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_op1_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 "0000000000000000";
-			rs_op2_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_op2_in(i) <= id_1_op2_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_op2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 "0000000000000000";
-			rs_op1_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_op1_val_in(i) <= id_1_op1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_op1_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_op2_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_op2_val_in(i) <= id_1_op2_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_op2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_inst_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_inst_val_in(i) <=  id_1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_carry_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_carry_in(i) <=  id_1_carry_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_carry_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_carry_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-									'0';
-			rs_carry_ready_in(i) <=  id_1_carry_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_carry_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_zero_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-							'0';
-			rs_zero_in(i) <=  id_1_zero_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_zero_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_zero_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-									'0';
-			rs_zero_ready_in(i) <=  id_1_zero_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_zero_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 '0';
-			rs_store_tag_en(i) <=  '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-								'0';
-			rs_store_tag_in(i) <= id_1_store_tag_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-							  id_2_store_tag_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							 "00000";
+		if(rs_inst_val_out(i) = '0' and twoRSnotFree_rs_signal = '0') then
+			if (i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) then
+				rs_op1_en(i) <= '1';
+				rs_op2_en(i) <= '1';
+				rs_op1_val_en(i) <= '1';
+				rs_op2_val_en(i) <= '1';
+				rs_inst_val_en(i) <= '1';
+				rs_carry_en(i) <= '1';
+				rs_carry_ready_en(i) <= '1';
+				rs_zero_en(i) <= '1';
+				rs_zero_ready_en(i) <= '1';
+				rs_store_tag_en(i) <=  '1';
+			else
+				rs_op1_en(i) <= '0';
+				rs_op2_en(i) <= '0';	
+				rs_op1_val_en(i) <= '0';
+				rs_op2_val_en(i) <= '0';
+				rs_inst_val_en(i) <= '0';
+				rs_carry_en(i) <= '0';
+				rs_carry_ready_en(i) <= '0';
+				rs_zero_en(i) <= '0';
+				rs_zero_ready_en(i) <= '0';
+				rs_store_tag_en(i) <=  '0';
+			end if ;
+
+
+			if (i = (to_integer(unsigned(penout1_rs_val))) ) then
+				rs_op1_in(i) <= id_1_op1_in;
+				rs_op2_in(i) <= id_1_op2_in;
+				rs_op1_val_in(i) <= id_1_op1_val_in;
+				rs_op2_val_in(i) <= id_1_op2_val_in;
+				rs_inst_val_in(i) <=  id_1_val_in;
+				rs_carry_in(i) <=  id_1_carry_in;
+				rs_carry_ready_in(i) <=  id_1_carry_ready_in;
+				rs_zero_in(i) <=  id_1_zero_in;
+				rs_zero_ready_in(i) <=  id_1_zero_ready_in;
+				rs_store_tag_in(i) <= id_1_store_tag_in;
+			elsif (i = (to_integer(unsigned(penout2_rs_val))) ) then
+				rs_op1_in(i) <= id_2_op1_in;
+				rs_op2_in(i) <= id_2_op2_in;
+				rs_op1_val_in(i) <= id_2_op1_val_in;
+				rs_op2_val_in(i) <= id_2_op2_val_in;
+				rs_inst_val_in(i) <=  id_2_val_in;
+				rs_carry_in(i) <=  id_2_carry_in;
+				rs_carry_ready_in(i) <=  id_2_carry_ready_in;
+				rs_zero_in(i) <=  id_2_zero_in;
+				rs_zero_ready_in(i) <=  id_2_zero_ready_in;
+				rs_store_tag_in(i) <= id_2_store_tag_in;
+			else
+				rs_op1_in(i) <= "0000000000000000";
+				rs_op2_in(i) <= "0000000000000000";
+				rs_op1_val_in(i) <= '0';
+				rs_op2_val_in(i) <= '0';
+				rs_inst_val_in(i) <=  '0';
+				rs_carry_in(i) <=  '0';
+				rs_carry_ready_in(i) <=  '0';
+				rs_zero_in(i) <=  '0';
+				rs_zero_ready_in(i) <=  '0';
+				rs_store_tag_in(i) <= "00000";
+			end if ;
+			--rs_op1_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_op1_in(i) <= id_1_op1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_op1_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 "0000000000000000";
+			--rs_op2_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_op2_in(i) <= id_1_op2_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_op2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 "0000000000000000";
+			--rs_op1_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_op1_val_in(i) <= id_1_op1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_op1_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_op2_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_op2_val_in(i) <= id_1_op2_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_op2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_inst_val_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_inst_val_in(i) <=  id_1_val_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_val_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_carry_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_carry_in(i) <=  id_1_carry_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_carry_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_carry_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--						'0';
+			--rs_carry_ready_in(i) <=  id_1_carry_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_carry_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_zero_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--				'0';
+			--rs_zero_in(i) <=  id_1_zero_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_zero_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_zero_ready_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--						'0';
+			--rs_zero_ready_in(i) <=  id_1_zero_ready_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_zero_ready_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 '0';
+			--rs_store_tag_en(i) <=  '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+			--					'0';
+			--rs_store_tag_in(i) <= id_1_store_tag_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+			--				  id_2_store_tag_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+			--				 "00000";
 		else
 			rs_op1_in(i) <= rrf_P_out(to_integer(unsigned(rs_op1_out(i)(4 downto 0))))(17 downto 2);
 			rs_op2_in(i) <= rrf_P_out(to_integer(unsigned(rs_op2_out(i)(4 downto 0))))(17 downto 2);
-			rs_op1_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else
-							'0';
-			rs_op2_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1'); else
-							'0';
+			if (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') then
+			--if (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(1) = '1') then
+				rs_op1_en(i) <= '1';
+			else
+				rs_op1_en(i) <= '0';	
+			end if ;
+			--rs_op1_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else
+			--				'0';
+			if (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') then
+				rs_op2_en(i) <= '1';
+			else
+				rs_op2_en(i) <= '0';		
+			end if ;
+			--rs_op2_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') else
+			--				'0';
 			rs_op1_val_in(i) <= '1';
 			rs_op2_val_in(i) <= '1';
-			rs_op1_val_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else 
-							'0';
-			rs_op2_val_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') else 
-							'0';
+			if (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') then
+				rs_op1_val_en(i) <= '1';
+			else
+				rs_op1_val_en(i) <= '0';	
+			end if ;
+			--rs_op1_val_en(i) <= '1'  when (rs_op1_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op1_out(i)(4 downto 0)))) = '1') else 
+			--				'0';
+			if (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') then
+				rs_op2_val_en(i) <= '1';
+			else
+				rs_op2_val_en(i) <= '0';					
+			end if ;
+			--rs_op2_val_en(i) <= '1'  when (rs_op2_val_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_op2_out(i)(4 downto 0)))) = '1') else 
+			--				'0';
 			rs_carry_in(i)  <= rrf_P_out(to_integer(unsigned(rs_carry_tag_out(i))))(1);
 			rs_zero_in(i)   <= rrf_P_out(to_integer(unsigned(rs_zero_tag_out(i) )))(0);
-			rs_carry_en(i)  <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
-								'0';
-			rs_zero_en(i)  <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
-								'0';
+			if (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) then
+				rs_carry_en(i)  <= '1';
+			else
+				rs_carry_en(i)  <= '0';	
+			end if ;
+			--rs_carry_en(i)  <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
+			--					'0';
+			if (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) then
+				rs_zero_en(i)  <= '1';
+			else
+				rs_zero_en(i)  <= '0';	
+			end if ;
+			--rs_zero_en(i)  <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
+			--					'0';
 			rs_carry_ready_in(i) <= '1' ;
 			rs_zero_ready_in(i) <= '1';
-			rs_carry_ready_en(i) <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
-								'0';
-			rs_zero_ready_en(i) <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
-								'0';
+			if (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) then
+				rs_carry_ready_en(i) <= '1';
+			else
+				rs_carry_ready_en(i) <= '0';	
+			end if ;
+			--rs_carry_ready_en(i) <= '1' when (rs_carry_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_carry_tag_out(i)))) = '1' ) else
+			--					'0';
+			if (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) then
+				rs_zero_ready_en(i) <= '1';
+			else
+				rs_zero_ready_en(i) <= '0';	
+			end if ;
+			--rs_zero_ready_en(i) <= '1' when (rs_zero_ready_out(i) = '0' and rrf_valid_reg_out(i)(to_integer(unsigned(rs_zero_tag_out(i)))) = '1' ) else
+			--					'0';
 			-------------
 			if(store_retirement_count = "00") then
 				rs_store_tag_en(i) <= '0';
@@ -388,7 +542,7 @@ begin
 					rs_store_tag_in(i) <= "00000";
 					rs_store_tag_en(i) <= '1';
 				else 
-					rs_store_tag_in(i) <= rs_store_tag_out(i) + "11111";
+					rs_store_tag_in(i) <= store_tag_minus1(i);
 					rs_store_tag_en(i) <= '1';
 				end if;
 			elsif(store_retirement_count = "10") then
@@ -396,7 +550,7 @@ begin
 					rs_store_tag_in(i) <= "00000";
 					rs_store_tag_en(i) <= '1';
 				else 
-					rs_store_tag_in(i) <= rs_store_tag_out(i) + "11110";
+					rs_store_tag_in(i) <= store_tag_minus2(i);
 					rs_store_tag_en(i) <= '1';
 				end if;
 			else
@@ -405,8 +559,13 @@ begin
 			end if;
 			---------------
 			rs_inst_val_in(i) <= '0';
-			rs_inst_val_en(i) <= '1' when (inst_scheduled(i) = '1') else
-								'0';
+			if (inst_scheduled(i) = '1') then
+				rs_inst_val_en(i) <= '1';
+			else
+				rs_inst_val_en(i) <= '0';	
+			end if ;
+			--rs_inst_val_en(i) <= '1' when (inst_scheduled(i) = '1') else
+			--					'0';
 		end if;
 
 	end loop a2;
@@ -450,6 +609,8 @@ begin
 	rc_zero			<= rs_zero_out(to_integer(unsigned(penout_ls_sched)));
 	rc_valid		<= '1' when (no1found_ls_sched = '0') else
 						'0';
+
+	twoRSnotFree_rs <= twoRSnotFree_rs_signal;
 
 	
 	end architecture behave;
