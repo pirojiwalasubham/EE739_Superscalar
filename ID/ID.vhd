@@ -87,10 +87,17 @@ component myRegister is
 		);	
 end component;
 
+--component pen32bitwith2output is 
+--	port (penin: in std_logic_vector(31 downto 0);
+--			twoRRnotFree : out std_logic;
+--			pennext: out std_logic_vector(31 downto 0);
+--			penout1, penout2: out std_logic_vector(4 downto 0));
+--end component;
+
 component pen32bitwith2output is 
 	port (penin: in std_logic_vector(31 downto 0);
 			twoRRnotFree : out std_logic;
-			pennext: out std_logic_vector(31 downto 0);
+			pennext_twoallotted, pennext_oneallotted: out std_logic_vector(31 downto 0);
 			penout1, penout2: out std_logic_vector(4 downto 0));
 end component;
 
@@ -116,7 +123,7 @@ signal store_tag_reg_out_minus_one, store_tag_reg_out_plus_one : std_logic_vecto
 signal store_tag_reg_out_minus_two, store_tag_reg_out_plus_two : std_logic_vector(15 downto 0);
 signal SE_store_tag_reg_out : std_logic_vector(15 downto 0);
 signal c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4 : std_logic;
-
+signal free_rrf_vec_out_sig,free_rrf_vec_out_sig2 : std_logic_vector(31 downto 0);
 
 
 begin
@@ -170,7 +177,7 @@ ir2 <= ra2_ir_out;
 SE_store_tag_reg_out <= ("11111111111" & store_tag_reg_out) when (store_tag_reg_out(4) = '1') else
 						("00000000000" & store_tag_reg_out);
 
-PE: pen32bitwith2output port map(free_rrf_vec,twoRRnotFree,free_rrf_vec_out,penout1, penout2);
+PE: pen32bitwith2output port map(free_rrf_vec,twoRRnotFree,free_rrf_vec_out_sig,free_rrf_vec_out_sig2,penout1, penout2);
 SPEC_TAG_REG: myRegister generic map(2) port map(clk, spec_tag_reg_en, reset, spec_tag_reg_in, spec_tag_reg_out);
 STORE_TAG_REG: myRegister generic map(5) port map(clk, store_tag_reg_en, reset, store_tag_reg_in, store_tag_reg_out);
 STORE_TAG_DEC: Add port map (SE_store_tag_reg_out, "1111111111111111",store_tag_reg_out_minus_one,c_store_tag1);
@@ -823,7 +830,6 @@ begin
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --INSTRUCTION 2
-
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2012,51 +2018,9 @@ else
 end if;
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+free_rrf_vec_out <= free_rrf_vec_out_sig when(x1_val_var = '1' and x2_val_var = '1') else
+					free_rrf_vec_out_sig2 when(x1_val_var = '1' and x2_val_var = '0') else
+					free_rrf_vec;
 
 end process;
 end architecture behave;
