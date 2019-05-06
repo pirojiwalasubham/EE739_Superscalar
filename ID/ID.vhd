@@ -1447,12 +1447,39 @@ if(ra1_val_out = '1') then
 	elsif (x1_jlr = '1' or x2_jlr = '1') then
 		ra1_invalidate_out <= '1';
 		ra2_invalidate_out <= '1';
+	elsif (x1_beq = '1' or x2_beq = '1') then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x1_adc = '1' and ra1_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x2_adc = '1' and ra2_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x1_adz = '1' and ra1_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x2_adz = '1' and ra2_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x1_ndc = '1' and ra1_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x2_ndc = '1' and ra2_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x1_ndz = '1' and ra1_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';
+	elsif (x2_ndz = '1' and ra2_ir_out(5 downto 3) = "111") then
+		ra1_invalidate_out <= '1';
+		ra2_invalidate_out <= '1';	
 	else 
 		ra1_invalidate_out <= '0';
 		ra2_invalidate_out <= '0';
 	end if;
 else
-	if(alu_r7_resolved = '1' or jlr_resolved ='1' or lw_r7_resolved = '1') then
+	if(alu_r7_resolved = '1' or jlr_resolved ='1' or lw_r7_resolved = '1' or taken_branch_detected = '1' or not_taken_branch_detected = '1') then
 		ra1_invalidate_out <= '0';
 		ra2_invalidate_out <= '0';
 	else
@@ -1531,6 +1558,11 @@ elsif (x1_jal = '1') then
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+elsif (x1_beq = '1') then
+	x2_val <= '0';
+	x2_val_var := '0';
+	arf_busy_wr_en2 <=  '0';
+	arf_tag_wr_en2  <=  '0';
 else
 	x2_val <= ra2_val_out;
 	arf_busy_wr_en2 <=  ra2_val_out;
@@ -1544,7 +1576,7 @@ end if;
 
 
 
-if(taken_branch_detected = '1' ) then
+if(taken_branch_detected = '1' or not_taken_branch_detected = '1') then
 	--0101
 	S3 <= '0';
 	S2 <= '1';
@@ -1610,296 +1642,296 @@ end if;
 --------------------------------------------------------------------------------------------------------------------------------
 
 
-x1_beq_var := x1_beq_var and x1_val_var;
-x2_beq_var := x2_beq_var and x2_val_var;
+--x1_beq_var := x1_beq_var and x1_val_var;
+--x2_beq_var := x2_beq_var and x2_val_var;
 
-if(x1_beq_var = '0' and x2_beq_var = '0' and taken_branch_detected = '1') then
-	spec_tag_reg_in <= spec_tag_rb_in;
-	spec_tag_reg_en <= '1';
-	spec_tag_rs_out1 <= spec_tag_rb_in;
-	spec_tag_rs_out2 <= spec_tag_rb_in;
-elsif (x1_beq_var = '0' and x2_beq_var = '0' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "01";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
-elsif (x1_beq_var = '1' and x2_beq_var = '0' and taken_branch_detected = '1') then
-	if(spec_tag_rb_in = "10") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-	elsif (spec_tag_rb_in = "01") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_rb_in = "00") then
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	end if;
-elsif (x1_beq_var = '0' and x2_beq_var = '1' and taken_branch_detected = '1') then
-	if(spec_tag_rb_in = "10") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_rb_in = "01") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "01";
-	elsif (spec_tag_rb_in = "00") then
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
-elsif (x1_beq_var = '1' and x2_beq_var = '0' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
+--if(x1_beq_var = '0' and x2_beq_var = '0' and taken_branch_detected = '1') then
+--	spec_tag_reg_in <= spec_tag_rb_in;
+--	spec_tag_reg_en <= '1';
+--	spec_tag_rs_out1 <= spec_tag_rb_in;
+--	spec_tag_rs_out2 <= spec_tag_rb_in;
+--elsif (x1_beq_var = '0' and x2_beq_var = '0' and not_taken_branch_detected = '1') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "01";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '0' and taken_branch_detected = '1') then
+--	if(spec_tag_rb_in = "10") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--	elsif (spec_tag_rb_in = "01") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_rb_in = "00") then
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	end if;
+--elsif (x1_beq_var = '0' and x2_beq_var = '1' and taken_branch_detected = '1') then
+--	if(spec_tag_rb_in = "10") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_rb_in = "01") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "01";
+--	elsif (spec_tag_rb_in = "00") then
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '0' and not_taken_branch_detected = '1') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
 
-elsif (x1_beq_var = '0' and x2_beq_var = '1' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "01";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
-elsif (x1_beq_var = '1' and x2_beq_var = '1' and taken_branch_detected = '1') then
-	if(spec_tag_rb_in = "10") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_rb_in = "01") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_rb_in = "00") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
-elsif (x1_beq_var = '1' and x2_beq_var = '1' and not_taken_branch_detected = '1') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	else
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
+--elsif (x1_beq_var = '0' and x2_beq_var = '1' and not_taken_branch_detected = '1') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "01";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '1' and taken_branch_detected = '1') then
+--	if(spec_tag_rb_in = "10") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_rb_in = "01") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_rb_in = "00") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '1' and not_taken_branch_detected = '1') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	else
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
 
-elsif (x1_beq_var = '0' and x2_beq_var = '0' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-		spec_tag_reg_in <= spec_tag_reg_out;
-		spec_tag_reg_en <= '0';
-		spec_tag_rs_out1 <= spec_tag_reg_out;
-		spec_tag_rs_out2 <= spec_tag_reg_out;
+--elsif (x1_beq_var = '0' and x2_beq_var = '0' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
+--		spec_tag_reg_in <= spec_tag_reg_out;
+--		spec_tag_reg_en <= '0';
+--		spec_tag_rs_out1 <= spec_tag_reg_out;
+--		spec_tag_rs_out2 <= spec_tag_reg_out;
 	
-elsif (x1_beq_var = '1' and x2_beq_var = '0' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	else
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	end if;
-elsif (x1_beq_var = '0' and x2_beq_var = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "10";
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "01";
-	else
-		spec_tag_reg_in <= "01";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-	end if;
-elsif (x1_beq_var = '1' and x2_beq_var = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
-	if(spec_tag_reg_out = "11") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_reg_out = "10") then
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "10";
-		spec_tag_rs_out2 <= "11";
-		pc_en_out <= '0';
-		ra_en_out <='0';
-		x1_val <='0';
-		x2_val <='0';
-		arf_busy_wr_en1 <= '0';
-		arf_busy_wr_en2 <= '0';
-		arf_tag_wr_en1 <= '0';
-		arf_tag_wr_en2 <= '0';
-	elsif (spec_tag_reg_out = "01") then
-		spec_tag_reg_in <= "11";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "01";
-		spec_tag_rs_out2 <= "10";
-	else
-		spec_tag_reg_in <= "10";
-		spec_tag_reg_en <= '1';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "01";
-	end if;
-else 
-		spec_tag_reg_in <= "00";
-		spec_tag_reg_en <= '0';
-		spec_tag_rs_out1 <= "00";
-		spec_tag_rs_out2 <= "00";
-end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '0' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	else
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	end if;
+--elsif (x1_beq_var = '0' and x2_beq_var = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "10";
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "01";
+--	else
+--		spec_tag_reg_in <= "01";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--	end if;
+--elsif (x1_beq_var = '1' and x2_beq_var = '1' and not_taken_branch_detected = '0' and taken_branch_detected = '0') then
+--	if(spec_tag_reg_out = "11") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_reg_out = "10") then
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "10";
+--		spec_tag_rs_out2 <= "11";
+--		pc_en_out <= '0';
+--		ra_en_out <='0';
+--		x1_val <='0';
+--		x2_val <='0';
+--		arf_busy_wr_en1 <= '0';
+--		arf_busy_wr_en2 <= '0';
+--		arf_tag_wr_en1 <= '0';
+--		arf_tag_wr_en2 <= '0';
+--	elsif (spec_tag_reg_out = "01") then
+--		spec_tag_reg_in <= "11";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "01";
+--		spec_tag_rs_out2 <= "10";
+--	else
+--		spec_tag_reg_in <= "10";
+--		spec_tag_reg_en <= '1';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "01";
+--	end if;
+--else 
+--		spec_tag_reg_in <= "00";
+--		spec_tag_reg_en <= '0';
+--		spec_tag_rs_out1 <= "00";
+--		spec_tag_rs_out2 <= "00";
+--end if;
 
 
 

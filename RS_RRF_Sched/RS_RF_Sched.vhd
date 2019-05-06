@@ -143,6 +143,6 @@ begin
 	end generate output_loop;
 
 	end architecture behave;
-				
+
 
 
