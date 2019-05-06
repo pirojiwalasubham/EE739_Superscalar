@@ -19,9 +19,17 @@ entity RS_RF_Sched is
 		rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) ;
 		------------------------------------------------------------------------------------
 		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
-		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry1_in,id_carry2_in,id_zero1_in,id_zero2_in : in std_logic_vector(4 downto 0);
+		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
 		store_retirement_count : in std_logic_vector(1 downto 0)
 
+
+		twoRSnotFree_rs : out std_logic;
+		rb_pc,rb_op1,rb_op2, rb_ir :out std_logic_vector(15 downto 0);
+		rb_dest_rrtag			   :out std_logic_vector(4 downto 0);
+		rb_valid,rb_carry,rb_zero  :out std_logic;
+		rc_pc,rc_op1,rc_op2, rc_ir :out std_logic_vector(15 downto 0);
+		rc_dest_rrtag  			   :out std_logic_vector(4 downto 0);
+		rc_valid,rc_carry,rc_zero  :out std_logic
 
 
 		); 
@@ -52,6 +60,12 @@ component pen16bitwith2output is
 			pennext_twoallotted, pennext_oneallotted: out std_logic_vector(15 downto 0);
 			penout1, penout2: out std_logic_vector(3 downto 0));
 end component;
+component pen16bit is 
+	port (penin: in std_logic_vector(15 downto 0);
+			no1found : out std_logic;
+			pennext: out std_logic_vector(15 downto 0);
+			penout: out std_logic_vector(3 downto 0));
+end component;
 
 	type s_18 is array (0 to 31) of std_logic_vector(17 downto 0);
 	type s_16 is array (0 to 31) of std_logic_vector(15 downto 0);
@@ -69,10 +83,19 @@ end component;
     signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16
 	signal rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
 	signal rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
-	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in,twoRSnotFree_rs : std_logic;
+	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: std_logic;
 	signal id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
 	signal id_1_store_tag_in,id_2_store_tag_in : std_logic_vector(4 downto 0);
+	signal inst_scheduled :std_logic_vector(15 downto 0);
+	------------------------------------------------------------------------------------------------------------------------------
+    -- Scheduler ke signals
+    signal alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  : std_logic_vector(15 downto 0) := "000000000000000";
+    signal no1found_alu_sched,no1found_ls_sched: std_logic;
+    signal penout_alu_sched,penout_ls_sched : std_logic_vector(3 downto 0);
+	 
+	  
+	
 
 begin
 	RRF : for i in 0 to 31 generate
@@ -204,43 +227,54 @@ begin
 
 
 	--RS_PC
-	a1 : for i in 0 to 15 generate 
-		pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-					'0';
-		pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-					  id_pc2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-					 "0000000000000000";
-		rs_dest_rr_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-								'0';
-		rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-					  			id_dest_rr_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-							   "00000";
-		rs_ir_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-					'0';
-		rs_ir_in(i) <= id_ir1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-					  id_ir2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-					 "0000000000000000";
-		rs_carry_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-								'0';
-		rs_carry_in(i) <= id_carry1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-			  			id_carry2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-					   "00000";
-		rs_zero_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
-								'0';
-		rs_zero_in(i) <= id_zero1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
-			  			id_zero2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
-					   "00000";
-	end generate a1;
-
-
 
 	process()
 
 	begin
+	if(twoRSnotFree_rs = '0') then 
+		a1 : for i in 0 to 15 generate 
+				pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+				pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_pc2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 "0000000000000000";
+				rs_dest_rr_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+										'0';
+				rs_dest_rr_tag_in(i) <= id_dest_rr_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  			id_dest_rr_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+									   "00000";
+				rs_ir_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+							'0';
+				rs_ir_in(i) <= id_ir1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+							  id_ir2_in when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							 "0000000000000000";
+				rs_carry_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+										'0';
+				rs_carry_tag_in(i) <= id_carry_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+					  			id_carry_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							   "00000";
+				rs_zero_tag_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
+										'0';
+				rs_zero_tag_in(i) <= id_zero_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
+					  			id_zero_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
+							   "00000";		
+	end generate a1;
+	else
+				pc_en(i) <= '0';
+				pc_in(i)   <= "0000000000000000";
+				rs_dest_rr_tag_en(i) <= '0';
+				rs_dest_rr_tag_in(i) <= "00000";
+				rs_ir_en(i) <= '0';
+				rs_ir_in(i) <= "0000000000000000";
+				rs_carry_tag_en(i) <= '0';
+				rs_carry_tag_in(i) <= "00000";
+				rs_zero_tag_en(i) <= '0';
+				rs_zero_tag_in(i) <= "00000";	
 
+	end if;
 
 	a2: for i in 0 to 15 generate
-		if(rs_inst_val_out(i) = '0') then
+		if(rs_inst_val_out(i) = '0' and twoRSnotFree_rs = '0') then
 			rs_op1_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
 							'0';
 			rs_op1_in(i) <= id_1_op1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
@@ -348,7 +382,7 @@ begin
 
 	end generate a2;
 
-
+	end process;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Scheduler
@@ -356,31 +390,39 @@ begin
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-	fo
+	
+	a3: for i in 0 to 15 generate
+		alu_schedulable_vec(i) <= '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and (rs_ir_out(i)(15 downto 12) = "0000" or rs_ir_out(i)(15 downto 12) = "0001" or rs_ir_out(i)(15 downto 12) = "0010" or rs_ir_out(i)(15 downto 12) = "1100" or rs_ir_out(i)(15 downto 12) = "1000" or rs_ir_out(i)(15 downto 12) = "1001" ) ) else
+									'0';
+		ls_schedulable_vec(i) <= '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and (rs_ir_out(i)(15 downto 12) = "0011" or rs_ir_out(i)(15 downto 12) = "0100" or rs_ir_out(i)(15 downto 12) = "0101" or rs_ir_out(i)(15 downto 12) = "0110" or rs_ir_out(i)(15 downto 12) = "0111" ) ) else
+								'0';
+	end generate a3;
+	P1: pen16bit port map(alu_schedulable_vec, no1found_alu_sched, pennext_alu_sched, penout_alu_sched);
+	P2: pen16bit port map (ls_schedulable_vec, no1found_ls_sched,  pennext_ls_sched , penout_ls_sched);
+	inst_scheduled <= (alu_schedulable_vec xor pennext_alu_sched) or (ls_schedulable_vec xor pennext_ls_sched);
+
+	rb_pc 			<= pc_out(to_integer(unsigned(penout_alu_sched)));
+	rb_op1			<= rs_op1_out(to_integer(unsigned(penout_alu_sched)));
+	rb_op1			<= rs_op2_out(to_integer(unsigned(penout_alu_sched)));
+	rb_ir 			<= rs_ir_out(to_integer(unsigned(penout_alu_sched)));
+	rb_dest_rrtag   <= rs_dest_rr_tag_out(to_integer(unsigned(penout_alu_sched)));
+	rb_carry		<= rs_carry_out(to_integer(unsigned(penout_alu_sched)));
+	rb_zero			<= rs_zero_out(to_integer(unsigned(penout_alu_sched)));
+	rb_valid		<= '1' when (no1found_alu_sched = '0') else
+						'0';
 
 
+	rc_pc 			<= pc_out(to_integer(unsigned(penout_ls_sched)));
+	rc_op1			<= rs_op1_out(to_integer(unsigned(penout_ls_sched)));
+	rc_op1			<= rs_op2_out(to_integer(unsigned(penout_ls_sched)));
+	rc_ir 			<= rs_ir_out(to_integer(unsigned(penout_ls_sched)));
+	rc_dest_rrtag   <= rs_dest_rr_tag_out(to_integer(unsigned(penout_ls_sched)));
+	rc_carry		<= rs_carry_out(to_integer(unsigned(penout_ls_sched)));
+	rc_zero			<= rs_zero_out(to_integer(unsigned(penout_ls_sched)));
+	rc_valid		<= '1' when (no1found_ls_sched = '0') else
+						'0';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 	end architecture behave;
 
 
