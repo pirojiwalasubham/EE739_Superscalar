@@ -18,9 +18,9 @@ entity rob is
 		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in : in std_logic;
 
 		free_rrf_vect_in, val_rrf_vect_in : in std_logic_vector(31 downto 0);
-		arf_tag_in_1, arf_tag_in_2, c_tag_in, z_tag_in : in std_logic_vector(4 downto 0);
+		arf_tag_in_1, arf_tag_in_2, c_tag_in, z tag_in : in std_logic_vector(4 downto 0);
 
-		robfull, finalc_out, finalz_out : out std_logic;
+		robfull, finalc_out, finalz_out : out std_logic
 		data_out_1, data_out_2, mem_addr_1, mem_addr_2 : out std_logic_vector(15 downto 0); 
 		arf_addr_out_1, arf_addr_out_2 : out std_logic_vector(2 downto 0);
 		rrf_addr_out_1, rrf_addr_out_2 : out std_logic_vector(4 downto 0);
@@ -114,7 +114,7 @@ process(all)
 
 	begin
 
-	first : for k in 0 to 31 loop
+	first : for k in 0 to 31 generate
 		pc(k) <= pc_out(k);
 		dest(k) <= dest_out(k);
 		ir(k) <= ir_out(k);
@@ -129,7 +129,7 @@ process(all)
 		cwr(k) <= cwr_out(k);
 		zwr(k) <= zwr_out(k);
 		valid(k) <= valid_out(k);
-	end loop first;
+	end generate first;
 
 -------------------------------------------------------------------------------------------
 --INPUT LOGIC
