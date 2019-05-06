@@ -13,8 +13,9 @@ entity alu_p is
 		rb_spectag ; in std_logic_vector(1 downto 0);
 		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
 
-		alu_p_out : out std_logic_vector(15 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved : out std_logic
+		alu_p_out : out std_logic_vector(17 downto 0);
+		rrf_tag_out : out std_logic_vector(4 downto 0);
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out : out std_logic
 		);
 end entity;
 
@@ -51,7 +52,7 @@ architecture behave of alu_p is
 			);	
 	end component bit_register;
 
-	signal rb_pcout,rb_op1out,rb_op2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out,rb_irout,rbimm6out : std_logic_vector (15 downto 0);
+	signal rb_pcout,rb_op1out,rb_op2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out,rb_irout,rbimm6out, alu_p_out_temp : std_logic_vector (15 downto 0);
 	signal rb_dest_rrtagout,rb_carrytagout, rb_zerotagout : std_logic_vector (4 downto 0);
 	signal rb_spectagout : std_logic_vector(1 downto 0);
 	signal rbdestr7out,alu_p_brach_taken_temp,alu_p_brach_nottaken_temp, rb_validout,rb_carryout,rb_zeroout,rb_carryreadyout,rb_zeroreadyout,alu_p_comp : std_logic;
@@ -92,12 +93,17 @@ architecture behave of alu_p is
 		alu_nand_out <= (alu_in_a nand alu_in_b);
 		ALU_COMP : comp port map (alu_in_a,alu_in_b,alu_p_comp);
 
-		alu_p_out <= alu_add_out when rb_irout(15 downto 12) = "0000" else
+		alu_p_out_temp <= alu_add_out when rb_irout(15 downto 12) = "0000" else
 					alu_add_out when rb_irout(15 downto 12) = "0001" else
 					alu_add_out when rb_irout(15 downto 12) = "1100" else
-					alu_nand_out when rb_irout(15 downto 12) = "0010" else "0000000000000000";
+					alu_nand_out when rb_irout(15 downto 12) = "0010" else
+					rb_pcout when rb_irout(15 downto 13) = "100" else "0000000000000000";
+
 
 		alu_p_z <= '1' when alu_p_out = "0000000000000000" else '0';
+
+
+		alu_p_out <= alu_p_out_temp & alu_p_c & alu_p_z;
 
 		alu_p_brach_taken_temp <= alu_p_comp when rb_irout(15 downto 12) = "1100" else
 									'1' when ((rb_irout(15 downto 12) = "0000") and (rb_irout(1 downto 0) = "10") and (rb_irout(5 downto 3) = "111")) else

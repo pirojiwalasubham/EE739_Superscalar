@@ -3,6 +3,7 @@ use std.standard.all;
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use ieee.std_logic_misc.all;
 
 entity ls_p is
@@ -13,9 +14,9 @@ entity ls_p is
 		rc_spectag ; in std_logic_vector(1 downto 0);
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
 
-		write_data,data_read : out std_logic_vector(15 downto 0);
+		ls_p_data_out : out std_logic_vector(17 downto 0);
 		read_addr,write_addr : out std_logic_vector(15 downto 0);
-		mem_read_en, mem_write_en,lw_r7_resolved : out std_logic
+		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z : out std_logic
 		);
 end entity;
 
@@ -47,7 +48,7 @@ architecture behave of ls_p is
 			);	
 	end component bit_register;
 
-	signal rc_pcout,rc_op1out,rc_op2out,add_in_a,add_in_b,add_out,rc_irout,rcimm6out : std_logic_vector (15 downto 0);
+	signal rc_pcout,rc_op1out,rc_op2out,add_in_a,add_in_b,add_out,rc_irout,rcimm6out,ls_p_data_out_temp : std_logic_vector (15 downto 0);
 	signal rc_dest_rrtagout,rc_carrytagout, rc_zerotagout : std_logic_vector (4 downto 0);
 	signal rc_spectagout : std_logic_vector(1 downto 0);
 	signal alu_p_brach_taken_temp, rc_validout,rc_carryout,rc_zeroout,rc_carryreadyout,rc_zeroreadyout,unused_c: std_logic;
@@ -91,20 +92,24 @@ architecture behave of ls_p is
 		mem_read_en <= '1' when ((rc_irout(15 downto 12) = "0100") and (rc_validout = '1')) else
 						'1' when ((rc_irout(15 downto 12) = "0110") and (rc_validout = '1')) else
 						'0';
-		mem_write_en <= '1' when ((rc_irout(15 downto 12) = "0101") and (rc_validout = '1')) else
-						'1' when ((rc_irout(15 downto 12) = "0111") and (rc_validout = '1')) else
-						'0';
+		--mem_write_en <= '1' when ((rc_irout(15 downto 12) = "0101") and (rc_validout = '1')) else
+		--				'1' when ((rc_irout(15 downto 12) = "0111") and (rc_validout = '1')) else
+		--				'0';
 
 		read_addr <= add_out;
 		write_addr <= add_out;
 
-		write_data <= rc_op1out when rc_irout(15 downto 12) = "0101" else
-						rc_op2out when rc_irout(15 downto 12) = "0111" ;
+		ls_p_data_out_temp <= rc_op1out when rc_irout(15 downto 12) = "0101" else
+						rc_op2out when rc_irout(15 downto 12) = "0111" else
+						rcimm9out when rc_irout(15 downto 12) = "0011" else 
+						read_datafrommem;
 
-		data_read <=rcimm9out when rc_irout(15 downto 12) = "0011" else 
-					read_datafrommem;
 
 		lw_r7_resolved <= '1' when ((rc_irout(15 downto 12) = "0100") and (rc_validout = '1') and (rc_irout(11 downto 9) = "111")) else '0';
+
+		ls_p_z <= or_reduce(read_datafrommem);
+
+		ls_p_data_out <= ls_p_data_out_temp & '0' & ls_p_z;
 									
 	end architecture behave;
 					 
