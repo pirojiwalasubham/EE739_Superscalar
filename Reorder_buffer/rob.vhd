@@ -197,73 +197,72 @@ process(all)
 --Taking Results from Execution
 ---------------------------------------------------------------------------------------------------------------------------
 
-	exec_ptr_1 <=   "00000" when (pc(0) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00001" when (pc(1) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00010" when (pc(2) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00011" when (pc(3) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00100" when (pc(4) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00101" when (pc(5) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00110" when (pc(6) = pc_exec_1_in and valid_exec_alu = '1') else
-					"00111" when (pc(7) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01000" when (pc(8) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01001" when (pc(9) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01010" when (pc(10) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01011" when (pc(11) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01100" when (pc(12) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01101" when (pc(13) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01110" when (pc(14) = pc_exec_1_in and valid_exec_alu = '1') else
-					"01111" when (pc(15) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10000" when (pc(16) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10001" when (pc(17) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10010" when (pc(18) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10011" when (pc(19) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10100" when (pc(20) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10101" when (pc(21) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10110" when (pc(22) = pc_exec_1_in and valid_exec_alu = '1') else
-					"10111" when (pc(23) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11000" when (pc(24) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11001" when (pc(25) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11010" when (pc(26) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11011" when (pc(27) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11100" when (pc(28) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11101" when (pc(29) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11110" when (pc(30) = pc_exec_1_in and valid_exec_alu = '1') else
-					"11111" when (pc(31) = pc_exec_1_in and valid_exec_alu = '1') else "00000";
+	exec_ptr_1 <=   "00000" when (pc_out(0) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00001" when (pc_out(1) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00010" when (pc_out(2) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00011" when (pc_out(3) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00100" when (pc_out(4) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00101" when (pc_out(5) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00110" when (pc_out(6) = pc_exec_1_in and valid_exec_alu = '1') else
+					"00111" when (pc_out(7) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01000" when (pc_out(8) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01001" when (pc_out(9) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01010" when (pc_out(10) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01011" when (pc_out(11) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01100" when (pc_out(12) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01101" when (pc_out(13) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01110" when (pc_out(14) = pc_exec_1_in and valid_exec_alu = '1') else
+					"01111" when (pc_out(15) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10000" when (pc_out(16) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10001" when (pc_out(17) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10010" when (pc_out(18) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10011" when (pc_out(19) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10100" when (pc_out(20) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10101" when (pc_out(21) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10110" when (pc_out(22) = pc_exec_1_in and valid_exec_alu = '1') else
+					"10111" when (pc_out(23) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11000" when (pc_out(24) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11001" when (pc_out(25) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11010" when (pc_out(26) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11011" when (pc_out(27) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11100" when (pc_out(28) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11101" when (pc_out(29) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11110" when (pc_out(30) = pc_exec_1_in and valid_exec_alu = '1') else
+					"11111" when (pc_out(31) = pc_exec_1_in and valid_exec_alu = '1') else "00000";
 
 
-	exec_ptr_2 <=   "00000" when ( pc(0) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00001" when ( pc(1) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00010" when ( pc(2) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00011" when ( pc(3) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00100" when ( pc(4) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00101" when ( pc(5) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00110" when ( pc(6) = pc_exec_2_in and valid_exec_ls = '1') else
-					"00111" when ( pc(7) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01000" when ( pc(8) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01001" when ( pc(9) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01010" when ( pc(10) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01011" when ( pc(11) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01100" when ( pc(12) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01101" when ( pc(13) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01110" when ( pc(14) = pc_exec_2_in and valid_exec_ls = '1') else
-					"01111" when ( pc(15) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10000" when ( pc(16) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10001" when ( pc(17) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10010" when ( pc(18) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10011" when ( pc(19) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10100" when ( pc(20) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10101" when ( pc(21) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10110" when ( pc(22) = pc_exec_2_in and valid_exec_ls = '1') else
-					"10111" when ( pc(23) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11000" when ( pc(24) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11001" when ( pc(25) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11010" when ( pc(26) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11011" when ( pc(27) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11100" when ( pc(28) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11101" when ( pc(29) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11110" when ( pc(30) = pc_exec_2_in and valid_exec_ls = '1') else
-					"11111" when ( pc(31) = pc_exec_2_in and valid_exec_ls = '1') else "00000";
-
+	exec_ptr_2 <=   "00000" when ( pc_out(0) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00001" when ( pc_out(1) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00010" when ( pc_out(2) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00011" when ( pc_out(3) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00100" when ( pc_out(4) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00101" when ( pc_out(5) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00110" when ( pc_out(6) = pc_exec_2_in and valid_exec_ls = '1') else
+					"00111" when ( pc_out(7) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01000" when ( pc_out(8) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01001" when ( pc_out(9) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01010" when ( pc_out(10) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01011" when ( pc_out(11) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01100" when ( pc_out(12) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01101" when ( pc_out(13) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01110" when ( pc_out(14) = pc_exec_2_in and valid_exec_ls = '1') else
+					"01111" when ( pc_out(15) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10000" when ( pc_out(16) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10001" when ( pc_out(17) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10010" when ( pc_out(18) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10011" when ( pc_out(19) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10100" when ( pc_out(20) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10101" when ( pc_out(21) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10110" when ( pc_out(22) = pc_exec_2_in and valid_exec_ls = '1') else
+					"10111" when ( pc_out(23) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11000" when ( pc_out(24) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11001" when ( pc_out(25) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11010" when ( pc_out(26) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11011" when ( pc_out(27) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11100" when ( pc_out(28) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11101" when ( pc_out(29) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11110" when ( pc_out(30) = pc_exec_2_in and valid_exec_ls = '1') else
+					"11111" when ( pc_out(31) = pc_exec_2_in and valid_exec_ls = '1') else "00000";
 
 	dest1 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(5 downto 3)) when ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "0000" else
 			("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(8 downto 6)) when ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "0001" else
@@ -375,8 +374,11 @@ process(all)
 		val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0' when arf_en_1_temp = '1' else
 																										val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 
+		head_ptr <= head_ptr_out_plus2;
 
 
+
+	elsif (complete_exec_out(to_integer(unsigned(head_ptr_out))) = '1' and complete_exec_out(to_integer(unsigned(head_ptr_out_plus1))) = '0') then
 
 	end if;
 
