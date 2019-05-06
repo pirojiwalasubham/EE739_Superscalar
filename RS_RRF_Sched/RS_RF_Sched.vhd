@@ -20,7 +20,7 @@ entity RS_RF_Sched is
 		------------------------------------------------------------------------------------
 		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
 		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
-		store_retirement_count : in std_logic_vector(1 downto 0)
+		store_retirement_count : in std_logic_vector(1 downto 0);
 
 
 		twoRSnotFree_rs : out std_logic;
@@ -80,7 +80,7 @@ end component;
 
 	------------------------------------------------------------------------------------------------------------------------------
     -- RS ke signals
-    signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16
+    signal pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
 	signal rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
 	signal rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
 	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: std_logic;
@@ -228,11 +228,40 @@ begin
 
 	--RS_PC
 
-	process()
+	process(clk,reset, 
+		rrf_Awr1_in, rrf_Awr2_in, 
+		rrf_write1_in, rrf_write2_in, 
+		rrf_Data1_EX_in, rrf_Data2_EX_in, 
+		rrf_free_vec_ID_in, rrf_free_vec_Rob_in ,
+		rrf_valid_vec_EX_in, rrf_valid_vec_Rob_in, 
+		------------------------------------------------------------------------------------
+		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in ,
+		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in ,
+		store_retirement_count, 
+
+	 rrf_P_in, rrf_P_out,
+	 rrf_busy_reg_in, rrf_busy_reg_out, rrf_valid_reg_in, rrf_valid_reg_out, en_for_P, en_for_busy, en_for_valid, 
+	 en_vec1, en_vec2,
+	------------------------------------------------------------------------------------------------------------------------------
+    -- RS ke signals
+     pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in,
+	 rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en,
+	 rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in,
+	 id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in,
+	 id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs ,
+	 penout1_rs_val,penout2_rs_val ,
+	 id_1_store_tag_in,id_2_store_tag_in ,
+	 inst_scheduled ,
+	------------------------------------------------------------------------------------------------------------------------------
+    -- Scheduler ke signals
+     alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  ,
+     no1found_alu_sched,no1found_ls_sched,
+     penout_alu_sched,penout_ls_sched
+		)
 
 	begin
 	if(twoRSnotFree_rs = '0') then 
-		a1 : for i in 0 to 15 generate 
+		a1 : for i in 0 to 15 loop 
 				pc_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
 							'0';
 				pc_in(i)   <= id_pc1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
@@ -258,7 +287,7 @@ begin
 				rs_zero_tag_in(i) <= id_zero_tag1_in when (i = (to_integer(unsigned(penout1_rs_val))) ) else
 					  			id_zero_tag2_in  when (i = (to_integer(unsigned(penout2_rs_val))) ) else
 							   "00000";		
-	end generate a1;
+	end loop a1;
 	else
 				pc_en(i) <= '0';
 				pc_in(i)   <= "0000000000000000";
@@ -273,7 +302,7 @@ begin
 
 	end if;
 
-	a2: for i in 0 to 15 generate
+	a2: for i in 0 to 15 loop 
 		if(rs_inst_val_out(i) = '0' and twoRSnotFree_rs = '0') then
 			rs_op1_en(i) <= '1' when ((i = (to_integer(unsigned(penout1_rs_val))))  or (i = (to_integer(unsigned(penout2_rs_val)))) ) else
 							'0';
@@ -380,7 +409,7 @@ begin
 								'0';
 		end if;
 
-	end generate a2;
+	end loop a2;
 
 	end process;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
