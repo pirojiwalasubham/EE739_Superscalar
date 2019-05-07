@@ -186,7 +186,8 @@ STORE_TAG_DEC2: Add port map (SE_store_tag_reg_out, "1111111111111110",store_tag
 STORE_TAG_INC2: Add port map (SE_store_tag_reg_out, "0000000000000010",store_tag_reg_out_plus_two,c_store_tag4);
 
 
-process(clk, reset,
+process(clk, reset
+		,
 		ra1_val_out, ra2_val_out ,
 		ra1_pc_out, ra1_ir_out ,ra2_pc_out, ra2_ir_out,
 		free_rrf_vec, free_rrf_vec_out_sig, free_rrf_vec_out_sig,
@@ -209,7 +210,7 @@ process(clk, reset,
 		SE_Ra1_imm9 ,SE_Ra2_imm9,
 		c_adder2out,c_adder3out ,
 		spec_tag_reg_en,
-		store_tag_reg_en ,
+		store_tag_reg_en,
 		spec_tag_reg_in,spec_tag_reg_out ,
 		store_tag_reg_in,store_tag_reg_out ,
 		store_tag_reg_out_minus_one, store_tag_reg_out_plus_one ,

@@ -406,8 +406,6 @@ process(clk,reset,
 		dest1 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(8 downto 6));
 	elsif (ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "0010") then
 		dest1 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(5 downto 3));
-	elsif (ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "0011") then
-		dest1 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(11 downto 9));
 	elsif (ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "1100") then
 		dest1 <= "0000000000000000";
 	elsif (ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "1000") then
@@ -419,6 +417,8 @@ process(clk,reset,
 	end if;
 
 	if (ir_out(to_integer(unsigned(exec_ptr_2)))(15 downto 12) = "0100") then
+		dest2 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_2)))(11 downto 9));
+	elsif (ir_out(to_integer(unsigned(exec_ptr_2)))(15 downto 12) = "0011") then
 		dest2 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_2)))(11 downto 9));
 	elsif (ir_out(to_integer(unsigned(exec_ptr_2)))(15 downto 12) = "0101") then
 		dest2 <= ls_p_write_addr;

@@ -27,10 +27,14 @@ end component;
       
   signal RAM : ram_type :=
   (
- 0  => "0011000111111111",
- 1 => "0000000000000000",
- 2 => "0000000000000000",
- 3 =>"0000000000000000",
+ 0 => "0011010111111111",
+ 1 => "0011000001001000",
+ 2 => "0011001111000011",
+ 3 => "0011110000111100",
+ 4 => "0011011001100111",
+ 5 => "0011101000000011",
+ 6 => "0000000000000000",
+ 7 => "0000000000000000",
  others => "0000000000000000"
   ) ;
 
@@ -45,9 +49,9 @@ begin
     end if;   
   end process;
   ADDER_MEM : add1 port map(address, address_plus1) ;
-  q <= RAM(conv_integer(address)) when (rden ='1') else
+  q <= RAM(conv_integer(address(4 downto 0))) when (rden ='1') else
         "ZZZZZZZZZZZZZZZZ";
-  q2 <= RAM(conv_integer(address_plus1)) when (rden ='1') else
+  q2 <= RAM(conv_integer(address_plus1(4 downto 0))) when (rden ='1') else
         "ZZZZZZZZZZZZZZZZ";
   
 end syn; 

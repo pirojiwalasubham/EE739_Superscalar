@@ -1,0 +1,57 @@
+library ieee;   
+use ieee.std_logic_1164.all;  
+use ieee.std_logic_unsigned.all; 
+ 
+entity ram is 
+  PORT
+  (
+    address   : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+    clock   : IN STD_LOGIC  := '1';
+    data    : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+    rden    : IN STD_LOGIC  := '1';
+    wren    : IN STD_LOGIC ;
+    q,q2  : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
+  );
+
+end ram;   
+architecture syn of ram is 
+
+component add1 is
+   port(alu_a: in std_logic_vector(15 downto 0);
+    alu_out: out std_logic_vector(15 downto 0) );
+end component;  
+  type ram_type is array (0 to 31)   
+        of std_logic_vector (15 downto 0); 
+      
+      
+      
+  signal RAM : ram_type :=
+  (
+ 0 => "0011010111111111",
+ 1 => "0011000001001000",
+ 2 => "0011000111000011",
+ 3 => "0011110000111100",
+ 4 => "0011011001100111",
+ 5 => "0011101000000011",
+ 6 => "0000000000000000",
+ 7 => "0000000000000000",
+ others => "0000000000000000"
+  ) ;
+
+  signal address_plus1 : std_logic_vector(15 downto 0);
+begin   
+  process (clock)   
+  begin   
+    if (clock'event and clock = '1') then   
+      if (wren = '1') then   
+        RAM(conv_integer(address)) <= data;   
+      end if;   
+    end if;   
+  end process;
+  ADDER_MEM : add1 port map(address, address_plus1) ;
+  q <= RAM(conv_integer(address(4 downto 0))) when (rden ='1') else
+        "ZZZZZZZZZZZZZZZZ";
+  q2 <= RAM(conv_integer(address_plus1(4 downto 0))) when (rden ='1') else
+        "ZZZZZZZZZZZZZZZZ";
+  
+end syn; 
