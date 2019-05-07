@@ -58,25 +58,22 @@ architecture syn of dram is
  others => "0000000000000000"
   ) ;
 
-  signal data_1_temp;
-
-  signal address_plus1 : std_logic_vector(15 downto 0);
+  signal data_1_temp : std_logic_vector(15 downto 0);
 begin   
   
-  data_1_temp <= data_in_2 when address_wr_1 = address_wr_2 else data_in_1;
+  data_1_temp <= data_in_2 when (address_wr_1 = address_wr_2 and wren_2 = '1') else data_in_1;
 
   process (clock)   
   begin   
     if (clock'event and clock = '1') then   
       if (wren_1 = '1') then   
-        RAM(conv_integer(address_wr_2)) <= data_1_temp;   
+        RAM(conv_integer(address_wr_1)) <= data_1_temp;   
       end if;   
       if (wren_2 = '1') then
         RAM(conv_integer(address_wr_2)) <= data_in_2;
       end if;
     end if;   
   end process;
-  ADDER_MEM : add1 port map(address, address_plus1) ;
   read_data_out <= RAM(conv_integer(address_rd)) when (rden ='1') else
         "ZZZZZZZZZZZZZZZZ";
   
