@@ -129,7 +129,9 @@ architecture behave of ls_p is
 		ls_p_data_out <= ls_p_data_out_temp & '0' & ls_p_z_temp;
 
 		rrf_en_out <= '1' when rc_irout(15 downto 12) = "0100" else
-						'1' when rc_irout(15 downto 12) = "0110" else '0';
+						'1' when rc_irout(15 downto 12) = "0110" else 
+						'1' when rc_irout(15 downto 12) = "0011" else
+						'0';
 
 		ls_p_val_out <= rc_validout;
 		ls_p_z<=ls_p_z_temp;	
