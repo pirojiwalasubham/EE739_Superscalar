@@ -215,28 +215,7 @@ process(clk, reset,
 		store_tag_reg_out_minus_one, store_tag_reg_out_plus_one ,
 		store_tag_reg_out_minus_two, store_tag_reg_out_plus_two ,
 		SE_store_tag_reg_out ,
-		c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4,
-
-		free_rrf_vec_out,
-		Ard1a, Ard1b, Ard2a, Ard2b,Ard1c, Ard2c, Awr1, Awr2,
-		pc1, pc2, ir1, ir2,
-		x1_op1, x1_op2, x2_op1, x2_op2,
-		x1_op1_ready, x1_op2_ready,x2_op1_ready, x2_op2_ready,
-		x1_val,x2_val,
-		C_out,Z_out , C_ready, Z_ready, C_wr, Z_wr, C_2_out, C_2_ready,C_2_wr, Z_2_out,Z_2_ready,Z_2_wr,
-		spec_tag_rs_out1, spec_tag_rs_out2,
-		store_tag_rs_out1, store_tag_rs_out2,
-		C_busybit_out,Z_busybit_out, C_2_busybit_out, Z_2_busybit_out,
-		C_tag_out_arf, Z_tag_out_arf, C_2_tag_out_arf, Z_2_tag_out_arf,
-		busy_dest1_out, busy_dest2_out,
-		dest_AR_tag_out, dest_AR_tag_2_out,
-		C_tag_out_rs, Z_tag_out_rs, C_2_tag_out_rs, Z_2_tag_out_rs,
-		ra1_invalidate_out, ra2_invalidate_out,
-		pc_en_out, ra_en_out,
-		arf_busy_wr_en1, arf_busy_wr_en2, arf_tag_wr_en1, arf_tag_wr_en2,
-		adder2_out, adder3_out, ZA7_1_out, ZA7_2_out,
-		S0,S1,S2,S3
-	
+		c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4
 	)
 
 variable x1_val_var, x2_val_var, x1_beq_var, x2_beq_var, x1_sw_var, x2_sw_var: std_logic;
