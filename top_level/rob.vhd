@@ -564,11 +564,11 @@ process(clk,reset,
 		free_rrf_vect_out <= free_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
+			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '1';
 		end if;		
 
 		if (arf_en_2_temp = '1') then
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0';
+			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '1';
 		end if;		
 		
 		val_rrf_vect_out <= val_rrf_vect_in;
@@ -684,7 +684,7 @@ process(clk,reset,
 		free_rrf_vect_out <= free_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
+			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '1';
 		end if;
 
 		val_rrf_vect_out <= val_rrf_vect_in;

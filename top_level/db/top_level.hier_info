@@ -6640,7 +6640,7 @@ clk => myRegister:RS:0:RS_OPR2.clk
 clk => myRegister:RS:0:RS_IR.clk
 clk => bit_register:RS:0:RS_OP1_VAL.clk
 clk => bit_register:RS:0:RS_OP2_VAL.clk
-clk => bit_register1:RS:0:RS_INST_VAL.clk
+clk => bit_register:RS:0:RS_INST_VAL.clk
 clk => bit_register:RS:0:RS_CARRY.clk
 clk => bit_register:RS:0:RS_CARR_READY.clk
 clk => bit_register:RS:0:RS_ZERO.clk
@@ -6655,7 +6655,7 @@ clk => myRegister:RS:1:RS_OPR2.clk
 clk => myRegister:RS:1:RS_IR.clk
 clk => bit_register:RS:1:RS_OP1_VAL.clk
 clk => bit_register:RS:1:RS_OP2_VAL.clk
-clk => bit_register1:RS:1:RS_INST_VAL.clk
+clk => bit_register:RS:1:RS_INST_VAL.clk
 clk => bit_register:RS:1:RS_CARRY.clk
 clk => bit_register:RS:1:RS_CARR_READY.clk
 clk => bit_register:RS:1:RS_ZERO.clk
@@ -6670,7 +6670,7 @@ clk => myRegister:RS:2:RS_OPR2.clk
 clk => myRegister:RS:2:RS_IR.clk
 clk => bit_register:RS:2:RS_OP1_VAL.clk
 clk => bit_register:RS:2:RS_OP2_VAL.clk
-clk => bit_register1:RS:2:RS_INST_VAL.clk
+clk => bit_register:RS:2:RS_INST_VAL.clk
 clk => bit_register:RS:2:RS_CARRY.clk
 clk => bit_register:RS:2:RS_CARR_READY.clk
 clk => bit_register:RS:2:RS_ZERO.clk
@@ -6685,7 +6685,7 @@ clk => myRegister:RS:3:RS_OPR2.clk
 clk => myRegister:RS:3:RS_IR.clk
 clk => bit_register:RS:3:RS_OP1_VAL.clk
 clk => bit_register:RS:3:RS_OP2_VAL.clk
-clk => bit_register1:RS:3:RS_INST_VAL.clk
+clk => bit_register:RS:3:RS_INST_VAL.clk
 clk => bit_register:RS:3:RS_CARRY.clk
 clk => bit_register:RS:3:RS_CARR_READY.clk
 clk => bit_register:RS:3:RS_ZERO.clk
@@ -6700,7 +6700,7 @@ clk => myRegister:RS:4:RS_OPR2.clk
 clk => myRegister:RS:4:RS_IR.clk
 clk => bit_register:RS:4:RS_OP1_VAL.clk
 clk => bit_register:RS:4:RS_OP2_VAL.clk
-clk => bit_register1:RS:4:RS_INST_VAL.clk
+clk => bit_register:RS:4:RS_INST_VAL.clk
 clk => bit_register:RS:4:RS_CARRY.clk
 clk => bit_register:RS:4:RS_CARR_READY.clk
 clk => bit_register:RS:4:RS_ZERO.clk
@@ -6715,7 +6715,7 @@ clk => myRegister:RS:5:RS_OPR2.clk
 clk => myRegister:RS:5:RS_IR.clk
 clk => bit_register:RS:5:RS_OP1_VAL.clk
 clk => bit_register:RS:5:RS_OP2_VAL.clk
-clk => bit_register1:RS:5:RS_INST_VAL.clk
+clk => bit_register:RS:5:RS_INST_VAL.clk
 clk => bit_register:RS:5:RS_CARRY.clk
 clk => bit_register:RS:5:RS_CARR_READY.clk
 clk => bit_register:RS:5:RS_ZERO.clk
@@ -6730,7 +6730,7 @@ clk => myRegister:RS:6:RS_OPR2.clk
 clk => myRegister:RS:6:RS_IR.clk
 clk => bit_register:RS:6:RS_OP1_VAL.clk
 clk => bit_register:RS:6:RS_OP2_VAL.clk
-clk => bit_register1:RS:6:RS_INST_VAL.clk
+clk => bit_register:RS:6:RS_INST_VAL.clk
 clk => bit_register:RS:6:RS_CARRY.clk
 clk => bit_register:RS:6:RS_CARR_READY.clk
 clk => bit_register:RS:6:RS_ZERO.clk
@@ -6745,7 +6745,7 @@ clk => myRegister:RS:7:RS_OPR2.clk
 clk => myRegister:RS:7:RS_IR.clk
 clk => bit_register:RS:7:RS_OP1_VAL.clk
 clk => bit_register:RS:7:RS_OP2_VAL.clk
-clk => bit_register1:RS:7:RS_INST_VAL.clk
+clk => bit_register:RS:7:RS_INST_VAL.clk
 clk => bit_register:RS:7:RS_CARRY.clk
 clk => bit_register:RS:7:RS_CARR_READY.clk
 clk => bit_register:RS:7:RS_ZERO.clk
@@ -6760,7 +6760,7 @@ clk => myRegister:RS:8:RS_OPR2.clk
 clk => myRegister:RS:8:RS_IR.clk
 clk => bit_register:RS:8:RS_OP1_VAL.clk
 clk => bit_register:RS:8:RS_OP2_VAL.clk
-clk => bit_register1:RS:8:RS_INST_VAL.clk
+clk => bit_register:RS:8:RS_INST_VAL.clk
 clk => bit_register:RS:8:RS_CARRY.clk
 clk => bit_register:RS:8:RS_CARR_READY.clk
 clk => bit_register:RS:8:RS_ZERO.clk
@@ -6775,7 +6775,7 @@ clk => myRegister:RS:9:RS_OPR2.clk
 clk => myRegister:RS:9:RS_IR.clk
 clk => bit_register:RS:9:RS_OP1_VAL.clk
 clk => bit_register:RS:9:RS_OP2_VAL.clk
-clk => bit_register1:RS:9:RS_INST_VAL.clk
+clk => bit_register:RS:9:RS_INST_VAL.clk
 clk => bit_register:RS:9:RS_CARRY.clk
 clk => bit_register:RS:9:RS_CARR_READY.clk
 clk => bit_register:RS:9:RS_ZERO.clk
@@ -6790,7 +6790,7 @@ clk => myRegister:RS:10:RS_OPR2.clk
 clk => myRegister:RS:10:RS_IR.clk
 clk => bit_register:RS:10:RS_OP1_VAL.clk
 clk => bit_register:RS:10:RS_OP2_VAL.clk
-clk => bit_register1:RS:10:RS_INST_VAL.clk
+clk => bit_register:RS:10:RS_INST_VAL.clk
 clk => bit_register:RS:10:RS_CARRY.clk
 clk => bit_register:RS:10:RS_CARR_READY.clk
 clk => bit_register:RS:10:RS_ZERO.clk
@@ -6805,7 +6805,7 @@ clk => myRegister:RS:11:RS_OPR2.clk
 clk => myRegister:RS:11:RS_IR.clk
 clk => bit_register:RS:11:RS_OP1_VAL.clk
 clk => bit_register:RS:11:RS_OP2_VAL.clk
-clk => bit_register1:RS:11:RS_INST_VAL.clk
+clk => bit_register:RS:11:RS_INST_VAL.clk
 clk => bit_register:RS:11:RS_CARRY.clk
 clk => bit_register:RS:11:RS_CARR_READY.clk
 clk => bit_register:RS:11:RS_ZERO.clk
@@ -6820,7 +6820,7 @@ clk => myRegister:RS:12:RS_OPR2.clk
 clk => myRegister:RS:12:RS_IR.clk
 clk => bit_register:RS:12:RS_OP1_VAL.clk
 clk => bit_register:RS:12:RS_OP2_VAL.clk
-clk => bit_register1:RS:12:RS_INST_VAL.clk
+clk => bit_register:RS:12:RS_INST_VAL.clk
 clk => bit_register:RS:12:RS_CARRY.clk
 clk => bit_register:RS:12:RS_CARR_READY.clk
 clk => bit_register:RS:12:RS_ZERO.clk
@@ -6835,7 +6835,7 @@ clk => myRegister:RS:13:RS_OPR2.clk
 clk => myRegister:RS:13:RS_IR.clk
 clk => bit_register:RS:13:RS_OP1_VAL.clk
 clk => bit_register:RS:13:RS_OP2_VAL.clk
-clk => bit_register1:RS:13:RS_INST_VAL.clk
+clk => bit_register:RS:13:RS_INST_VAL.clk
 clk => bit_register:RS:13:RS_CARRY.clk
 clk => bit_register:RS:13:RS_CARR_READY.clk
 clk => bit_register:RS:13:RS_ZERO.clk
@@ -6850,7 +6850,7 @@ clk => myRegister:RS:14:RS_OPR2.clk
 clk => myRegister:RS:14:RS_IR.clk
 clk => bit_register:RS:14:RS_OP1_VAL.clk
 clk => bit_register:RS:14:RS_OP2_VAL.clk
-clk => bit_register1:RS:14:RS_INST_VAL.clk
+clk => bit_register:RS:14:RS_INST_VAL.clk
 clk => bit_register:RS:14:RS_CARRY.clk
 clk => bit_register:RS:14:RS_CARR_READY.clk
 clk => bit_register:RS:14:RS_ZERO.clk
@@ -6865,7 +6865,7 @@ clk => myRegister:RS:15:RS_OPR2.clk
 clk => myRegister:RS:15:RS_IR.clk
 clk => bit_register:RS:15:RS_OP1_VAL.clk
 clk => bit_register:RS:15:RS_OP2_VAL.clk
-clk => bit_register1:RS:15:RS_INST_VAL.clk
+clk => bit_register:RS:15:RS_INST_VAL.clk
 clk => bit_register:RS:15:RS_CARRY.clk
 clk => bit_register:RS:15:RS_CARR_READY.clk
 clk => bit_register:RS:15:RS_ZERO.clk
@@ -6976,7 +6976,7 @@ reset => myRegister:RS:0:RS_OPR2.clr
 reset => myRegister:RS:0:RS_IR.clr
 reset => bit_register:RS:0:RS_OP1_VAL.clr
 reset => bit_register:RS:0:RS_OP2_VAL.clr
-reset => bit_register1:RS:0:RS_INST_VAL.clr
+reset => bit_register:RS:0:RS_INST_VAL.clr
 reset => bit_register:RS:0:RS_CARRY.clr
 reset => bit_register:RS:0:RS_CARR_READY.clr
 reset => bit_register:RS:0:RS_ZERO.clr
@@ -6991,7 +6991,7 @@ reset => myRegister:RS:1:RS_OPR2.clr
 reset => myRegister:RS:1:RS_IR.clr
 reset => bit_register:RS:1:RS_OP1_VAL.clr
 reset => bit_register:RS:1:RS_OP2_VAL.clr
-reset => bit_register1:RS:1:RS_INST_VAL.clr
+reset => bit_register:RS:1:RS_INST_VAL.clr
 reset => bit_register:RS:1:RS_CARRY.clr
 reset => bit_register:RS:1:RS_CARR_READY.clr
 reset => bit_register:RS:1:RS_ZERO.clr
@@ -7006,7 +7006,7 @@ reset => myRegister:RS:2:RS_OPR2.clr
 reset => myRegister:RS:2:RS_IR.clr
 reset => bit_register:RS:2:RS_OP1_VAL.clr
 reset => bit_register:RS:2:RS_OP2_VAL.clr
-reset => bit_register1:RS:2:RS_INST_VAL.clr
+reset => bit_register:RS:2:RS_INST_VAL.clr
 reset => bit_register:RS:2:RS_CARRY.clr
 reset => bit_register:RS:2:RS_CARR_READY.clr
 reset => bit_register:RS:2:RS_ZERO.clr
@@ -7021,7 +7021,7 @@ reset => myRegister:RS:3:RS_OPR2.clr
 reset => myRegister:RS:3:RS_IR.clr
 reset => bit_register:RS:3:RS_OP1_VAL.clr
 reset => bit_register:RS:3:RS_OP2_VAL.clr
-reset => bit_register1:RS:3:RS_INST_VAL.clr
+reset => bit_register:RS:3:RS_INST_VAL.clr
 reset => bit_register:RS:3:RS_CARRY.clr
 reset => bit_register:RS:3:RS_CARR_READY.clr
 reset => bit_register:RS:3:RS_ZERO.clr
@@ -7036,7 +7036,7 @@ reset => myRegister:RS:4:RS_OPR2.clr
 reset => myRegister:RS:4:RS_IR.clr
 reset => bit_register:RS:4:RS_OP1_VAL.clr
 reset => bit_register:RS:4:RS_OP2_VAL.clr
-reset => bit_register1:RS:4:RS_INST_VAL.clr
+reset => bit_register:RS:4:RS_INST_VAL.clr
 reset => bit_register:RS:4:RS_CARRY.clr
 reset => bit_register:RS:4:RS_CARR_READY.clr
 reset => bit_register:RS:4:RS_ZERO.clr
@@ -7051,7 +7051,7 @@ reset => myRegister:RS:5:RS_OPR2.clr
 reset => myRegister:RS:5:RS_IR.clr
 reset => bit_register:RS:5:RS_OP1_VAL.clr
 reset => bit_register:RS:5:RS_OP2_VAL.clr
-reset => bit_register1:RS:5:RS_INST_VAL.clr
+reset => bit_register:RS:5:RS_INST_VAL.clr
 reset => bit_register:RS:5:RS_CARRY.clr
 reset => bit_register:RS:5:RS_CARR_READY.clr
 reset => bit_register:RS:5:RS_ZERO.clr
@@ -7066,7 +7066,7 @@ reset => myRegister:RS:6:RS_OPR2.clr
 reset => myRegister:RS:6:RS_IR.clr
 reset => bit_register:RS:6:RS_OP1_VAL.clr
 reset => bit_register:RS:6:RS_OP2_VAL.clr
-reset => bit_register1:RS:6:RS_INST_VAL.clr
+reset => bit_register:RS:6:RS_INST_VAL.clr
 reset => bit_register:RS:6:RS_CARRY.clr
 reset => bit_register:RS:6:RS_CARR_READY.clr
 reset => bit_register:RS:6:RS_ZERO.clr
@@ -7081,7 +7081,7 @@ reset => myRegister:RS:7:RS_OPR2.clr
 reset => myRegister:RS:7:RS_IR.clr
 reset => bit_register:RS:7:RS_OP1_VAL.clr
 reset => bit_register:RS:7:RS_OP2_VAL.clr
-reset => bit_register1:RS:7:RS_INST_VAL.clr
+reset => bit_register:RS:7:RS_INST_VAL.clr
 reset => bit_register:RS:7:RS_CARRY.clr
 reset => bit_register:RS:7:RS_CARR_READY.clr
 reset => bit_register:RS:7:RS_ZERO.clr
@@ -7096,7 +7096,7 @@ reset => myRegister:RS:8:RS_OPR2.clr
 reset => myRegister:RS:8:RS_IR.clr
 reset => bit_register:RS:8:RS_OP1_VAL.clr
 reset => bit_register:RS:8:RS_OP2_VAL.clr
-reset => bit_register1:RS:8:RS_INST_VAL.clr
+reset => bit_register:RS:8:RS_INST_VAL.clr
 reset => bit_register:RS:8:RS_CARRY.clr
 reset => bit_register:RS:8:RS_CARR_READY.clr
 reset => bit_register:RS:8:RS_ZERO.clr
@@ -7111,7 +7111,7 @@ reset => myRegister:RS:9:RS_OPR2.clr
 reset => myRegister:RS:9:RS_IR.clr
 reset => bit_register:RS:9:RS_OP1_VAL.clr
 reset => bit_register:RS:9:RS_OP2_VAL.clr
-reset => bit_register1:RS:9:RS_INST_VAL.clr
+reset => bit_register:RS:9:RS_INST_VAL.clr
 reset => bit_register:RS:9:RS_CARRY.clr
 reset => bit_register:RS:9:RS_CARR_READY.clr
 reset => bit_register:RS:9:RS_ZERO.clr
@@ -7126,7 +7126,7 @@ reset => myRegister:RS:10:RS_OPR2.clr
 reset => myRegister:RS:10:RS_IR.clr
 reset => bit_register:RS:10:RS_OP1_VAL.clr
 reset => bit_register:RS:10:RS_OP2_VAL.clr
-reset => bit_register1:RS:10:RS_INST_VAL.clr
+reset => bit_register:RS:10:RS_INST_VAL.clr
 reset => bit_register:RS:10:RS_CARRY.clr
 reset => bit_register:RS:10:RS_CARR_READY.clr
 reset => bit_register:RS:10:RS_ZERO.clr
@@ -7141,7 +7141,7 @@ reset => myRegister:RS:11:RS_OPR2.clr
 reset => myRegister:RS:11:RS_IR.clr
 reset => bit_register:RS:11:RS_OP1_VAL.clr
 reset => bit_register:RS:11:RS_OP2_VAL.clr
-reset => bit_register1:RS:11:RS_INST_VAL.clr
+reset => bit_register:RS:11:RS_INST_VAL.clr
 reset => bit_register:RS:11:RS_CARRY.clr
 reset => bit_register:RS:11:RS_CARR_READY.clr
 reset => bit_register:RS:11:RS_ZERO.clr
@@ -7156,7 +7156,7 @@ reset => myRegister:RS:12:RS_OPR2.clr
 reset => myRegister:RS:12:RS_IR.clr
 reset => bit_register:RS:12:RS_OP1_VAL.clr
 reset => bit_register:RS:12:RS_OP2_VAL.clr
-reset => bit_register1:RS:12:RS_INST_VAL.clr
+reset => bit_register:RS:12:RS_INST_VAL.clr
 reset => bit_register:RS:12:RS_CARRY.clr
 reset => bit_register:RS:12:RS_CARR_READY.clr
 reset => bit_register:RS:12:RS_ZERO.clr
@@ -7171,7 +7171,7 @@ reset => myRegister:RS:13:RS_OPR2.clr
 reset => myRegister:RS:13:RS_IR.clr
 reset => bit_register:RS:13:RS_OP1_VAL.clr
 reset => bit_register:RS:13:RS_OP2_VAL.clr
-reset => bit_register1:RS:13:RS_INST_VAL.clr
+reset => bit_register:RS:13:RS_INST_VAL.clr
 reset => bit_register:RS:13:RS_CARRY.clr
 reset => bit_register:RS:13:RS_CARR_READY.clr
 reset => bit_register:RS:13:RS_ZERO.clr
@@ -7186,7 +7186,7 @@ reset => myRegister:RS:14:RS_OPR2.clr
 reset => myRegister:RS:14:RS_IR.clr
 reset => bit_register:RS:14:RS_OP1_VAL.clr
 reset => bit_register:RS:14:RS_OP2_VAL.clr
-reset => bit_register1:RS:14:RS_INST_VAL.clr
+reset => bit_register:RS:14:RS_INST_VAL.clr
 reset => bit_register:RS:14:RS_CARRY.clr
 reset => bit_register:RS:14:RS_CARR_READY.clr
 reset => bit_register:RS:14:RS_ZERO.clr
@@ -7201,7 +7201,7 @@ reset => myRegister:RS:15:RS_OPR2.clr
 reset => myRegister:RS:15:RS_IR.clr
 reset => bit_register:RS:15:RS_OP1_VAL.clr
 reset => bit_register:RS:15:RS_OP2_VAL.clr
-reset => bit_register1:RS:15:RS_INST_VAL.clr
+reset => bit_register:RS:15:RS_INST_VAL.clr
 reset => bit_register:RS:15:RS_CARRY.clr
 reset => bit_register:RS:15:RS_CARR_READY.clr
 reset => bit_register:RS:15:RS_ZERO.clr
@@ -15929,10 +15929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:0:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:0:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -16429,10 +16429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:1:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:1:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -16929,10 +16929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:2:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:2:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -17429,10 +17429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:3:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:3:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -17929,10 +17929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:4:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:4:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -18429,10 +18429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:5:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:5:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -18929,10 +18929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:6:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:6:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -19429,10 +19429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:7:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:7:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -19929,10 +19929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:8:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:8:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -20429,10 +20429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:9:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:9:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -20929,10 +20929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:10:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:10:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -21429,10 +21429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:11:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:11:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -21929,10 +21929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:12:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:12:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -22429,10 +22429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:13:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:13:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -22929,10 +22929,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:14:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:14:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -23429,10 +23429,10 @@ din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register1:\RS:15:RS_INST_VAL
+|top_level|RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RS:15:RS_INST_VAL
 clk => dout~reg0.CLK
 wr => dout~reg0.ENA
-clr => dout~reg0.PRESET
+clr => dout~reg0.ACLR
 din => dout~reg0.DATAIN
 dout <= dout~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -33900,36 +33900,68 @@ rb_zerotag[4] => myRegister:RB_Z_ERO_TAG.din[4]
 rb_spectag[0] => myRegister:R_B_SPECTAG.din[0]
 rb_spectag[1] => myRegister:R_B_SPECTAG.din[1]
 rrf_valid_vect_in[0] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[0] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[1] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[1] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[2] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[2] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[3] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[3] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[4] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[4] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[5] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[5] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[6] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[6] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[7] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[7] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[8] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[8] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[9] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[9] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[10] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[10] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[11] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[11] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[12] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[12] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[13] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[13] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[14] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[14] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[15] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[15] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[16] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[16] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[17] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[17] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[18] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[18] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[19] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[19] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[20] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[20] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[21] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[21] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[22] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[22] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[23] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[23] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[24] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[24] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[25] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[25] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[26] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[26] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[27] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[27] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[28] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[28] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[29] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[29] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[30] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[30] => rrf_valid_vect_alu_p_out.DATAA
+rrf_valid_vect_in[31] => rrf_valid_vect_alu_p_out.DATAA
 rrf_valid_vect_in[31] => rrf_valid_vect_alu_p_out.DATAA
 rb_valid => bit_register:R_B_VALID.din
 rbdestr7 => bit_register:R_B_DEST_R7.din
@@ -34970,36 +35002,68 @@ rc_carryready => bit_register:RC_CAR_RY_READY.din
 rc_zero => bit_register:RC_ZE_RO.din
 rc_zeroready => bit_register:RC_ZER_O_READY.din
 rrf_valid_vect_in[0] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[0] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[1] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[1] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[2] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[2] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[3] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[3] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[4] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[4] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[5] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[5] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[6] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[6] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[7] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[7] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[8] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[8] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[9] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[9] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[10] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[10] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[11] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[11] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[12] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[12] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[13] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[13] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[14] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[14] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[15] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[15] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[16] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[16] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[17] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[17] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[18] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[18] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[19] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[19] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[20] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[20] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[21] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[21] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[22] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[22] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[23] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[23] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[24] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[24] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[25] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[25] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[26] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[26] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[27] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[27] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[28] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[28] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[29] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[29] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[30] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[30] => rrf_valid_vect_ls_p_out.DATAA
+rrf_valid_vect_in[31] => rrf_valid_vect_ls_p_out.DATAA
 rrf_valid_vect_in[31] => rrf_valid_vect_ls_p_out.DATAA
 ls_p_data_out[0] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 ls_p_data_out[1] <= <GND>

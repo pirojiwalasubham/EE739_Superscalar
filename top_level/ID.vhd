@@ -190,7 +190,7 @@ process(clk, reset
 		,
 		ra1_val_out, ra2_val_out ,
 		ra1_pc_out, ra1_ir_out ,ra2_pc_out, ra2_ir_out,
-		free_rrf_vec, free_rrf_vec_out_sig, free_rrf_vec_out_sig,
+		free_rrf_vec, free_rrf_vec_out_sig, free_rrf_vec_out_sig2,
 		
 		data1, data2, data3, data4 ,
 		busy1, busy2, busy3, busy4 ,

@@ -136,7 +136,7 @@ architecture behave of alu_p is
 		alu_p_out <= alu_p_out_temp & alu_p_c_temp & alu_p_z_temp;
 		alu_p_z<=alu_p_z_temp;
 		alu_p_c <= alu_p_c_temp;
-		process(rrf_valid_vect_in, rb_dest_rrtagout)
+		process(rrf_valid_vect_in, rb_dest_rrtagout,rb_validout)
 		begin 
 
 			rrf_valid_vect_alu_p_out <= rrf_valid_vect_in;

@@ -111,7 +111,7 @@ architecture behave of ls_p is
 						read_datafrommem;
 
 
-		process(rrf_valid_vect_in, rc_dest_rrtagout)
+		process(rrf_valid_vect_in, rc_dest_rrtagout,rc_validout)
 		begin 
 
 			rrf_valid_vect_ls_p_out <= rrf_valid_vect_in;
