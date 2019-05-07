@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 
 
 entity top_level is
-		port(clk, reset_bar, Clock_50: in std_logic
+		port(clk, reset, Clock_50: in std_logic
 			);
 end entity;
 
@@ -53,7 +53,7 @@ component alu_p is
 
 		alu_p_out : out std_logic_vector(17 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_arf_en : out std_logic
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en : out std_logic
 		);
 end component;
 
@@ -295,13 +295,49 @@ component RS_RF_Sched is
 		); 
 end component;
 
+--DRAM
+signal dram_wr_addr1, dram_wr_addr2, dram_rd_addr, dram_data_in2, dram_data_in1, dram_data_out : std_logic_vector(15 downto 0);
+signal dram_wr_en1, dram_wr_en2 : std_logic;
+--IFETCH
+signal reset_bar, S0, S1, S2, S3, pc_en, ra1_invalidate, ra2_invalidate, ra_en, ra1_val, ra2_val : std_logic;
+signal ra1_pc, ra2_pc, ra1_ir, ra2_ir, adder2_out, adder3_out, rb_op2, adder4_out, ZA7_1_out, ZA7_2_out : std_logic_vector(15 downto 0);
+--RS_RRF_SCHED
+signal rrf_wr_addr1, rrf_wr_addr2, rr_dest_tag1_from_id, rr_dest_tag2_from_id, carry_tag1_from_id, carry_tag2_from_id, 
+	zero_tag1_from_id, zero_tag2_from_id, rb_dest_rrtag_from_RS, rc_dest_rrtag_from_RS : std_logic_vector(4 downto 0);
+signal rrf_wr_en1, rrf_wr_en2, RS_full, rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_val_from_RS, 
+	rc_carry_from_RS, rc_zero_from_RS : std_logic;
+signal rrf_wr_data1, rrf_wr_data2 : std_logic_vector(17 downto 0);
+signal rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, 
+	rrf_val_vec : std_logic_vector(31 downto 0);
+signal pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, 
+	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS: std_logic_vector(15 downto 0);
+signal store_retirement_count : std_logic_vector(1 downto 0);
+--ALU_P
+signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid : std_logic;
+--LS_P
+signal wr_addr_from_ls_p : std_logic_vector(15 downto 0);
+signal lw_r7_resolved, ls_p_z : std_logic;
 
 
+begin
+reset_bar <= not reset;
 
+DRAM_INST : dram port map (dram_wr_addr1, dram_wr_addr2, dram_rd_addr, clk, dram_data_in1, dram_data_in2, '1', dram_wr_en1, dram_wr_en2, dram_data_out); 
 
+IFETCH_INST : IFetch generic map (16) port map (clk, reset, reset_bar, S0, S1, S2, S3, pc_en, ra1_invalidate, ra2_invalidate, ra_en, adder2_out, 
+	adder3_out, rb_op2, adder4_out, rrf_wr_data1(17 downto 2), ZA7_1_out, ZA7_2_out, dram_data_out, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_ir);
 
+RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2, rrf_wr_en1, rrf_wr_en2, rrf_wr_data1, rrf_wr_data2, rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, rrf_val_vec, pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rr_dest_tag1_from_id, rr_dest_tag2_from_id
+		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, RS_full, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
+		rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, rc_dest_rrtag_from_RS, rc_val_from_RS, rc_carry_from_RS, rc_zero_from_RS);
 
+ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rc_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
+		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', rrf_wr_data1,
+		rrf_wr_addr1, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1);
 
+LS_P_INST : ls_p port map(clk, reset, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, dram_data_out, rc_dest_rrtag_from_RS,
+	rc_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, "00", rc_val_from_RS, rc_carry_from_RS, '1', rc_zero_from_RS, '1', rrf_wr_data2,
+	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2, '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2);
 
 
 

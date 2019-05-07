@@ -15,7 +15,7 @@ entity alu_p is
 
 		alu_p_out : out std_logic_vector(17 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_arf_en : out std_logic
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en : out std_logic
 		);
 end entity;
 
@@ -147,7 +147,7 @@ architecture behave of alu_p is
 							'1' when ((rb_irout(15 downto 12) = "0001") and (rb_irout(8 downto 6) = "111") and (rb_validout = '1')) else
 							'0';
 
-		alu_p_arf_en <= '0' when rb_irout(15 downto 12) = "1100" else
+		alu_p_rrf_en <= '0' when rb_irout(15 downto 12) = "1100" else
 						'0' when dependency_special_case_z = '1' else
 						'0' when dependency_special_case_c = '1' else
 						alu_p_valid_out_temp;
