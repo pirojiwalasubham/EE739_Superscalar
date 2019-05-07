@@ -117,7 +117,7 @@ process(clk,reset,
 		dest_tag_1_in, dest_tag_2_in, c_tag_1_in, c_tag_2_in, z_tag_1_in, z_tag_2_in,
 		valid_1_in, valid_2_in, complete_exec_1_in, complete_exec_2_in, mr_1_in, mr_2_in, c_1_in, c_2_in, z_1_in, z_2_in, cwr_1_in, cwr_2_in, zwr_1_in, zwr_2_in,
 		alu_p_in,  ls_p_write_addr, ls_p_data,
-		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in,
+		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in,alu_p_no_ans,
 
 		free_rrf_vect_in, val_rrf_vect_in,
 		arf_tag_in_1, arf_tag_in_2, c_tag_in, z_tag_in,
