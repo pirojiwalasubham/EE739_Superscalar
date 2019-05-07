@@ -19,7 +19,8 @@ entity ls_p is
 		read_addr,write_addr : out std_logic_vector(15 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
 		rrf_valid_vect_ls_p_out : out std_logic_vector(31 downto 0);
-		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic
+		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic;
+		ls_p_pc_out : out std_logic_vector(15 downto 0)
 		);
 end entity;
 
@@ -81,7 +82,7 @@ architecture behave of ls_p is
 		RC_ZERO_READY : bit_register port map (clk, '1', reset, rc_zeroready, rc_zeroreadyout);
 
 		rrf_tag_out <= rc_dest_rrtagout;
-
+		ls_p_pc_out <= rc_pcout;
 		add_in_a <= rcimm6out when rc_irout(15 downto 12) = "0100" else
 					rcimm6out when rc_irout(15 downto 12) = "0101" else
 					rc_op1out when rc_irout(15 downto 12) = "0110" else

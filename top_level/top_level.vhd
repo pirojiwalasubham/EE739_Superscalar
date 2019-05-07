@@ -49,11 +49,15 @@ component alu_p is
 		rb_pc,rb_op1,rb_op2, rb_ir : in std_logic_vector(15 downto 0);
 		rb_dest_rrtag,rb_carrytag,rb_zerotag : in std_logic_vector(4 downto 0);
 		rb_spectag : in std_logic_vector(1 downto 0);
+		rrf_valid_vect_in : in std_logic_vector(31 downto 0);
 		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
+
 
 		alu_p_out : out std_logic_vector(17 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en,alu_p_no_ans : out std_logic
+		rrf_valid_vect_alu_p_out : out std_logic_vector(31 downto 0);
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en, alu_p_no_ans : out std_logic;
+		alu_p_pc_out : out std_logic_vector(15 downto 0)
 		);
 end component;
 
@@ -119,6 +123,7 @@ component ID is
 		dest_AR_tag_out, dest_AR_tag_2_out : out std_logic_vector(4 downto 0);
 		C_tag_out_rs, Z_tag_out_rs, C_2_tag_out_rs, Z_2_tag_out_rs: out std_logic_vector(4 downto 0);
 		ra1_invalidate_out, ra2_invalidate_out : out std_logic;
+
 		pc_en_out, ra_en_out : out std_logic;
 		arf_busy_wr_en1, arf_busy_wr_en2, arf_tag_wr_en1, arf_tag_wr_en2 : out std_logic;
 		adder2_out, adder3_out, ZA7_1_out, ZA7_2_out : out std_logic_vector(15 downto 0);
@@ -148,11 +153,14 @@ component ls_p is
 		rc_dest_rrtag,rc_carrytag,rc_zerotag : in std_logic_vector(4 downto 0);
 		rc_spectag : in std_logic_vector(1 downto 0);
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
+		rrf_valid_vect_in : in std_logic_vector(31 downto 0);
 
 		ls_p_data_out : out std_logic_vector(17 downto 0);
 		read_addr,write_addr : out std_logic_vector(15 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic
+		rrf_valid_vect_ls_p_out : out std_logic_vector(31 downto 0);
+		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic;
+		ls_p_pc_out : out std_logic_vector(15 downto 0)
 		);
 end component;
 
@@ -313,15 +321,17 @@ signal rrf_wr_en1, rrf_wr_en2, RS_full, rb_val_from_RS, rb_carry_from_RS, rb_zer
 	rc_carry_from_RS, rc_zero_from_RS : std_logic;
 signal rrf_wr_data1, rrf_wr_data2 : std_logic_vector(17 downto 0);
 signal rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, 
-	rrf_val_vec : std_logic_vector(31 downto 0);
+	rrf_val_vec,rrf_val_vec_from_ls_p, rrf_val_vec_from_alu_p : std_logic_vector(31 downto 0);
 signal pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, 
 	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS: std_logic_vector(15 downto 0);
 signal store_retirement_count : std_logic_vector(1 downto 0);
 --ALU_P
 signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, alu_p_no_ans : std_logic;
+signal alu_p_pc : std_logic_vector(15 downto 0);
 --LS_P
 signal wr_addr_from_ls_p : std_logic_vector(15 downto 0);
 signal lw_r7_resolved, ls_p_z, ls_p_valid : std_logic;
+signal ls_p_pc : std_logic_vector(15 downto 0);
 --ARF
 signal arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID, arf_wr_addr1_from_RoB, 
 	arf_wr_addr2_from_RoB, arf_wr_addr3_from_RoB : std_logic_vector(2 downto 0);
@@ -348,6 +358,10 @@ signal global_carry_tag_data_in_from_ID, global_carry_tag_out, global_zero_tag_d
 
 -- ID
 signal inst1_carry_wr_from_ID, inst1_zero_wr_from_ID, inst2_carry_wr_from_ID, inst2_zero_wr_from_ID : std_logic;
+
+-- RoB
+signal rob_full : std_logic;
+signal unused, unused2 : std_logic_vector(4 downto 0);
 ---------------------------------------INSTANCES-------------------------------------------------------------------------------
 begin
 reset_bar <= not reset;
@@ -376,17 +390,23 @@ RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2,
 		rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, 
 		rc_dest_rrtag_from_RS, rc_val_from_RS, rc_carry_from_RS, rc_zero_from_RS);
-rrf_val_vec_from_ex????
+
+rrf_val_vec_from_ex <= rrf_val_vec_from_alu_p or rrf_val_vec_from_ls_p;
 ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rc_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
-		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', rrf_wr_data1,
-		rrf_wr_addr1, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1,alu_p_no_ans);
+		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rrf_val_vec,
+		 rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', 
+		rrf_wr_data1,
+		rrf_wr_addr1, rrf_val_vec_from_alu_p, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1,alu_p_no_ans,
+		alu_p_pc);
 
 LS_P_INST : ls_p port map(clk, reset, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, dram_data_out, rc_dest_rrtag_from_RS,
-	rc_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, "00", rc_val_from_RS, rc_carry_from_RS, '1', rc_zero_from_RS, '1', rrf_wr_data2,
-	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2, '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2,ls_p_valid);
+	rc_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, "00", rc_val_from_RS, rc_carry_from_RS, '1', rc_zero_from_RS, '1', rrf_val_vec, rrf_wr_data2,
+	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2,
+	rrf_val_vec_from_ls_p,
+	 '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2,ls_p_valid, ls_p_pc);
 
 ARF_INST : RF generic map (16) port map(arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID, 
-	arf_wr_addr1_from_RoB, arf_wr_addr2_from_RoB, arf_wr_addr3_from_RoB, arf_data1_from_RoB, arf_data2_from_RoB, arf_data3_from_RoB,
+	arf_wr_addr1_from_RoB, arf_wr_addr2_from_RoB, "111", arf_data1_from_RoB, arf_data2_from_RoB, arf_data3_from_RoB,
 	arf_wr_en1_from_RoB, arf_wr_en2_from_RoB, arf_wr_en3_from_RoB, clk, reset, arf_data_out1, arf_data_out2, arf_data_out3, arf_data_out4);
 
 ARF_TAG_INST : RF_tag generic (5) port map (arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,
@@ -437,7 +457,7 @@ ID_INST : ID port map(clk, reset, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_
 	"00",
 	RS_full, '0',
 	lw_r7_resolved, alu_r7_resolved, jlr_resolved,
-	store_retirement_count
+	store_retirement_count,
 
 	rrf_free_vec_from_id,
 	arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arftag_wr_addr1_from_ID, arftag_wr_addr2_from_ID,
@@ -460,32 +480,23 @@ ID_INST : ID port map(clk, reset, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_
 	 S0, S1, S2, S3
 	 );
 
-ROB_INST : 
+ROB_INST : rob port map(clk, reset, 
+	pc1_from_id, pc2_from_id, "0000000000000000", "0000000000000000", ir1_from_id, ir2_from_id,
+	alu_p_pc, ls_p_pc,
+	arftag_data1_from_ID, arftag_data2_from_ID, 
+	global_carry_tag1_from_ID, global_carry_tag2_from_ID,
+	global_zero_tag1_from_ID, global_zero_tag2_from_ID,
+	inst1_valid_from_ID, inst2_valid_from_ID, '0', '0','0','0','0','0','0','0',inst1_carry_wr_from_ID,inst2_carry_wr_from_ID, inst1_zero_wr_from_ID, inst2_zero_wr_from_ID,
+	rrf_wr_data1(17 downto 2), wr_addr_from_ls_p, rrf_wr_data2(17 downto 2), alu_p_valid, ls_p_valid, alu_p_carry, alu_p_zero, ls_p_z, alu_p_no_ans,
+	rrf_free_vec, rrf_val_vec, arftag_data_out7, arftag_data_out8,
+	global_carry_tag_out, global_zero_tag_out,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	rob_full, global_carry_data_in_from_RoB, global_zero_data_in_from_RoB, arf_data1_from_RoB, arf_data2_from_RoB, arf_data3_from_RoB,
+	dram_wr_addr1, dram_wr_addr2, arf_wr_addr1_from_RoB, arf_wr_addr2_from_RoB, unused, unused2, store_retirement_count, rrf_free_vec_from_rob,
+	rrf_val_vec_from_rob, arf_wr_en1_from_RoB, arf_wr_en2_from_RoB, arf_wr_en3_from_RoB, dram_wr_en1, dram_wr_en2, 
+	global_carry_en_from_RoB, global_zero_en_from_RoB,
+	arfbusy_wr_en1_from_RoB, arfbusy_wr_en2_from_RoB,
+	global_zero_busy_en_from_RoB, global_carry_busy_en_from_RoB
+	);
 
 end architecture behave;

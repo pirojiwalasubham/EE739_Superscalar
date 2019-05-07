@@ -14,11 +14,13 @@ entity alu_p is
 		rrf_valid_vect_in : in std_logic_vector(31 downto 0);
 		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
 
+
 		alu_p_out : out std_logic_vector(17 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
 		rrf_valid_vect_alu_p_out : out std_logic_vector(31 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en, alu_p_no_ans : out std_logic
-		);
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en, alu_p_no_ans : out std_logic;
+		alu_p_pc_out : out std_logic_vector(15 downto 0)
+				);
 end entity;
 
 
@@ -85,7 +87,7 @@ architecture behave of alu_p is
 		RB_CARRY_READY : bit_register port map (clk, '1', reset, rb_carryready, rb_carryreadyout);
 		RB_ZERO : bit_register port map (clk, '1', reset, rb_zero, rb_zeroout);
 		RB_ZERO_READY : bit_register port map (clk, '1', reset, rb_zeroready, rb_zeroreadyout);
-
+		alu_p_pc_out<= rb_pcout;
 		rrf_tag_out <= rb_dest_rrtagout;
 
 		dependency_special_case_c <= '1' when ((rb_irout(15 downto 12) = "0000") and (rb_irout(1 downto 0) = "10") and (rb_irout(5 downto 3) = "111")) else
