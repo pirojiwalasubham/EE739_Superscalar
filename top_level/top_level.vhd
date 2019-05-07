@@ -200,7 +200,7 @@ component ram is
     q,q2  : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
   );
 
-end ram;  
+end component;  
 
 component myRegister is
 	generic ( data_length: integer);
@@ -264,7 +264,7 @@ component rob is
 		arf_en_1, arf_en_2, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic
 
 		); -- output
-end rob;
+end component;
 
 
 component RS_RF_Sched is 
@@ -293,7 +293,7 @@ component RS_RF_Sched is
 
 
 		); 
-end RS_RF_Sched;
+end component;
 
 
 
