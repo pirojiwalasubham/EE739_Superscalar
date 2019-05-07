@@ -141,7 +141,10 @@ architecture behave of alu_p is
 
 			rrf_valid_vect_alu_p_out <= rrf_valid_vect_in;
 
-			rrf_valid_vect_alu_p_out(to_integer(unsigned(rb_dest_rrtagout))) <= '1';
+			if rb_validout = '1' then
+				rrf_valid_vect_alu_p_out(to_integer(unsigned(rb_dest_rrtagout))) <= '1';				
+			end if ;
+
 -------------------------------
 			--a3: for i in 0 to 31 loop
 			--if (i = to_integer(unsigned(rb_dest_rrtagout))) then

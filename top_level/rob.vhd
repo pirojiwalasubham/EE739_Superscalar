@@ -493,8 +493,8 @@ process(clk,reset,
 		arf_en_2 <= arf_en_2_temp;
 		arf_en_3 <= '1';
 
-		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out))) or cwr_out(to_integer(unsigned(head_ptr_out_plus1)));
-		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out))) or zwr_out(to_integer(unsigned(head_ptr_out_plus1)));
+		c_en_temp <= (cwr_out(to_integer(unsigned(head_ptr_out))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out)))))) or (cwr_out(to_integer(unsigned(head_ptr_out_plus1))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out_plus1))))));
+		z_en_temp <= (zwr_out(to_integer(unsigned(head_ptr_out))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out)))))) or (zwr_out(to_integer(unsigned(head_ptr_out_plus1))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out_plus1))))));
 		c_en <= c_en_temp;
 		z_en <= z_en_temp;
 
@@ -625,8 +625,8 @@ process(clk,reset,
 		arf_en_2 <= '0';
 		arf_en_3 <= '1';
 
-		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out)));
-		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out)));
+		c_en_temp <= (cwr_out(to_integer(unsigned(head_ptr_out))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out))))));
+		z_en_temp <= (zwr_out(to_integer(unsigned(head_ptr_out))) and (not(no_wb_out(to_integer(unsigned(head_ptr_out))))));
 		c_en <= c_en_temp;
 		z_en <= z_en_temp;
 

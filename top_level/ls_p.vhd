@@ -115,7 +115,10 @@ architecture behave of ls_p is
 		begin 
 
 			rrf_valid_vect_ls_p_out <= rrf_valid_vect_in;
-			rrf_valid_vect_ls_p_out(to_integer(unsigned(rc_dest_rrtagout))) <= '1';
+
+			if rc_validout = '1' then
+				rrf_valid_vect_ls_p_out(to_integer(unsigned(rc_dest_rrtagout))) <= '1';
+			end if ;
 
 		end process;
 
