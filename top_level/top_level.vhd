@@ -159,7 +159,7 @@ component mux9_16 is
    port(S0,S1,S2,S3:in std_logic;    --S2 is MSB
 	D0,D1,D2,D3,D4,D5,D6,D7,D8:in std_logic_vector(15 downto 0);
 	Y:out std_logic_vector(15 downto 0));
-end mux9_16;
+end component;
 
 component pen16bit is 
 	port (penin: in std_logic_vector(15 downto 0);
