@@ -21,12 +21,12 @@ entity rob is
 		arf_tag_in_1, arf_tag_in_2, c_tag_in, z_tag_in : in std_logic_vector(4 downto 0);
 
 		robfull, finalc_out, finalz_out : out std_logic;
-		data_out_1, data_out_2, mem_addr_1, mem_addr_2 : out std_logic_vector(15 downto 0); 
+		data_out_1, data_out_2,data_out_3, mem_addr_1, mem_addr_2 : out std_logic_vector(15 downto 0); 
 		arf_addr_out_1, arf_addr_out_2 : out std_logic_vector(2 downto 0);
 		rrf_addr_out_1, rrf_addr_out_2 : out std_logic_vector(4 downto 0);
 		no_of_stores_cleared : out std_logic_vector(1 downto 0);
 		free_rrf_vect_out, val_rrf_vect_out : out std_logic_vector(31 downto 0);  
-		arf_en_1, arf_en_2, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic
+		arf_en_1, arf_en_2,arf_en_3, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic
 
 		); -- output
 end rob;
@@ -485,6 +485,7 @@ process(clk,reset,
 		mem_en_2 <= mem_en_2_temp;
 		arf_en_1 <= arf_en_1_temp;
 		arf_en_2 <= arf_en_2_temp;
+		arf_en_3 <= '1';
 
 		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out))) or cwr_out(to_integer(unsigned(head_ptr_out_plus1)));
 		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out))) or zwr_out(to_integer(unsigned(head_ptr_out_plus1)));
@@ -533,9 +534,10 @@ process(clk,reset,
 
 		data_out_1 <= result_out(to_integer(unsigned(head_ptr_out)));
 		data_out_2 <= result_out(to_integer(unsigned(head_ptr_out_plus1)));
+		data_out_3 <= pc_out(to_integer(unsigned(head_ptr_out_plus1)));
 
 		arf_addr_out_1 <= dest_out(to_integer(unsigned(head_ptr_out)))(2 downto 0);
-		arf_addr_out_1 <= dest_out(to_integer(unsigned(head_ptr_out_plus1)))(2 downto 0);
+		arf_addr_out_2 <= dest_out(to_integer(unsigned(head_ptr_out_plus1)))(2 downto 0);
 		
 		rrf_addr_out_1 <= dest_tag_out(to_integer(unsigned(head_ptr_out)));
 		rrf_addr_out_2 <= dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)));			
@@ -586,6 +588,10 @@ process(clk,reset,
 		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
 		complete_exec(to_integer(unsigned(head_ptr_out_plus1))) <= '0';
 
+
+
+
+
 	elsif (complete_exec_out(to_integer(unsigned(head_ptr_out))) = '1' and complete_exec_out(to_integer(unsigned(head_ptr_out_plus1))) = '0') then
 
 		if (mr_out(to_integer(unsigned(head_ptr_out))) = '1') then
@@ -616,6 +622,7 @@ process(clk,reset,
 		mem_en_2 <= '0';
 		arf_en_1 <= arf_en_1_temp;
 		arf_en_2 <= '0';
+		arf_en_3 <= '1';
 
 		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out)));
 		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out)));
@@ -652,15 +659,14 @@ process(clk,reset,
 			finalz_out <= '0';
 		end if;		
 
-
-
 		arf_busy_en_2 <= '0';
 
 		data_out_1 <= result_out(to_integer(unsigned(head_ptr_out)));
 		data_out_2 <= "0000000000000000";
+		data_out_3 <= pc_out(to_integer(unsigned(head_ptr_out)));
 
 		arf_addr_out_1 <= dest_out(to_integer(unsigned(head_ptr_out)))(2 downto 0);
-		arf_addr_out_1 <= "000";
+		arf_addr_out_2 <= "000";
 		
 		rrf_addr_out_1 <= dest_tag_out(to_integer(unsigned(head_ptr_out)));
 		rrf_addr_out_2 <= "00000";			
@@ -695,6 +701,8 @@ process(clk,reset,
 		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
 
 
+
+
 	else
 
 		if (mr_out(to_integer(unsigned(head_ptr_out))) = '1') then
@@ -725,6 +733,7 @@ process(clk,reset,
 		mem_en_2 <= '0';
 		arf_en_1 <= '0';
 		arf_en_2 <= '0';
+		arf_en_3 <= '0';
 
 		c_en_temp <= cwr_out(to_integer(unsigned(head_ptr_out)));
 		z_en_temp <= zwr_out(to_integer(unsigned(head_ptr_out)));
@@ -743,9 +752,10 @@ process(clk,reset,
 
 		data_out_1 <= "0000000000000000";
 		data_out_2 <= "0000000000000000";
+		data_out_3 <= "0000000000000000";
 
 		arf_addr_out_1 <= "000";
-		arf_addr_out_1 <= "000";
+		arf_addr_out_2 <= "000";
 		
 		rrf_addr_out_1 <= "00000";
 		rrf_addr_out_2 <= "00000";			
