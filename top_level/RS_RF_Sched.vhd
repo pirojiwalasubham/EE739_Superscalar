@@ -269,13 +269,13 @@ begin
 	 id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs ,
 	 penout1_rs_val,penout2_rs_val ,
 	 id_1_store_tag_in,id_2_store_tag_in ,
-	 inst_scheduled ,
+	 inst_scheduled , twoRSnotFree_rs_signal,
 	------------------------------------------------------------------------------------------------------------------------------
     -- Scheduler ke signals
      alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  ,
      no1found_alu_sched,no1found_ls_sched,
      penout_alu_sched,penout_ls_sched,
-     twoRSnotFree_rs, store_tag_minus1, store_tag_minus2
+     store_tag_minus1, store_tag_minus2
 		)
 
 	begin

@@ -57,7 +57,7 @@ component alu_p is
 		rrf_tag_out : out std_logic_vector(4 downto 0);
 		rrf_valid_vect_alu_p_out : out std_logic_vector(31 downto 0);
 		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en, alu_p_no_ans : out std_logic;
-		alu_p_pc_out : out std_logic_vector(15 downto 0)
+		alu_p_pc_out,rb_op2_out : out std_logic_vector(15 downto 0)
 		);
 end component;
 
@@ -316,21 +316,25 @@ signal reset_bar, S0, S1, S2, S3, pc_en, ra1_invalidate, ra2_invalidate, ra_en, 
 signal ra1_pc, ra2_pc, ra1_ir, ra2_ir, adder2_out, adder3_out, rb_op2, adder4_out, ZA7_1_out, ZA7_2_out : std_logic_vector(15 downto 0);
 --RS_RRF_SCHED
 signal rrf_wr_addr1, rrf_wr_addr2, rr_dest_tag1_from_id, rr_dest_tag2_from_id, carry_tag1_from_id, carry_tag2_from_id, 
-	zero_tag1_from_id, zero_tag2_from_id, rb_dest_rrtag_from_RS, rc_dest_rrtag_from_RS : std_logic_vector(4 downto 0);
+	zero_tag1_from_id, zero_tag2_from_id, rb_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, inst1_store_tag_from_ID, inst2_store_tag_from_ID
+	 : std_logic_vector(4 downto 0);
 signal rrf_wr_en1, rrf_wr_en2, RS_full, rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_val_from_RS, 
-	rc_carry_from_RS, rc_zero_from_RS : std_logic;
+	rc_carry_from_RS, rc_zero_from_RS, inst1_zero_ready_from_ID, inst2_zero_ready_from_ID, inst1_zero_from_ID, inst2_zero_from_ID,
+	inst1_carry_ready_from_ID, inst2_carry_ready_from_ID, inst1_carry_from_ID, inst2_carry_from_ID, inst1_valid_from_ID,
+	inst2_valid_from_ID, inst1_op1_valid_from_ID, inst1_op2_valid_from_ID, inst2_op1_valid_from_ID, inst2_op2_valid_from_ID : std_logic;
 signal rrf_wr_data1, rrf_wr_data2 : std_logic_vector(17 downto 0);
 signal rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, 
 	rrf_val_vec,rrf_val_vec_from_ls_p, rrf_val_vec_from_alu_p : std_logic_vector(31 downto 0);
 signal pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, 
-	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS: std_logic_vector(15 downto 0);
+	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, 
+	inst2_op2_from_ID: std_logic_vector(15 downto 0);
 signal store_retirement_count : std_logic_vector(1 downto 0);
 --ALU_P
 signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, alu_p_no_ans : std_logic;
 signal alu_p_pc : std_logic_vector(15 downto 0);
 --LS_P
 signal wr_addr_from_ls_p : std_logic_vector(15 downto 0);
-signal lw_r7_resolved, ls_p_z, ls_p_valid : std_logic;
+signal lw_r7_resolved, ls_p_z, ls_p_valid, unused3, unused4 : std_logic;
 signal ls_p_pc : std_logic_vector(15 downto 0);
 --ARF
 signal arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID, arf_wr_addr1_from_RoB, 
@@ -354,10 +358,12 @@ signal global_carry_en_from_RoB, global_carry_data_in_from_RoB, global_carry_out
 		global_zero_busy_in, global_zero_busy_out, global_zero_busy_from_RoB, global_zero_busy_from_ID, global_zero_busy_en_from_RoB, 
 		global_carry_busy2_from_ID, global_carry_busy1_from_ID, global_zero_busy2_from_ID, global_zero_busy1_from_ID	 : std_logic;
 signal global_carry_tag_data_in_from_ID, global_carry_tag_out, global_zero_tag_data_in_from_ID, 
-		global_zero_tag_out : std_logic_vector(4 downto 0);
+		global_zero_tag_out, global_carry_tag1_from_ID, global_carry_tag2_from_ID,
+		global_zero_tag1_from_ID , global_zero_tag2_from_ID : std_logic_vector(4 downto 0);
 
 -- ID
 signal inst1_carry_wr_from_ID, inst1_zero_wr_from_ID, inst2_carry_wr_from_ID, inst2_zero_wr_from_ID : std_logic;
+signal unused5,unused6 : std_logic_vector(1 downto 0);
 
 -- RoB
 signal rob_full : std_logic;
@@ -374,7 +380,7 @@ IFETCH_INST : IFetch generic map (16) port map (clk, reset, reset_bar, S0, S1, S
 RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2, rrf_wr_en1, rrf_wr_en2, rrf_wr_data1, rrf_wr_data2, 
 		rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, rrf_val_vec,
 
-		pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rr_dest_tag1_from_id, rr_dest_tag2_from_id,
+		pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, arftag_data1_from_ID, arftag_data2_from_ID,
 		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, 
 		inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, inst2_op2_from_ID, 
 		inst1_store_tag_from_ID, inst2_store_tag_from_ID,
@@ -392,32 +398,32 @@ RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2,
 		rc_dest_rrtag_from_RS, rc_val_from_RS, rc_carry_from_RS, rc_zero_from_RS);
 
 rrf_val_vec_from_ex <= rrf_val_vec_from_alu_p or rrf_val_vec_from_ls_p;
-ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rc_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
+ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rrf_val_vec,
 		 rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', 
 		rrf_wr_data1,
 		rrf_wr_addr1, rrf_val_vec_from_alu_p, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1,alu_p_no_ans,
-		alu_p_pc);
+		alu_p_pc,rb_op2);
 
 LS_P_INST : ls_p port map(clk, reset, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, dram_data_out, rc_dest_rrtag_from_RS,
 	rc_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, "00", rc_val_from_RS, rc_carry_from_RS, '1', rc_zero_from_RS, '1', rrf_val_vec, rrf_wr_data2,
 	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2,
 	rrf_val_vec_from_ls_p,
-	 '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2,ls_p_valid, ls_p_pc);
+	 unused3, unused4, lw_r7_resolved, ls_p_z, rrf_wr_en2,ls_p_valid, ls_p_pc);
 
 ARF_INST : RF generic map (16) port map(arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID, 
 	arf_wr_addr1_from_RoB, arf_wr_addr2_from_RoB, "111", arf_data1_from_RoB, arf_data2_from_RoB, arf_data3_from_RoB,
 	arf_wr_en1_from_RoB, arf_wr_en2_from_RoB, arf_wr_en3_from_RoB, clk, reset, arf_data_out1, arf_data_out2, arf_data_out3, arf_data_out4);
 
-ARF_TAG_INST : RF_tag generic (5) port map (arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,
-	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arftag_rd_addr1_from_RoB, arftag_rd_addr2_from_RoB, arftag_wr_addr1_from_ID, 
+ARF_TAG_INST : RF_tag generic map(5) port map (arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,
+	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arf_wr_addr1_from_RoB, arf_wr_addr2_from_RoB, arftag_wr_addr1_from_ID, 
 	arftag_wr_addr2_from_ID, arftag_data1_from_ID, arftag_data2_from_ID, arftag_wr_en1_from_ID, arftag_wr_en2_from_ID, clk, reset,
 	arftag_data_out1, arftag_data_out2, arftag_data_out3, arftag_data_out4, arftag_data_out5, arftag_data_out6, arftag_data_out7,
 	arftag_data_out8);
 
 ARF_BUSY_INST : RF_busybit port map(arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,
-	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arftag_wr_addr1_from_ID, arftag_wr_addr2_from_ID, arftag_rd_addr1_from_RoB, 
-	arftag_rd_addr2_from_RoB, arfbusy_data1_from_ID, arfbusy_data2_from_ID, arfbusy_data1_from_RoB, arfbusy_data2_from_RoB,
+	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arftag_wr_addr1_from_ID, arftag_wr_addr2_from_ID, arf_wr_addr1_from_RoB, 
+	arf_wr_addr2_from_RoB, arfbusy_data1_from_ID, arfbusy_data2_from_ID, '0', '0',
 	arfbusy_wr_en1_from_ID, arfbusy_wr_en2_from_ID, arfbusy_wr_en1_from_RoB, arfbusy_wr_en2_from_RoB, clk, reset,
 	arfbusy_data_out1, arfbusy_data_out2, arfbusy_data_out3, arfbusy_data_out4, arfbusy_data_out5, arfbusy_data_out6);
 
@@ -426,7 +432,7 @@ ARF_BUSY_INST : RF_busybit port map(arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, 
 CARRY_INST : bit_register port map(clk, global_carry_en_from_RoB, reset, global_carry_data_in_from_RoB, global_carry_out); 
 CARRY_TAG_INST : myRegister generic map(5) port map(clk, '1', reset, global_carry_tag_data_in_from_ID, global_carry_tag_out);
 CARRY_BUSY_INST : bit_register port map(clk, '1', reset, global_carry_busy_in, global_carry_busy_out);
-global_carry_busy_in <= global_carry_busy_from_RoB when (global_carry_busy_from_ID = '0' and global_carry_busy_en_from_RoB = '1') else
+global_carry_busy_in <= '0' when (global_carry_busy_from_ID = '0' and global_carry_busy_en_from_RoB = '1') else
 						global_carry_busy_from_ID;
 global_carry_busy_from_ID <= global_carry_busy1_from_ID or global_carry_busy2_from_ID;
 
@@ -437,7 +443,7 @@ global_carry_tag_data_in_from_ID <= global_carry_tag1_from_ID when(global_carry_
 ZERO_INST : bit_register port map(clk, global_zero_en_from_RoB, reset, global_zero_data_in_from_RoB, global_zero_out);
 ZERO_TAG_INST : myRegister generic map(5) port map(clk, '1', reset, global_zero_tag_data_in_from_ID, global_zero_tag_out);
 ZERO_BUSY_INST : bit_register port map(clk, '1', reset, global_zero_busy_in, global_zero_busy_out);
-global_zero_busy_in <= global_zero_busy_from_RoB when (global_zero_busy_from_ID = '0' and global_zero_busy_en_from_RoB = '1') else
+global_zero_busy_in <= '0' when (global_zero_busy_from_ID = '0' and global_zero_busy_en_from_RoB = '1') else
 						global_zero_busy_from_ID;
 global_zero_busy_from_ID <= global_zero_busy1_from_ID or global_zero_busy2_from_ID;
 
@@ -467,7 +473,7 @@ ID_INST : ID port map(clk, reset, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_
 	inst1_valid_from_ID, inst2_valid_from_ID,
 	inst1_carry_from_ID, inst1_zero_from_ID, inst1_carry_ready_from_ID, inst1_zero_ready_from_ID, inst1_carry_wr_from_ID, inst1_zero_wr_from_ID, 
 	inst2_carry_from_ID, inst2_carry_ready_from_ID, inst2_carry_wr_from_ID, inst2_zero_from_ID, inst2_zero_ready_from_ID, inst2_zero_wr_from_ID,
-	 "00", "00",
+	 unused5, unused6,
 	 inst1_store_tag_from_ID, inst2_store_tag_from_ID,
 	 global_carry_busy1_from_ID, global_zero_busy1_from_ID, global_carry_busy2_from_ID, global_zero_busy2_from_ID,
 	 global_carry_tag1_from_ID, global_zero_tag1_from_ID, global_carry_tag2_from_ID, global_zero_tag2_from_ID,
@@ -498,5 +504,7 @@ ROB_INST : rob port map(clk, reset,
 	arfbusy_wr_en1_from_RoB, arfbusy_wr_en2_from_RoB,
 	global_zero_busy_en_from_RoB, global_carry_busy_en_from_RoB
 	);
+dram_data_in1 <= arf_data1_from_RoB;
+dram_data_in2 <= arf_data2_from_RoB;
 
 end architecture behave;

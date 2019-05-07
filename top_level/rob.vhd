@@ -132,7 +132,7 @@ process(clk,reset,
 
 		exec_ptr_1, exec_ptr_2,
 
-		dest1, dest2)
+		dest1, dest2,no_wb_out,no_wb)
 
 	begin
 

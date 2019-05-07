@@ -12,7 +12,7 @@ entity pen16bitwith2output is
 end entity;
 
 architecture behave of pen16bitwith2output is
-	component pen32bit is
+	component pen16bit is
 	port (penin: in std_logic_vector(15 downto 0);
 			no1found : out std_logic;
 			pennext: out std_logic_vector(15 downto 0);
@@ -23,8 +23,8 @@ signal pentemp : std_logic_vector(15 downto 0);
 signal no1found1, no1found2 : std_logic;
 
 begin
-	pen1 : pen32bit port map (penin, no1found1, pentemp, penout1);
-	pen2 : pen32bit port map (pentemp, no1found2, pennext_twoallotted, penout2);
+	pen1 : pen16bit port map (penin, no1found1, pentemp, penout1);
+	pen2 : pen16bit port map (pentemp, no1found2, pennext_twoallotted, penout2);
 	twoRRnotFree <= no1found1 or no1found2;
 	pennext_oneallotted <= pentemp;
 end architecture behave;
