@@ -346,6 +346,8 @@ signal global_carry_en_from_RoB, global_carry_data_in_from_RoB, global_carry_out
 signal global_carry_tag_data_in_from_ID, global_carry_tag_out, global_zero_tag_data_in_from_ID, 
 		global_zero_tag_out : std_logic_vector(4 downto 0);
 
+-- ID
+signal inst1_carry_wr_from_ID, inst1_zero_wr_from_ID, inst2_carry_wr_from_ID, inst2_zero_wr_from_ID : std_logic;
 ---------------------------------------INSTANCES-------------------------------------------------------------------------------
 begin
 reset_bar <= not reset;
@@ -359,11 +361,22 @@ RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2,
 		rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, rrf_val_vec,
 
 		pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rr_dest_tag1_from_id, rr_dest_tag2_from_id,
-		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, RS_full, rb_pc_from_RS, 
+		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, 
+		inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, inst2_op2_from_ID, 
+		inst1_store_tag_from_ID, inst2_store_tag_from_ID,
+		inst1_zero_ready_from_ID, inst2_zero_ready_from_ID,
+		inst1_zero_from_ID, inst2_zero_from_ID,
+		inst1_carry_ready_from_ID, inst2_carry_ready_from_ID,
+		inst1_carry_from_ID, inst2_carry_from_ID,
+		inst1_valid_from_ID, inst2_valid_from_ID,
+		inst1_op1_valid_from_ID, inst1_op2_valid_from_ID,
+		inst2_op1_valid_from_ID, inst2_op2_valid_from_ID,
+
+		RS_full, rb_pc_from_RS, 
 		rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, 
 		rc_dest_rrtag_from_RS, rc_val_from_RS, rc_carry_from_RS, rc_zero_from_RS);
-
+rrf_val_vec_from_ex????
 ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rc_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', rrf_wr_data1,
 		rrf_wr_addr1, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1,alu_p_no_ans);
@@ -429,10 +442,25 @@ ID_INST : ID port map(clk, reset, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_
 	rrf_free_vec_from_id,
 	arf_rd_addr1_from_ID, arf_rd_addr2_from_ID, arf_rd_addr3_from_ID, arf_rd_addr4_from_ID,	arf_rd_addr5_from_ID, arf_rd_addr6_from_ID, arftag_wr_addr1_from_ID, arftag_wr_addr2_from_ID,
 	pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id,
-
+	inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, inst2_op2_from_ID,
+	inst1_op1_valid_from_ID, inst1_op2_valid_from_ID, inst2_op1_valid_from_ID, inst2_op2_valid_from_ID,
+	inst1_valid_from_ID, inst2_valid_from_ID,
+	inst1_carry_from_ID, inst1_zero_from_ID, inst1_carry_ready_from_ID, inst1_zero_ready_from_ID, inst1_carry_wr_from_ID, inst1_zero_wr_from_ID, 
+	inst2_carry_from_ID, inst2_carry_ready_from_ID, inst2_carry_wr_from_ID, inst2_zero_from_ID, inst2_zero_ready_from_ID, inst2_zero_wr_from_ID,
+	 "00", "00",
+	 inst1_store_tag_from_ID, inst2_store_tag_from_ID,
+	 global_carry_busy1_from_ID, global_zero_busy1_from_ID, global_carry_busy2_from_ID, global_zero_busy2_from_ID,
+	 global_carry_tag1_from_ID, global_zero_tag1_from_ID, global_carry_tag2_from_ID, global_zero_tag2_from_ID,
+	 arfbusy_data1_from_ID, arfbusy_data2_from_ID,
+	 arftag_data1_from_ID, arftag_data2_from_ID,
+	 carry_tag1_from_id, zero_tag1_from_id, carry_tag2_from_id, zero_tag2_from_id,
+	 ra1_invalidate, ra2_invalidate, pc_en, ra_en,
+	 arfbusy_wr_en1_from_ID, arfbusy_wr_en2_from_ID, arftag_wr_en1_from_ID, arftag_wr_en2_from_ID,
+	 adder2_out, adder3_out, ZA7_1_out, ZA7_2_out,
+	 S0, S1, S2, S3
 	 );
 
-
+ROB_INST : 
 
 
 
