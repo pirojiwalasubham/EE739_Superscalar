@@ -49,7 +49,7 @@ architecture behave of ls_p is
 			);	
 	end component bit_register;
 
-	signal rc_pcout,rc_op1out,rc_op2out,add_in_a,add_in_b,add_out,rc_irout,rcimm6out,ls_p_data_out_temp : std_logic_vector (15 downto 0);
+	signal rc_pcout,rc_op1out,rc_op2out,add_in_a,add_in_b,add_out,rc_irout,rcimm6out, rcimm9out,ls_p_data_out_temp : std_logic_vector (15 downto 0);
 	signal rc_dest_rrtagout,rc_carrytagout, rc_zerotagout : std_logic_vector (4 downto 0);
 	signal rc_spectagout : std_logic_vector(1 downto 0);
 	signal alu_p_brach_taken_temp, rc_validout,rc_carryout,rc_zeroout,rc_carryreadyout,rc_zeroreadyout,unused_c: std_logic;

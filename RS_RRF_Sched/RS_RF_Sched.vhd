@@ -21,6 +21,9 @@ entity RS_RF_Sched is
 		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
 		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
 		store_retirement_count : in std_logic_vector(1 downto 0);
+		id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in : in std_logic_vector(15 downto 0);
+		id_1_store_tag_in,id_2_store_tag_in : in std_logic_vector(4 downto 0);
+		id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: in std_logic;
 
 
 		twoRSnotFree_rs : out std_logic;
@@ -90,10 +93,8 @@ end component;
     signal sign_extended_store_tag_minus2,  sign_extended_store_tag_minus1, sign_extended_store_tag, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
 	signal store_tag_minus2_carry, store_tag_minus1_carry, rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
 	signal store_tag_minus1,store_tag_minus2,rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
-	signal id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: std_logic;
-	signal id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in, pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
+	signal pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
-	signal id_1_store_tag_in,id_2_store_tag_in : std_logic_vector(4 downto 0);
 	signal rs_inst_val_out_vector,inst_scheduled :std_logic_vector(15 downto 0);
 	signal twoRSnotFree_rs_signal : std_logic;
 	------------------------------------------------------------------------------------------------------------------------------
