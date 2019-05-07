@@ -21,9 +21,9 @@ entity RS_RF_Sched is
 		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
 		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
 		store_retirement_count : in std_logic_vector(1 downto 0);
-		id_2_op2_in,id_1_op1_in, id_2_op1_in,id_1_op2_in : in std_logic_vector(15 downto 0);
+		id_1_op1_in,id_1_op2_in, id_2_op1_in, id_2_op2_in : in std_logic_vector(15 downto 0);
 		id_1_store_tag_in,id_2_store_tag_in : in std_logic_vector(4 downto 0);
-		id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: in std_logic;
+		id_1_zero_ready_in, id_2_zero_ready_in, id_1_zero_in, id_2_zero_in, id_1_carry_ready_in, id_2_carry_ready_in, id_1_carry_in, id_2_carry_in, id_1_val_in, id_2_val_in, id_1_op1_val_in, id_1_op2_val_in, id_2_op1_val_in, id_2_op2_val_in : in std_logic;
 
 
 		twoRSnotFree_rs : out std_logic;
