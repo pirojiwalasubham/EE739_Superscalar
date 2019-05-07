@@ -48,7 +48,7 @@ component alu_p is
 		clk, reset: in std_logic ;
 		rb_pc,rb_op1,rb_op2, rb_ir : in std_logic_vector(15 downto 0);
 		rb_dest_rrtag,rb_carrytag,rb_zerotag : in std_logic_vector(4 downto 0);
-		rb_spectag : in std_logic_vector(1 downto 0);
+		rb_spectag ; in std_logic_vector(1 downto 0);
 		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
 
 		alu_p_out : out std_logic_vector(17 downto 0);
@@ -80,7 +80,6 @@ component dram is
     wren_1,wren_2    : IN STD_LOGIC ;
     read_data_out  : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
   );
-end component;
 
   component FullAdder is
    port(x0,y0,cin: in std_logic;
@@ -146,7 +145,7 @@ component ls_p is
 		clk, reset: in std_logic ;
 		rc_pc,rc_op1,rc_op2, rc_ir, read_datafrommem : in std_logic_vector(15 downto 0);
 		rc_dest_rrtag,rc_carrytag,rc_zerotag : in std_logic_vector(4 downto 0);
-		rc_spectag : in std_logic_vector(1 downto 0);
+		rc_spectag ; in std_logic_vector(1 downto 0);
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
 
 		ls_p_data_out : out std_logic_vector(17 downto 0);
@@ -326,11 +325,9 @@ reset_bar <= not reset;
 DRAM_INST : dram port map (dram_wr_addr1, dram_wr_addr2, dram_rd_addr, clk, dram_data_in1, dram_data_in2, '1', dram_wr_en1, dram_wr_en2, dram_data_out); 
 
 IFETCH_INST : IFetch generic map (16) port map (clk, reset, reset_bar, S0, S1, S2, S3, pc_en, ra1_invalidate, ra2_invalidate, ra_en, adder2_out, 
-	adder3_out, rb_op2, rrf_wr_data1(17 downto 2), rrf_wr_data1(17 downto 2), ZA7_1_out, ZA7_2_out, dram_data_out, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_ir);
+	adder3_out, rb_op2, adder4_out, rrf_wr_data1(17 downto 2), ZA7_1_out, ZA7_2_out, dram_data_out, ra1_val, ra2_val, ra1_pc, ra1_ir, ra2_pc, ra2_ir);
 
-RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2, rrf_wr_en1, rrf_wr_en2, rrf_wr_data1, rrf_wr_data2, 
-		rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, rrf_val_vec, pc1_from_id, 
-		pc2_from_id, ir1_from_id, ir2_from_id, rr_dest_tag1_from_id, rr_dest_tag2_from_id,
+RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2, rrf_wr_en1, rrf_wr_en2, rrf_wr_data1, rrf_wr_data2, rrf_free_vec_from_id, rrf_free_vec_from_rob, rrf_val_vec_from_ex, rrf_val_vec_from_rob, rrf_free_vec, rrf_val_vec, pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rr_dest_tag1_from_id, rr_dest_tag2_from_id
 		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, RS_full, rb_pc_from_RS, rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_val_from_RS, rb_carry_from_RS, rb_zero_from_RS, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, rc_dest_rrtag_from_RS, rc_val_from_RS, rc_carry_from_RS, rc_zero_from_RS);
 

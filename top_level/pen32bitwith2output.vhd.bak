@@ -20,7 +20,7 @@ architecture behave of pen32bitwith2output is
 end component ;
 
 signal pentemp : std_logic_vector(31 downto 0);
-signal no1found1, no1found2 : std_logic;
+signal no1found1, no1found2 : out std_logic;
 
 begin
 	pen1 : pen32bit port map (penin, no1found1, pentemp, penout1);
