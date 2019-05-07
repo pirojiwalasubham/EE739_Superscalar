@@ -274,7 +274,8 @@ begin
     -- Scheduler ke signals
      alu_schedulable_vec, ls_schedulable_vec,pennext_alu_sched,pennext_ls_sched  ,
      no1found_alu_sched,no1found_ls_sched,
-     penout_alu_sched,penout_ls_sched
+     penout_alu_sched,penout_ls_sched,
+     twoRSnotFree_rs, store_tag_minus1, store_tag_minus2
 		)
 
 	begin
