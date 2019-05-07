@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top_level
-Tue May 07 20:36:55 2019
+Tue May 07 22:00:57 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -628,7 +628,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue May 07 20:36:55 2019       ;
+; Analysis & Synthesis Status     ; Successful - Tue May 07 22:00:57 2019       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; top_level                                   ;
 ; Top-level Entity Name           ; top_level                                   ;
@@ -6710,7 +6710,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Tue May 07 20:36:29 2019
+    Info: Processing started: Tue May 07 22:00:36 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -6862,7 +6862,7 @@ Warning (10036): Verilog HDL or VHDL warning at ID.vhd(125): object "c_store_tag
 Warning (10812): VHDL warning at ID.vhd(192): sensitivity list already contains free_rrf_vec_out_sig File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 192
 Warning (10036): Verilog HDL or VHDL warning at ID.vhd(221): object "x1_beq_var" assigned a value but never read File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 221
 Warning (10036): Verilog HDL or VHDL warning at ID.vhd(221): object "x2_beq_var" assigned a value but never read File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 221
-Warning (10492): VHDL Process Statement warning at ID.vhd(2064): signal "free_rrf_vec_out_sig2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 2064
+Warning (10492): VHDL Process Statement warning at ID.vhd(2069): signal "free_rrf_vec_out_sig2" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 2069
 Info (12128): Elaborating entity "pen32bitwith2output" for hierarchy "ID:ID_INST|pen32bitwith2output:PE" File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd Line: 180
 Info (12128): Elaborating entity "pen32bit" for hierarchy "ID:ID_INST|pen32bitwith2output:PE|pen32bit:pen1" File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen32bitwith2output.vhd Line: 26
 Info (12128): Elaborating entity "rob" for hierarchy "rob:ROB_INST" File: C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd Line: 489
@@ -6877,9 +6877,9 @@ Info (21057): Implemented 3 device resources after synthesis - the final resourc
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 0 output pins
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 49 warnings
-    Info: Peak virtual memory: 4941 megabytes
-    Info: Processing ended: Tue May 07 20:36:55 2019
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:46
+    Info: Peak virtual memory: 4938 megabytes
+    Info: Processing ended: Tue May 07 22:00:57 2019
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:38
 
 

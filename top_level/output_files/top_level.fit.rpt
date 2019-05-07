@@ -1,5 +1,5 @@
 Fitter report for top_level
-Tue May 07 20:37:42 2019
+Tue May 07 22:01:53 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -56,7 +56,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Fitter Summary                                                                ;
 +---------------------------------+---------------------------------------------+
-; Fitter Status                   ; Successful - Tue May 07 20:37:42 2019       ;
+; Fitter Status                   ; Successful - Tue May 07 22:01:53 2019       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; top_level                                   ;
 ; Top-level Entity Name           ; top_level                                   ;
@@ -1103,7 +1103,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.06 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.07 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1112,9 +1112,9 @@ Info (11801): Fitter post-fit operations ending: elapsed time is 00:00:04
 Info (144001): Generated suppressed messages file C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/output_files/top_level.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 6 warnings
     Info: Peak virtual memory: 6377 megabytes
-    Info: Processing ended: Tue May 07 20:37:43 2019
-    Info: Elapsed time: 00:00:46
-    Info: Total CPU time (on all processors): 00:01:10
+    Info: Processing ended: Tue May 07 22:01:54 2019
+    Info: Elapsed time: 00:00:56
+    Info: Total CPU time (on all processors): 00:01:07
 
 
 +----------------------------+
