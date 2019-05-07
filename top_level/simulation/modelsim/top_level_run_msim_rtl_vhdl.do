@@ -30,4 +30,5 @@ vcom -93 -work work {C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/to
 vcom -93 -work work {C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd}
 vcom -93 -work work {C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add1.vhd}
 vcom -93 -work work {C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add.vhd}
+vcom -93 -work work {C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register1.vhd}
 

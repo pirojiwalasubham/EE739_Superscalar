@@ -40,6 +40,13 @@ end RS_RF_Sched;
 
 architecture behave of RS_RF_Sched is
 
+component bit_register1 is
+	port(
+		clk,wr,clr : in std_logic;
+		din : in std_logic;
+		dout :out std_logic
+		);	
+end component;
 	component myRegister is
 			generic(
 			data_length: integer);
@@ -215,7 +222,7 @@ begin
 
 		RS_OP1_VAL :  bit_register port map (clk,rs_op1_val_en(i),reset,rs_op1_val_in(i),rs_op1_val_out(i));
 		RS_OP2_VAL :  bit_register port map (clk,rs_op2_val_en(i),reset,rs_op2_val_in(i),rs_op2_val_out(i));
-		RS_INST_VAL:  bit_register port map (clk,rs_inst_val_en(i),reset,rs_inst_val_in(i),rs_inst_val_out(i));
+		RS_INST_VAL:  bit_register1 port map (clk,rs_inst_val_en(i),reset,rs_inst_val_in(i),rs_inst_val_out(i));
 		RS_CARRY:     bit_register port map (clk,rs_carry_en(i),reset,rs_carry_in(i),rs_carry_out(i));
 		RS_CARR_READY:bit_register port map (clk,rs_carry_ready_en(i),reset,rs_carry_ready_in(i),rs_carry_ready_out(i));
 		RS_ZERO:      bit_register port map (clk,rs_zero_en(i),reset,rs_zero_in(i),rs_zero_out(i));
