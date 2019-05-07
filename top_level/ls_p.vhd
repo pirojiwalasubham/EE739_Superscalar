@@ -13,10 +13,12 @@ entity ls_p is
 		rc_dest_rrtag,rc_carrytag,rc_zerotag : in std_logic_vector(4 downto 0);
 		rc_spectag : in std_logic_vector(1 downto 0);
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
+		rrf_valid_vect_in : in std_logic_vector(31 downto 0);
 
 		ls_p_data_out : out std_logic_vector(17 downto 0);
 		read_addr,write_addr : out std_logic_vector(15 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
+		rrf_valid_vect_ls_p_out : out std_logic_vector(31 downto 0);
 		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic
 		);
 end entity;
@@ -107,6 +109,14 @@ architecture behave of ls_p is
 						rcimm9out when rc_irout(15 downto 12) = "0011" else 
 						read_datafrommem;
 
+
+		process(rrf_valid_vect_in)
+		begin 
+
+			rrf_valid_vect_ls_p_out <= rrf_valid_vect_in;
+			rrf_valid_vect_ls_p_out(to_integer(unsigned(rb_dest_rrtagout))) <= '1';
+
+		end process;
 
 		lw_r7_resolved <= '1' when ((rc_irout(15 downto 12) = "0100") and (rc_validout = '1') and (rc_irout(11 downto 9) = "111")) else '0';
 
