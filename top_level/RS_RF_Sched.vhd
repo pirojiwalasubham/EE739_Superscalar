@@ -88,6 +88,13 @@ end component;
 	type s_16 is array (0 to 31) of std_logic_vector(15 downto 0);
 	type s_5 is array (0 to 31) of std_logic_vector(4 downto 0);
 	type s_1 is array (0 to 31) of std_logic;
+
+	type s_18_2 is array (0 to 15) of std_logic_vector(17 downto 0);
+	type s_16_2 is array (0 to 15) of std_logic_vector(15 downto 0);
+	type s_5_2 is array (0 to 15) of std_logic_vector(4 downto 0);
+	type s_1_2 is array (0 to 15) of std_logic;
+
+
 	
 	
 	signal rrf_P_in, rrf_P_out : s_18;
@@ -97,12 +104,12 @@ end component;
 
 	------------------------------------------------------------------------------------------------------------------------------
     -- RS ke signals
-    signal sign_extended_store_tag_minus2,  sign_extended_store_tag_minus1, sign_extended_store_tag, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16;
-	signal store_tag_minus2_carry, store_tag_minus1_carry, rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1;
-	signal store_tag_minus1,store_tag_minus2,rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5;
+    signal sign_extended_store_tag_minus2,  sign_extended_store_tag_minus1, sign_extended_store_tag, pc_in, pc_out,rs_op1_in,rs_op1_out,rs_op2_in,rs_op2_out,rs_ir_out,rs_ir_in : s_16_2;
+	signal store_tag_minus2_carry, store_tag_minus1_carry, rs_zero_ready_out,rs_zero_out,rs_carry_ready_out,rs_carry_out,rs_inst_val_out,rs_op2_val_out, rs_op1_val_out, rs_zero_ready_in,rs_zero_in, rs_carry_ready_in, rs_carry_in, rs_inst_val_in, rs_op2_val_in, rs_op1_val_in, pc_en,rs_op1_en,rs_op2_en,rs_ir_en, rs_op1_val_en, rs_op2_val_en, rs_inst_val_en, rs_carry_en, rs_carry_ready_en, rs_zero_en, rs_zero_ready_en, rs_dest_rr_tag_en, rs_carry_tag_en, rs_zero_tag_en, rs_store_tag_en : s_1_2;
+	signal store_tag_minus1,store_tag_minus2,rs_store_tag_out,rs_zero_tag_out,rs_carry_tag_out,rs_dest_rr_tag_out,rs_dest_rr_tag_in, rs_carry_tag_in, rs_zero_tag_in, rs_store_tag_in : s_5_2;
 	signal pennext_twoallotted_rs,pennext_oneallotted_rs : std_logic_vector(15 downto 0);
 	signal penout1_rs_val,penout2_rs_val : std_logic_vector(3 downto 0 );
-	signal rs_inst_val_out_vector,inst_scheduled :std_logic_vector(15 downto 0);
+	signal rs_inst_inval_out_vector,inst_scheduled :std_logic_vector(15 downto 0);
 	signal twoRSnotFree_rs_signal : std_logic;
 	------------------------------------------------------------------------------------------------------------------------------
     -- Scheduler ke signals
@@ -222,7 +229,7 @@ begin
 
 		RS_OP1_VAL :  bit_register port map (clk,rs_op1_val_en(i),reset,rs_op1_val_in(i),rs_op1_val_out(i));
 		RS_OP2_VAL :  bit_register port map (clk,rs_op2_val_en(i),reset,rs_op2_val_in(i),rs_op2_val_out(i));
-		RS_INST_VAL:  bit_register1 port map (clk,rs_inst_val_en(i),reset,rs_inst_val_in(i),rs_inst_val_out(i));
+		RS_INST_VAL:  bit_register port map (clk,rs_inst_val_en(i),reset,rs_inst_val_in(i),rs_inst_val_out(i));
 		RS_CARRY:     bit_register port map (clk,rs_carry_en(i),reset,rs_carry_in(i),rs_carry_out(i));
 		RS_CARR_READY:bit_register port map (clk,rs_carry_ready_en(i),reset,rs_carry_ready_in(i),rs_carry_ready_out(i));
 		RS_ZERO:      bit_register port map (clk,rs_zero_en(i),reset,rs_zero_in(i),rs_zero_out(i));
@@ -237,10 +244,10 @@ begin
 
 
 	valid_vector : for i in 0 to 15 generate 
-		rs_inst_val_out_vector(i) <= rs_inst_val_out(i);
+		rs_inst_inval_out_vector(i) <= not rs_inst_val_out(i);
 	end generate valid_vector;
 	
-	TWO_FREE_ENTRIES : pen16bitwith2output port map(rs_inst_val_out_vector, twoRSnotFree_rs_signal,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
+	TWO_FREE_ENTRIES : pen16bitwith2output port map(( rs_inst_inval_out_vector), twoRSnotFree_rs_signal,pennext_twoallotted_rs,pennext_oneallotted_rs,penout1_rs_val,penout2_rs_val);
 
 	Subtract1 : for i in 0 to 15 generate
 		sign_extended_store_tag(i) <= ("11111111111" & rs_store_tag_out(i)) when(rs_store_tag_out(i)(4) = '1') else
