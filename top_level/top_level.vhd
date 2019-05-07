@@ -53,7 +53,7 @@ component alu_p is
 
 		alu_p_out : out std_logic_vector(17 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en : out std_logic
+		alu_p_c,alu_p_z,alu_p_brach_taken,alu_p_brach_nottaken,jlr_resolved,alu_r7_resolved,alu_p_valid_out, alu_p_rrf_en,alu_p_no_ans : out std_logic
 		);
 end component;
 
@@ -151,7 +151,7 @@ component ls_p is
 		ls_p_data_out : out std_logic_vector(17 downto 0);
 		read_addr,write_addr : out std_logic_vector(15 downto 0);
 		rrf_tag_out : out std_logic_vector(4 downto 0);
-		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out : out std_logic
+		mem_read_en, mem_write_en,lw_r7_resolved,ls_p_z,rrf_en_out,ls_p_val_out : out std_logic
 		);
 end component;
 
@@ -250,7 +250,7 @@ component rob is
 		--spec_tag_1_in, spec_tag_2_in : in std_logic;
 		valid_1_in, valid_2_in, complete_exec_1_in, complete_exec_2_in, mr_1_in, mr_2_in, c_1_in, c_2_in, z_1_in, z_2_in, cwr_1_in, cwr_2_in, zwr_1_in, zwr_2_in : in std_logic;
 		alu_p_in,  ls_p_write_addr, ls_p_data: in std_logic_vector(15 downto 0);
-		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in : in std_logic;
+		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in,alu_p_no_ans : in std_logic;
 
 		free_rrf_vect_in, val_rrf_vect_in : in std_logic_vector(31 downto 0);
 		arf_tag_in_1, arf_tag_in_2, c_tag_in, z_tag_in : in std_logic_vector(4 downto 0);
@@ -313,10 +313,10 @@ signal pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rb_pc_from_RS, rb_op1
 	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS: std_logic_vector(15 downto 0);
 signal store_retirement_count : std_logic_vector(1 downto 0);
 --ALU_P
-signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid : std_logic;
+signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, alu_p_no_ans : std_logic;
 --LS_P
 signal wr_addr_from_ls_p : std_logic_vector(15 downto 0);
-signal lw_r7_resolved, ls_p_z : std_logic;
+signal lw_r7_resolved, ls_p_z, ls_p_valid : std_logic;
 
 
 begin
@@ -333,11 +333,11 @@ RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2,
 
 ALU_P_INST : alu_p port map(clk, reset, rb_pc_from_RS, rb_op1_from_RS, rc_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
 		rb_dest_rrtag_from_RS, rb_dest_rrtag_from_RS, "00", rb_val_from_RS, '0', rb_carry_from_RS, '1', rb_zero_from_RS, '1', rrf_wr_data1,
-		rrf_wr_addr1, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1);
+		rrf_wr_addr1, alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, rrf_wr_en1,alu_p_no_ans);
 
 LS_P_INST : ls_p port map(clk, reset, rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, dram_data_out, rc_dest_rrtag_from_RS,
 	rc_dest_rrtag_from_RS, rc_dest_rrtag_from_RS, "00", rc_val_from_RS, rc_carry_from_RS, '1', rc_zero_from_RS, '1', rrf_wr_data2,
-	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2, '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2);
+	dram_rd_addr, wr_addr_from_ls_p, rrf_wr_addr2, '1', '1', lw_r7_resolved, ls_p_z, rrf_wr_en2,ls_p_valid);
 
 
 

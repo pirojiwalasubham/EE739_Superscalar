@@ -15,7 +15,7 @@ entity rob is
 		--spec_tag_1_in, spec_tag_2_in : in std_logic;
 		valid_1_in, valid_2_in, complete_exec_1_in, complete_exec_2_in, mr_1_in, mr_2_in, c_1_in, c_2_in, z_1_in, z_2_in, cwr_1_in, cwr_2_in, zwr_1_in, zwr_2_in : in std_logic;
 		alu_p_in,  ls_p_write_addr, ls_p_data: in std_logic_vector(15 downto 0);
-		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in : in std_logic;
+		valid_exec_alu, valid_exec_ls, alu_c_in,alu_z_in,ls_z_in,alu_p_no_ans : in std_logic;
 
 		free_rrf_vect_in, val_rrf_vect_in : in std_logic_vector(31 downto 0);
 		arf_tag_in_1, arf_tag_in_2, c_tag_in, z_tag_in : in std_logic_vector(4 downto 0);
@@ -70,7 +70,7 @@ architecture behave of rob is
 	
 	signal pc,dest, ir, result,pc_exec, pc_out, dest_out, ir_out, result_out, pc_exec_out : s_16;
 	signal dest_tag_out, dest_tag, c_tag_out, z_tag_out, c_tag, z_tag : s_5;
-	signal en,valid, complete_exec, mr, c, z, cwr, zwr, valid_out, complete_exec_out, mr_out, c_out, z_out, cwr_out, zwr_out : s_1;
+	signal en,valid, complete_exec, mr, c, z, cwr, zwr, valid_out, complete_exec_out, mr_out, c_out, z_out, cwr_out, zwr_out,no_wb,no_wb_out : s_1;
 
 	signal tail_ptr, head_ptr, tail_ptr_out, head_ptr_out, tail_ptr_out_plus1, head_ptr_out_plus1, tail_ptr_out_plus2, head_ptr_out_plus2 : std_logic_vector(4 downto 0);
 
@@ -99,6 +99,7 @@ architecture behave of rob is
 		rob_cwr : bit_register port map (clk,en(i),reset,cwr(i),cwr_out(i));
 		rob_zwr : bit_register port map (clk,en(i),reset,zwr(i),zwr_out(i));
 		rob_valid : bit_register port map (clk,en(i),reset,valid(i),valid_out(i));
+		rob_no_wb : bit_register port map (clk,en(i),reset,no_wb(i),no_wb_out(i));
 
 	end generate ReorderBuffer;
 
@@ -150,6 +151,7 @@ process(clk,reset,
 		cwr(k) <= cwr_out(k);
 		zwr(k) <= zwr_out(k);
 		valid(k) <= valid_out(k);
+		no_wb(k) <= no_wb_out(k);
 		en(k) <= '0';
 	end loop first;
 
@@ -427,6 +429,8 @@ process(clk,reset,
 	end if;
 
 	if (valid_exec_alu = '1') then
+		
+		no_wb(to_integer(unsigned(exec_ptr_1))) <= alu_p_no_ans;
 		dest(to_integer(unsigned(exec_ptr_1))) <= dest1 ;
 		c(to_integer(unsigned(exec_ptr_1))) <= alu_c_in;
 		z(to_integer(unsigned(exec_ptr_1))) <= alu_z_in;
@@ -469,13 +473,13 @@ process(clk,reset,
 			mem_en_2_temp <= '0';
 		end if;
 
-		if (((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1'))) then
+		if ((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out))) = '1')) then
 			arf_en_1_temp <= '0';
 		else
 			arf_en_1_temp <= '1';
 		end if;
 
-		if (((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1'))) then
+		if (((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out_plus1))) = '1'))) then
 			arf_en_2_temp <= '0';
 		else
 			arf_en_2_temp <= '1';
@@ -600,7 +604,7 @@ process(clk,reset,
 			mem_en_2_temp <= '0';
 		end if;
 
-		if (((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1'))) then
+		if (((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out))) = '1'))) then
 			arf_en_1_temp <= '0';
 		else
 			arf_en_1_temp <= '1';
