@@ -106,10 +106,10 @@ architecture behave of rob is
 	head_ptr_reg : myRegister generic map (5) port map (clk,'1',reset,head_ptr,head_ptr_out);
 	tail_ptr_reg : myRegister generic map (5) port map (clk,'1',reset,tail_ptr,tail_ptr_out);
 
-	a1 : Add5 port map (head_ptr,"00001",head_ptr_out_plus1);
-	a2 : Add5 port map (head_ptr,"00010",head_ptr_out_plus2);
-	a3 : Add5 port map (tail_ptr,"00001",tail_ptr_out_plus1);
-	a4 : Add5 port map (tail_ptr,"00010",tail_ptr_out_plus2);
+	a1 : Add5 port map (head_ptr_out,"00001",head_ptr_out_plus1);
+	a2 : Add5 port map (head_ptr_out,"00010",head_ptr_out_plus2);
+	a3 : Add5 port map (tail_ptr_out,"00001",tail_ptr_out_plus1);
+	a4 : Add5 port map (tail_ptr_out,"00010",tail_ptr_out_plus2);
 
 
 process(clk,reset,
