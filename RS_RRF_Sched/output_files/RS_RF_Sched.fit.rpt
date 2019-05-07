@@ -1,5 +1,5 @@
 Fitter report for RS_RF_Sched
-Tue May  7 02:09:34 2019
+Tue May  7 14:33:48 2019
 Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
@@ -54,7 +54,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +-------------------------------------+--------------------------------------------+
-; Fitter Status                       ; Failed - Tue May  7 02:09:34 2019          ;
+; Fitter Status                       ; Failed - Tue May  7 14:33:48 2019          ;
 ; Quartus II 64-Bit Version           ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
 ; Revision Name                       ; RS_RF_Sched                                ;
 ; Top-level Entity Name               ; RS_RF_Sched                                ;
@@ -4887,8 +4887,8 @@ Warning (169069): Following 77 pins have nothing, GND, or VCC driving datain por
     Info (169070): Pin rc_valid has GND driving its datain port
 Error: Quartus II 64-Bit Fitter was unsuccessful. 2 errors, 4 warnings
     Error: Peak virtual memory: 741 megabytes
-    Error: Processing ended: Tue May  7 02:09:35 2019
+    Error: Processing ended: Tue May  7 14:33:48 2019
     Error: Elapsed time: 00:00:03
-    Error: Total CPU time (on all processors): 00:00:02
+    Error: Total CPU time (on all processors): 00:00:03
 
 

@@ -1518,6 +1518,10 @@ if(taken_branch_detected = '1' or twoRRnotFree = '1') then
 	x1_val_var := '0';
 	arf_busy_wr_en1 <= '0';
 	arf_tag_wr_en1  <= '0';
+	C_1_busybit_out <= C_busybit_in;
+	Z_1_busybit_out <= Z_busybit_in;
+	C_1_tag_out_arf <= C_tag_in;
+	Z_1_tag_out_arf <= Z_tag_in;
 else
 	x1_val <= ra1_val_out;
 	arf_busy_wr_en1 <= ra1_val_out;
@@ -1529,46 +1533,82 @@ if(taken_branch_detected = '1' or twoRRnotFree = '1') then
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif ((x1_add = '1' or x1_adc = '1' or x1_adz = '1' or x1_ndu = '1' or x1_ndc = '1' or x1_ndz = '1' ) and ra1_ir_out(5 downto 3) = "111") then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_adi = '1' and ra1_ir_out(8 downto 6) = "111") then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_lw = '1' and ra1_ir_out(11 downto 9)= "111") then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_lm = '1' and ra1_ir_out(7) = '1') then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_jlr = '1') then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_lhi = '1' and ra1_ir_out(11 downto 9 ) = "111") then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_jal = '1') then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 elsif (x1_beq = '1') then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
 	arf_tag_wr_en2  <=  '0';
+	C_2_busybit_out <= C_busybit_in;
+	Z_2_busybit_out <= Z_busybit_in;
+	C_2_tag_out_arf <= C_tag_in;
+	Z_2_tag_out_arf <= Z_tag_in;
 else
 	x2_val <= ra2_val_out;
 	arf_busy_wr_en2 <=  ra2_val_out;
