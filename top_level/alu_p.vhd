@@ -10,7 +10,7 @@ entity alu_p is
 		clk, reset: in std_logic ;
 		rb_pc,rb_op1,rb_op2, rb_ir : in std_logic_vector(15 downto 0);
 		rb_dest_rrtag,rb_carrytag,rb_zerotag : in std_logic_vector(4 downto 0);
-		rb_spectag ; in std_logic_vector(1 downto 0);
+		rb_spectag : in std_logic_vector(1 downto 0);
 		rb_valid,rbdestr7,rb_carry,rb_carryready,rb_zero,rb_zeroready : in std_logic;
 
 		alu_p_out : out std_logic_vector(17 downto 0);

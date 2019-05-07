@@ -2017,10 +2017,17 @@ else
 	store_tag_rs_out1<= store_tag_reg_out;
 end if;
 
-	
-free_rrf_vec_out <= free_rrf_vec_out_sig when(x1_val_var = '1' and x2_val_var = '1') else
-					free_rrf_vec_out_sig2 when(x1_val_var = '1' and x2_val_var = '0') else
-					free_rrf_vec;
+
+if (x1_val_var = '1' and x2_val_var = '1') then
+	free_rrf_vec_out <= free_rrf_vec_out_sig;
+elsif (x1_val_var = '1' and x2_val_var = '0') then
+	free_rrf_vec_out <= free_rrf_vec_out_sig2;
+else
+	free_rrf_vec_out <= free_rrf_vec;
+end if ;
+--free_rrf_vec_out <= free_rrf_vec_out_sig when(x1_val_var = '1' and x2_val_var = '1') else
+--					free_rrf_vec_out_sig2 when(x1_val_var = '1' and x2_val_var = '0') else
+--					free_rrf_vec;
 
 end process;
 end architecture behave;

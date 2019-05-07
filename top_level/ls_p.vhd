@@ -11,7 +11,7 @@ entity ls_p is
 		clk, reset: in std_logic ;
 		rc_pc,rc_op1,rc_op2, rc_ir, read_datafrommem : in std_logic_vector(15 downto 0);
 		rc_dest_rrtag,rc_carrytag,rc_zerotag : in std_logic_vector(4 downto 0);
-		rc_spectag ; in std_logic_vector(1 downto 0);
+		rc_spectag : in std_logic_vector(1 downto 0);
 		rc_valid,rc_carry,rc_carryready,rc_zero,rc_zeroready : in std_logic;
 
 		ls_p_data_out : out std_logic_vector(17 downto 0);
