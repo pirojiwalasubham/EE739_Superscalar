@@ -473,13 +473,13 @@ process(clk,reset,
 			mem_en_2_temp <= '0';
 		end if;
 
-		if ((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out))) = '1')) then
+		if ((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb_out(to_integer(unsigned(head_ptr_out))) = '1')) then
 			arf_en_1_temp <= '0';
 		else
 			arf_en_1_temp <= '1';
 		end if;
 
-		if (((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out_plus1))) = '1'))) then
+		if (((ir_out(to_integer(unsigned(head_ptr_out_plus1)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out_plus1))) = '1') or (no_wb_out(to_integer(unsigned(head_ptr_out_plus1))) = '1'))) then
 			arf_en_2_temp <= '0';
 		else
 			arf_en_2_temp <= '1';
@@ -563,28 +563,20 @@ process(clk,reset,
 
 		if (arf_en_1_temp = '1') then
 			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
-		else
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
 		end if;		
 
 		if (arf_en_2_temp = '1') then
 			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0';
-		else
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 		end if;		
 		
 		val_rrf_vect_out <= val_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
 			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
-		else
-			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
 		end if;		
 
 		if (arf_en_2_temp = '1') then
 			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= '0';
-		else
-			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))))))) <= val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out_plus1)))))));
 		end if;		
 
 		head_ptr <= head_ptr_out_plus2;
@@ -592,7 +584,10 @@ process(clk,reset,
 		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
 		complete_exec(to_integer(unsigned(head_ptr_out_plus1))) <= '0';
 
-
+		valid(to_integer(unsigned(head_ptr_out))) <= '0';
+		valid(to_integer(unsigned(head_ptr_out_plus1))) <= '0';
+		en(to_integer(unsigned(head_ptr_out))) <= '1';
+		en(to_integer(unsigned(head_ptr_out_plus1))) <= '1';
 
 
 
@@ -610,7 +605,7 @@ process(clk,reset,
 			mem_en_2_temp <= '0';
 		end if;
 
-		if (((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb(to_integer(unsigned(head_ptr_out))) = '1'))) then
+		if (((ir_out(to_integer(unsigned(head_ptr_out)))(15 downto 12) = "1100") or (mr_out(to_integer(unsigned(head_ptr_out))) = '1') or (no_wb_out(to_integer(unsigned(head_ptr_out))) = '1'))) then
 			arf_en_1_temp <= '0';
 		else
 			arf_en_1_temp <= '1';
@@ -688,22 +683,21 @@ process(clk,reset,
 
 		if (arf_en_1_temp = '1') then
 			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
-		else
-			free_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= free_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
 		end if;
 
 		val_rrf_vect_out <= val_rrf_vect_in;
 
 		if (arf_en_1_temp = '1') then
 			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= '0';
-		else
-			val_rrf_vect_out((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out))))))) <= val_rrf_vect_in((to_integer(unsigned(dest_tag_out(to_integer(unsigned(head_ptr_out)))))));
 		end if;	
 
 		head_ptr <= head_ptr_out_plus1;
 
 		complete_exec(to_integer(unsigned(head_ptr_out))) <= '0';
 
+		valid(to_integer(unsigned(head_ptr_out))) <= '0';
+
+		en(to_integer(unsigned(head_ptr_out))) <= '1';
 
 
 
