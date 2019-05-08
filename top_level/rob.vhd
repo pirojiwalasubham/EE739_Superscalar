@@ -26,7 +26,8 @@ entity rob is
 		rrf_addr_out_1, rrf_addr_out_2 : out std_logic_vector(4 downto 0);
 		no_of_stores_cleared : out std_logic_vector(1 downto 0);
 		free_rrf_vect_out, val_rrf_vect_out : out std_logic_vector(31 downto 0);  
-		arf_en_1, arf_en_2,arf_en_3, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic
+		arf_en_1, arf_en_2,arf_en_3, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic;
+		rrf_tag_out1,rrf_tag_out2 : out std_logic_vector(4 downto 0)
 
 		); -- output
 end rob;
@@ -591,7 +592,10 @@ process(clk,reset,
 		en(to_integer(unsigned(head_ptr_out))) <= '1';
 		en(to_integer(unsigned(head_ptr_out_plus1))) <= '1';
 
-
+		----------ROB wb and id tag allocation at same time-----------------
+		rrf_tag_out1 <= (dest_tag_out(to_integer(unsigned(head_ptr_out))));
+		rrf_tag_out2 <= (dest_tag_out(to_integer(unsigned(head_ptr_out_plus1))));
+		--------------------------------------------------------------------
 
 	elsif (complete_exec_out(to_integer(unsigned(head_ptr_out))) = '1' and complete_exec_out(to_integer(unsigned(head_ptr_out_plus1))) = '0') then
 
@@ -702,6 +706,11 @@ process(clk,reset,
 		en(to_integer(unsigned(head_ptr_out))) <= '1';
 
 
+		----------ROB wb and id tag allocation at same time-----------------
+		rrf_tag_out1 <= (dest_tag_out(to_integer(unsigned(head_ptr_out))));
+		rrf_tag_out2 <= "00000";
+		--------------------------------------------------------------------
+
 
 	else
 
@@ -770,6 +779,10 @@ process(clk,reset,
 
 		head_ptr <= head_ptr_out;
 
+		----------ROB wb and id tag allocation at same time-----------------
+		rrf_tag_out1 <= "00000";
+		rrf_tag_out2 <= "00000";
+		--------------------------------------------------------------------
 		
 
 	end if;

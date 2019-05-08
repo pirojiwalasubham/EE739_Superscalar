@@ -270,9 +270,10 @@ component rob is
 		rrf_addr_out_1, rrf_addr_out_2 : out std_logic_vector(4 downto 0);
 		no_of_stores_cleared : out std_logic_vector(1 downto 0);
 		free_rrf_vect_out, val_rrf_vect_out : out std_logic_vector(31 downto 0);  
-		arf_en_1, arf_en_2,arf_en_3, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic
+		arf_en_1, arf_en_2,arf_en_3, mem_en_1, mem_en_2,c_en,z_en,arf_busy_en_1,arf_busy_en_2,z_busy_en,c_busy_en : out std_logic;
+		rrf_tag_out1,rrf_tag_out2 : out std_logic_vector(4 downto 0)
 
-		); -- output
+		);-- output
 end component;
 
 
@@ -328,6 +329,10 @@ signal pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, rb_pc_from_RS, rb_op1
 	rc_pc_from_RS, rc_op1_from_RS, rc_op2_from_RS, rc_ir_from_RS, inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, 
 	inst2_op2_from_ID: std_logic_vector(15 downto 0);
 signal store_retirement_count : std_logic_vector(1 downto 0);
+
+----------rob se wb when id se decode---------------------- 
+signal inst1_op1_to_RS,inst1_op2_to_RS,inst2_op1_to_RS,inst2_op2_to_RS : std_logic_vector(15 downto 0);
+signal inst1_op1_valid_to_RS,inst1_op2_valid_to_RS,inst2_op1_valid_to_RS,inst2_op2_valid_to_RS : std_logic;
 --ALU_P
 signal alu_p_carry, alu_p_zero, branch_taken, branch_not_taken, jlr_resolved, alu_r7_resolved, alu_p_valid, alu_p_no_ans : std_logic;
 signal alu_p_pc : std_logic_vector(15 downto 0);
@@ -367,6 +372,7 @@ signal unused5,unused6 : std_logic_vector(1 downto 0);
 -- RoB
 signal rob_full : std_logic;
 signal unused, unused2 : std_logic_vector(4 downto 0);
+signal rrf_tag1_from_Rob, rrf_tag2_from_Rob: std_logic_vector(4 downto 0);
 ---------------------------------------INSTANCES-------------------------------------------------------------------------------
 begin
 reset_bar <= not reset;
@@ -381,15 +387,15 @@ RS_RRF_SCHED_INST : RS_RF_Sched port map(clk, reset, rrf_wr_addr1, rrf_wr_addr2,
 
 		pc1_from_id, pc2_from_id, ir1_from_id, ir2_from_id, arftag_data1_from_ID, arftag_data2_from_ID,
 		carry_tag1_from_id, carry_tag2_from_id, zero_tag1_from_id, zero_tag2_from_id, store_retirement_count, 
-		inst1_op1_from_ID, inst1_op2_from_ID, inst2_op1_from_ID, inst2_op2_from_ID, 
+		inst1_op1_to_RS, inst1_op2_to_RS, inst2_op1_to_RS, inst2_op2_to_RS, 
 		inst1_store_tag_from_ID, inst2_store_tag_from_ID,
 		inst1_zero_ready_from_ID, inst2_zero_ready_from_ID,
 		inst1_zero_from_ID, inst2_zero_from_ID,
 		inst1_carry_ready_from_ID, inst2_carry_ready_from_ID,
 		inst1_carry_from_ID, inst2_carry_from_ID,
 		inst1_valid_from_ID, inst2_valid_from_ID,
-		inst1_op1_valid_from_ID, inst1_op2_valid_from_ID,
-		inst2_op1_valid_from_ID, inst2_op2_valid_from_ID,
+		inst1_op1_valid_to_RS, inst1_op2_valid_to_RS,
+		inst2_op1_valid_to_RS, inst2_op2_valid_to_RS,
 
 		RS_full, rb_pc_from_RS, 
 		rb_op1_from_RS, rb_op2_from_RS, rb_ir_from_RS, rb_dest_rrtag_from_RS,
@@ -501,9 +507,46 @@ ROB_INST : rob port map(clk, reset,
 	rrf_val_vec_from_rob, arf_wr_en1_from_RoB, arf_wr_en2_from_RoB, arf_wr_en3_from_RoB, dram_wr_en1, dram_wr_en2, 
 	global_carry_en_from_RoB, global_zero_en_from_RoB,
 	arfbusy_wr_en1_from_RoB, arfbusy_wr_en2_from_RoB,
-	global_zero_busy_en_from_RoB, global_carry_busy_en_from_RoB
+	global_zero_busy_en_from_RoB, global_carry_busy_en_from_RoB, rrf_tag1_from_Rob,rrf_tag2_from_Rob
 	);
 dram_data_in1 <= arf_data1_from_RoB;
 dram_data_in2 <= arf_data2_from_RoB;
+
+ --arf_data1_from_RoB, arf_data2_from_RoB
+ --arf_wr_en1_from_RoB, arf_wr_en2_from_RoB
+ --rrf_tag1_from_Rob,rrf_tag2_from_Rob
+
+inst1_op1_to_RS <= 	arf_data1_from_RoB when(inst1_op1_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst1_op1_from_ID(4 downto 0)) else
+					arf_data2_from_RoB when(inst1_op1_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst1_op1_from_ID(4 downto 0)) else
+					inst1_op1_from_ID;
+
+inst1_op2_to_RS <= arf_data1_from_RoB when(inst1_op2_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst1_op2_from_ID(4 downto 0)) else
+					arf_data2_from_RoB when(inst1_op2_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst1_op2_from_ID(4 downto 0)) else
+					inst1_op2_from_ID;
+
+inst2_op1_to_RS <= arf_data1_from_RoB when(inst2_op1_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst2_op1_from_ID(4 downto 0)) else
+					arf_data2_from_RoB when(inst2_op1_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst2_op1_from_ID(4 downto 0)) else
+					inst2_op1_from_ID;
+
+inst2_op2_to_RS <= arf_data1_from_RoB when(inst2_op2_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst2_op2_from_ID(4 downto 0)) else
+					arf_data2_from_RoB when(inst2_op2_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst2_op2_from_ID(4 downto 0)) else
+					inst2_op2_from_ID;
+
+inst1_op1_valid_to_RS <= '1' when(inst1_op1_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst1_op1_from_ID(4 downto 0)) else
+					'1' when(inst1_op1_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst1_op1_from_ID(4 downto 0)) else
+					inst1_op1_valid_from_ID;
+
+inst1_op2_valid_to_RS<= '1' when(inst1_op2_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst1_op2_from_ID(4 downto 0)) else
+					'1' when(inst1_op2_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst1_op2_from_ID(4 downto 0)) else
+					inst1_op2_valid_from_ID;
+
+inst2_op1_valid_to_RS<= '1' when(inst2_op1_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst2_op1_from_ID(4 downto 0)) else
+					'1' when(inst2_op1_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst2_op1_from_ID(4 downto 0)) else
+					inst2_op1_valid_from_ID;
+
+inst2_op2_valid_to_RS<= '1' when(inst2_op2_valid_from_ID ='0' and arf_wr_en1_from_RoB = '1' and rrf_tag1_from_Rob = inst2_op2_from_ID(4 downto 0)) else
+					'1' when(inst2_op2_valid_from_ID ='0' and arf_wr_en2_from_RoB = '1' and rrf_tag2_from_Rob = inst2_op2_from_ID(4 downto 0)) else
+					inst2_op2_valid_from_ID;
+
 
 end architecture behave;
