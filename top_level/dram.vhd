@@ -24,6 +24,7 @@ architecture syn of dram is
   signal RAM : ram_type :=
   (
  0  => "0000000000000000",
+ 1 => "1010101010101010",
  others => "0000000000000000"
   ) ;
 
