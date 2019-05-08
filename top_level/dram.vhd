@@ -1,7 +1,11 @@
-library ieee;   
-use ieee.std_logic_1164.all;  
-use ieee.std_logic_unsigned.all; 
- 
+ library std;
+use std.standard.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_misc.all;
+
 entity dram is 
   PORT
   (
@@ -37,14 +41,14 @@ begin
   begin   
     if (clock'event and clock = '1') then   
       if (wren_1 = '1') then   
-        RAM(conv_integer(address_wr_1)) <= data_1_temp;   
+        RAM(to_integer(unsigned(address_wr_1(5 downto 0)))) <= data_1_temp;   
       end if;   
       if (wren_2 = '1') then
-        RAM(conv_integer(address_wr_2)) <= data_in_2;
+        RAM(to_integer(unsigned(address_wr_2(5 downto 0)))) <= data_in_2;
       end if;
     end if;   
   end process;
-  read_data_out <= RAM(conv_integer(address_rd)) when (rden ='1') else
+  read_data_out <= RAM(to_integer(unsigned(address_rd(5 downto 0)))) when (rden ='1') else
         "ZZZZZZZZZZZZZZZZ";
   
 end syn; 
