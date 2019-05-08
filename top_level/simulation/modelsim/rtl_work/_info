@@ -21,9 +21,9 @@ VYONNKKZRSSOnZlEz:doV>0
 !s100 k[;;V6b>1jONmC6CdRCmh1
 Z6 OV;C;10.5b;63
 31
-Z7 !s110 1557276577
+Z7 !s110 1557294519
 !i10b 1
-Z8 !s108 1557276577.000000
+Z8 !s108 1557294519.000000
 Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add.vhd|
 Z10 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add.vhd|
 !i113 1
@@ -60,11 +60,11 @@ VDc19[:3U`ec7K63;J64HX0
 !s100 QE5[H[mbnhh^]50T=@EW;2
 R6
 31
-R7
+Z16 !s110 1557294518
 !i10b 1
-R8
-Z16 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add1.vhd|
-Z17 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add1.vhd|
+Z17 !s108 1557294518.000000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add1.vhd|
+Z19 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add1.vhd|
 !i113 1
 R11
 R12
@@ -78,11 +78,11 @@ V^LCJ1c=Nm<g>Y9aBhcf]D2
 !s100 1W7=cS8ZB?S1ea7=P[OWj2
 R6
 31
-R7
-!i10b 1
-R8
 R16
+!i10b 1
 R17
+R18
+R19
 !i113 1
 R11
 R12
@@ -91,19 +91,19 @@ R13
 R2
 R3
 R0
-Z18 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd
-Z19 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd
+Z20 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd
+Z21 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd
 l0
 L7
 VMRLFkL`=z8^Y5MIcWb`iK1
 !s100 EJ60ADY3Jfg4;he0R2kjh2
 R6
 31
-R7
+R16
 !i10b 1
-R8
-Z20 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd|
-Z21 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd|
+R17
+Z22 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd|
+Z23 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add2.vhd|
 !i113 1
 R11
 R12
@@ -117,32 +117,32 @@ VC1begI8X>V]V<5`bB@_A^2
 !s100 o;:`1AlLWH5RkS5DViInM1
 R6
 31
-R7
+R16
 !i10b 1
-R8
-R20
-R21
+R17
+R22
+R23
 !i113 1
 R11
 R12
 Eadd5
-Z22 w1557162431
+Z24 w1557162431
 R2
 R3
 R0
-Z23 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd
-Z24 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd
+Z25 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd
+Z26 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd
 l0
 L7
 V5TkGUNbdl>;=@]CC@]3^O3
 !s100 PT_aCVk^_aS4<<CC1T7O?1
 R6
 31
-R7
+R16
 !i10b 1
-R8
-Z25 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd|
-Z26 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd|
+R17
+Z27 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd|
+Z28 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/add5.vhd|
 !i113 1
 R11
 R12
@@ -156,40 +156,40 @@ V^0`f=OIUXg^C<cM4W_?WR2
 !s100 JCn896G^2<R0U9AQh_=zf2
 R6
 31
-R7
+R16
 !i10b 1
-R8
-R25
-R26
+R17
+R27
+R28
 !i113 1
 R11
 R12
 Ealu_p
-Z27 w1557266588
-Z28 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
-Z29 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
+Z29 w1557266588
+Z30 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z31 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
 R2
 R3
 R0
-Z30 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd
-Z31 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd
+Z32 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd
+Z33 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd
 l0
 L9
 VDDL7kQ1dKC1jzE5<9RbE@1
 !s100 ;i55WCPl0iF`EQQDTg`_Y2
 R6
 31
-R7
+R16
 !i10b 1
-R8
-Z32 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd|
-Z33 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd|
+R17
+Z34 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd|
+Z35 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/alu_p.vhd|
 !i113 1
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 5 alu_p 0 22 DDL7kQ1dKC1jzE5<9RbE@1
@@ -199,40 +199,40 @@ Vg1BJMJN60GCaS]oM6B^^c2
 !s100 L7B0X_D;[J?ZIl2Tz@fVQ2
 R6
 31
-R7
+R16
 !i10b 1
-R8
-R32
-R33
+R17
+R34
+R35
 !i113 1
 R11
 R12
 Ebit_register
 R1
-R28
-R29
+R30
+R31
 R2
 R3
 R0
-Z34 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd
-Z35 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd
+Z36 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd
+Z37 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd
 l0
 L6
 V0X27H0>^Rb02@HjbGea_G3
 !s100 6YzAdO=e?R?5A9Zj0:FnL1
 R6
 31
-Z36 !s110 1557276576
+R16
 !i10b 1
-Z37 !s108 1557276576.000000
+R17
 Z38 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd|
 Z39 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/bit_register.vhd|
 !i113 1
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 12 bit_register 0 22 0X27H0>^Rb02@HjbGea_G3
@@ -242,9 +242,9 @@ V5na`J?G7nm_oUgCjKe2zN0
 !s100 @:0GEkWmFXRLmnT[zQPAe3
 R6
 31
-R36
+R16
 !i10b 1
-R37
+R17
 R38
 R39
 !i113 1
@@ -265,9 +265,9 @@ VBEf;GcJYMk[zLNgPEj4@h1
 !s100 MlhP;^efbblH5kEk]`ka`2
 R6
 31
-R36
+R16
 !i10b 1
-R37
+R17
 Z44 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/comp.vhd|
 Z45 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/comp.vhd|
 !i113 1
@@ -285,9 +285,9 @@ VeKCBTME1_5HFM5M4ljJXd1
 !s100 olPd95FgIXdPNXNECa0z]3
 R6
 31
-R36
+R16
 !i10b 1
-R37
+R17
 R44
 R45
 !i113 1
@@ -308,9 +308,9 @@ Vk[l7>Wz5mXk_YJj3X<bi^0
 !s100 Glk;[fGhBWY]>0jXQX?gc1
 R6
 31
-R36
+R16
 !i10b 1
-R37
+R17
 Z51 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/dram.vhd|
 Z52 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/dram.vhd|
 !i113 1
@@ -328,9 +328,9 @@ V5FM^f:EZl3gj8HbWbom340
 !s100 F2YV4hL6TD]Izd=5_]e@53
 R6
 31
-R36
+R16
 !i10b 1
-R37
+R17
 R51
 R52
 !i113 1
@@ -349,11 +349,11 @@ VjRzOBSKil4ccdXRij[B:G0
 !s100 gEG0cnmQi[>0]8CVT;NbU2
 R6
 31
-R36
+Z55 !s110 1557294517
 !i10b 1
-R37
-Z55 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/FullAdder.vhd|
-Z56 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/FullAdder.vhd|
+Z56 !s108 1557294517.000000
+Z57 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/FullAdder.vhd|
+Z58 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/FullAdder.vhd|
 !i113 1
 R11
 R12
@@ -367,40 +367,40 @@ VUS6gOlJ6a:RUKDbY4bjWc2
 !s100 GYaLEWdbhXLHPDPZ1=WC02
 R6
 31
-R36
-!i10b 1
-R37
 R55
+!i10b 1
 R56
+R57
+R58
 !i113 1
 R11
 R12
 Eid
-Z57 w1557267072
+Z59 w1557267072
 R3
 R2
-R28
+R30
 R0
-Z58 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd
-Z59 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd
+Z60 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd
+Z61 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd
 l0
 L6
 Vz>?S`=XMLVb1[=lGJ8CWY1
 !s100 >ELAN89XjKWg?[QAnlbPS2
 R6
 31
-R36
+R55
 !i10b 1
-R37
-Z60 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd|
-Z61 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd|
+R56
+Z62 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd|
+Z63 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ID.vhd|
 !i113 1
 R11
 R12
 Abehave
 R3
 R2
-R28
+R30
 DEx4 work 2 id 0 22 z>?S`=XMLVb1[=lGJ8CWY1
 l129
 L48
@@ -408,40 +408,40 @@ V6MBFh[[ZBV;Jba9H1hdMe2
 !s100 h`<:K?oC0^>S>ZTIL;>Ml1
 R6
 31
-R36
+R55
 !i10b 1
-R37
-R60
-R61
+R56
+R62
+R63
 !i113 1
 R11
 R12
 Eifetch
-Z62 w1557255281
+Z64 w1557255281
 R3
 R2
-R28
+R30
 R0
-Z63 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd
-Z64 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd
+Z65 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd
+Z66 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd
 l0
 L6
 ViPU`S?fS52MXVz[]1UF1N0
 !s100 kdP<8;2I2j[J1U@T6T_F00
 R6
 31
-R36
+R55
 !i10b 1
-R37
-Z65 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd|
-Z66 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd|
+R56
+Z67 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd|
+Z68 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/IFetch.vhd|
 !i113 1
 R11
 R12
 Abehave
 R3
 R2
-R28
+R30
 DEx4 work 6 ifetch 0 22 iPU`S?fS52MXVz[]1UF1N0
 l69
 L20
@@ -449,33 +449,33 @@ VzFMClmjH;WYPT@4nWonl<0
 !s100 _c6S=Go8C`7^?@7`;:Mba1
 R6
 31
-R36
+R55
 !i10b 1
-R37
-R65
-R66
+R56
+R67
+R68
 !i113 1
 R11
 R12
 Els_p
-Z67 w1557275982
+Z69 w1557275982
 R40
 R41
-R28
+R30
 R2
 R3
 R0
-Z68 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd
-Z69 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd
+Z70 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd
+Z71 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd
 l0
 L9
 V]mmDB_geSaAo?kOndE1872
 !s100 AjQAZI;f5hz03aMEz;YiP2
 R6
 31
-Z70 !s110 1557276575
+R55
 !i10b 1
-Z71 !s108 1557276575.000000
+R56
 Z72 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd|
 Z73 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/ls_p.vhd|
 !i113 1
@@ -484,7 +484,7 @@ R12
 Abehave
 R40
 R41
-R28
+R30
 R2
 R3
 DEx4 work 4 ls_p 0 22 ]mmDB_geSaAo?kOndE1872
@@ -494,9 +494,9 @@ V3NU_PV92GX7eh_VjLJB3j2
 !s100 B:fF>i5MZaL=Oo1P@hhii1
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 R72
 R73
 !i113 1
@@ -515,9 +515,9 @@ VTe`2:P@agi:`3C2IMoMFc1
 !s100 POCTg]1<3QCYBLlN1]kc?3
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 Z76 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/mux9_16.vhd|
 Z77 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/mux9_16.vhd|
 !i113 1
@@ -533,9 +533,9 @@ VC[ThSOndI;`SkmBe?84LO2
 !s100 mOPA6X@4c`hg>k]fLA1X10
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 R76
 R77
 !i113 1
@@ -543,8 +543,8 @@ R11
 R12
 Emyregister
 R1
-R28
-R29
+R30
+R31
 R2
 R3
 R0
@@ -556,17 +556,17 @@ VWJTjSm;B^DC13G[zUfhn:2
 !s100 ZilC4`>`ZdMJ]gC[So_jK0
 R6
 31
-Z80 !s110 1557276574
+Z80 !s110 1557294516
 !i10b 1
-Z81 !s108 1557276574.000000
+Z81 !s108 1557294516.000000
 Z82 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/register.vhd|
 Z83 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/register.vhd|
 !i113 1
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 10 myregister 0 22 WJTjSm;B^DC13G[zUfhn:2
@@ -597,9 +597,9 @@ VbJgZCYDjZ>WdgePeV8<b]1
 !s100 <?9>K:aJ]2=>`Pbn;8>Y;2
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 Z87 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen16bit.vhd|
 Z88 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen16bit.vhd|
 !i113 1
@@ -615,9 +615,9 @@ Vh1c2F7FI<Yd5BO_o=W]C71
 !s100 8oo>0;G[KIXga9ffCnGin2
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 R87
 R88
 !i113 1
@@ -636,9 +636,9 @@ VU89`LNOgzLWZ4H^GbNjJ^1
 !s100 AkeYS>8EE]XElkz:aXWKf0
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 Z92 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen16bitwith2output.vhd|
 Z93 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen16bitwith2output.vhd|
 !i113 1
@@ -654,9 +654,9 @@ VXZ;G51[U?6TozW@HhZXYo2
 !s100 :_0dAeHo^dzO=HPJ3gTUQ2
 R6
 31
-R70
+R55
 !i10b 1
-R71
+R56
 R92
 R93
 !i113 1
@@ -675,9 +675,9 @@ V51Ylz6FN@@cAVoZMP>z612
 !s100 Cm`HiceR8C^gG4k:N_;@@2
 R6
 31
-R70
+R80
 !i10b 1
-R71
+R81
 Z96 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen32bit.vhd|
 Z97 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/pen32bit.vhd|
 !i113 1
@@ -693,9 +693,9 @@ VGjlePfVk:Z284<RP>JRDX0
 !s100 MJY^@BXoF>0YVzK1nDHRZ0
 R6
 31
-R70
+R80
 !i10b 1
-R71
+R81
 R96
 R97
 !i113 1
@@ -741,7 +741,7 @@ R102
 R11
 R12
 Eram
-Z103 w1557276427
+Z103 w1557294145
 R47
 R48
 R2
@@ -771,8 +771,8 @@ R3
 DEx4 work 3 ram 0 22 17FogEX`j^ma0T34nVa[M2
 l42
 L17
-V:g8gia:>TeIDDM?P55S:00
-!s100 zI9?fIHBAdJd`hYOH4NVz0
+V7o5o@dTT=J]_`Bl:2Gh=A2
+!s100 L@^=n5KnlCCO`3n@ZF:KI1
 R6
 31
 R80
@@ -785,8 +785,8 @@ R11
 R12
 Erf
 Z108 w1557267173
-R28
-R29
+R30
+R31
 R2
 R3
 R0
@@ -807,8 +807,8 @@ Z112 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RF
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 2 rf 0 22 [meL8NJKJ]b2Un=`=i[5b1
@@ -828,8 +828,8 @@ R11
 R12
 Erf_busybit
 R1
-R28
-R29
+R30
+R31
 R2
 R3
 R0
@@ -850,8 +850,8 @@ Z116 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RF
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 10 rf_busybit 0 22 id?:X@34bR5V]_G_@BRdQ1
@@ -871,8 +871,8 @@ R11
 R12
 Erf_tag
 R1
-R28
-R29
+R30
+R31
 R2
 R3
 R0
@@ -893,8 +893,8 @@ Z120 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RF
 R11
 R12
 Abehave
-R28
-R29
+R30
+R31
 R2
 R3
 DEx4 work 6 rf_tag 0 22 fkCH6VcDh;e3JMbUom;;O2
@@ -916,7 +916,7 @@ Erob
 Z121 w1557266513
 R40
 R41
-R28
+R30
 R2
 R3
 R0
@@ -928,18 +928,18 @@ V3R]S`F?O1G;]BHzga8]Z<0
 !s100 lV8X0nUHhSmZBB4X5VL:<2
 R6
 31
-R80
+Z124 !s110 1557294515
 !i10b 1
-Z124 !s108 1557276573.000000
-Z125 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/rob.vhd|
-Z126 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/rob.vhd|
+Z125 !s108 1557294515.000000
+Z126 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/rob.vhd|
+Z127 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/rob.vhd|
 !i113 1
 R11
 R12
 Abehave
 R40
 R41
-R28
+R30
 R2
 R3
 DEx4 work 3 rob 0 22 3R]S`F?O1G;]BHzga8]Z<0
@@ -949,33 +949,33 @@ V86T>`8C]?L=M5[O3mC1P71
 !s100 mOA=gJRUCnJ2zUKO;eX@G3
 R6
 31
-R80
-!i10b 1
 R124
+!i10b 1
 R125
 R126
+R127
 !i113 1
 R11
 R12
 Ers_rf_sched
-Z127 w1557260181
+Z128 w1557260181
 R40
 R41
-R28
+R30
 R2
 R3
 R0
-Z128 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd
-Z129 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd
+Z129 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd
+Z130 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd
 l0
 L10
 V3NYc?gQ2LDGZ@>D[lUnZ40
 !s100 L>=Y7loBaXECGYLh3;d?e2
 R6
 31
-Z130 !s110 1557276573
-!i10b 1
 R124
+!i10b 1
+R125
 Z131 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd|
 Z132 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/RS_RF_Sched.vhd|
 !i113 1
@@ -984,7 +984,7 @@ R12
 Abehave
 R40
 R41
-R28
+R30
 R2
 R3
 DEx4 work 11 rs_rf_sched 0 22 3NYc?gQ2LDGZ@>D[lUnZ40
@@ -994,19 +994,19 @@ V>ESJ6jVn]6QbBE=@<0b^U3
 !s100 =1NVcgn1VF2XAZlCa@9G92
 R6
 31
-R130
-!i10b 1
 R124
+!i10b 1
+R125
 R131
 R132
 !i113 1
 R11
 R12
 Etop_level
-Z133 w1557273982
+Z133 w1557291139
 R3
 R2
-R28
+R30
 R0
 Z134 8C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd
 Z135 FC:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd
@@ -1016,30 +1016,30 @@ VFMd?iIXU>?@XS`_@5LkIn1
 !s100 9Jae[mhDdDLLDX>Wn_c<L2
 R6
 31
-R130
-!i10b 1
 R124
-Z136 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd|
-Z137 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd|
+!i10b 1
+Z136 !s108 1557294514.000000
+Z137 !s90 -reportprogress|300|-93|-work|work|C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd|
+Z138 !s107 C:/Users/Pranil Joshi/Documents/GitHub/EE739_Superscalar/top_level/top_level.vhd|
 !i113 1
 R11
 R12
 Abehave
 R3
 R2
-R28
+R30
 DEx4 work 9 top_level 0 22 FMd?iIXU>?@XS`_@5LkIn1
-l372
+l371
 L13
-Vi`b5g=D0BSOg?zdk>L>o11
-!s100 ROjHAd1oRHkI622EI:Nm50
+VVFoI^f]czogz>IR88cNeb1
+!s100 gl7AR[:nVKB3@JzLCGf_M2
 R6
 31
-R130
-!i10b 1
 R124
+!i10b 1
 R136
 R137
+R138
 !i113 1
 R11
 R12
