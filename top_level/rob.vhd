@@ -70,7 +70,7 @@ architecture behave of rob is
 	type s_1 is array (0 to 31) of std_logic;
 	
 	signal pc,dest, ir, result,pc_exec, pc_out, dest_out, ir_out, result_out, pc_exec_out : s_16;
-	signal dest_tag_out, dest_tag, c_tag_out, z_tag_out, c_tag, z_tag : s_5;
+	signal dest_tag_out, dest_tag, c_tag_out, z_tag_out, c_tag, z_tag, exec_compare_ptr : s_5;
 	signal en,valid, complete_exec, mr, c, z, cwr, zwr, valid_out, complete_exec_out, mr_out, c_out, z_out, cwr_out, zwr_out,no_wb,no_wb_out : s_1;
 
 	signal tail_ptr, head_ptr, tail_ptr_out, head_ptr_out, tail_ptr_out_plus1, head_ptr_out_plus1, tail_ptr_out_plus2, head_ptr_out_plus2 : std_logic_vector(4 downto 0);
@@ -101,6 +101,8 @@ architecture behave of rob is
 		rob_zwr : bit_register port map (clk,en(i),reset,zwr(i),zwr_out(i));
 		rob_valid : bit_register port map (clk,en(i),reset,valid(i),valid_out(i));
 		rob_no_wb : bit_register port map (clk,en(i),reset,no_wb(i),no_wb_out(i));
+
+		compare_ptr : Add5 port map (head_ptr_out(i),std_logic_vector(to_unsigned(i,5)),exec_compare_ptr);
 
 	end generate ReorderBuffer;
 
@@ -264,142 +266,141 @@ process(clk,reset,
 ---------------------------------------------------------------------------------------------------------------------------
 
 
-	if (pc_out(0) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(0) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(0,5));
-	elsif (pc_out(1) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(1) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(1,5));
-	elsif (pc_out(2) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(2) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(2,5));
-	elsif (pc_out(3) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(3) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(3,5));
-	elsif (pc_out(4) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(4) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(4,5));
-	elsif (pc_out(5) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(5) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(5,5));
-	elsif (pc_out(6) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(6) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(6,5));
-	elsif (pc_out(7) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(7) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(7,5));
-	elsif (pc_out(8) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(8) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(8,5));
-	elsif (pc_out(9) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(9) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(9,5));
-	elsif (pc_out(10) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(10) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(10,5));
-	elsif (pc_out(11) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(11) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(11,5));
-	elsif (pc_out(12) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(12) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(12,5));
-	elsif (pc_out(13) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(13) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(13,5));
-	elsif (pc_out(14) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(14) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(14,5));
-	elsif (pc_out(15) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(15) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(15,5));
-	elsif (pc_out(16) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(16) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(16,5));
-	elsif (pc_out(17) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(17) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(17,5));
-	elsif (pc_out(18) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(18) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(18,5));
-	elsif (pc_out(19) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(19) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(19,5));
-	elsif (pc_out(20) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(20) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(20,5));
-	elsif (pc_out(21) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(21) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(21,5));
-	elsif (pc_out(22) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(22) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(22,5));
-	elsif (pc_out(23) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(23) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(23,5));
-	elsif (pc_out(24) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(24) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(24,5));
-	elsif (pc_out(25) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(25) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(25,5));
-	elsif (pc_out(26) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(26) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(26,5));
-	elsif (pc_out(27) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(27) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(27,5));
-	elsif (pc_out(28) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(28) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(28,5));
-	elsif (pc_out(29) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(29) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(29,5));
-	elsif (pc_out(30) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(30) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(30,5));
-	elsif (pc_out(31) = pc_exec_1_in and valid_exec_alu = '1' and valid_out(31) = '1') then
-		exec_ptr_1 <= std_logic_vector(to_unsigned(31,5));
+	if (pc_out(to_integer(unsigned(exec_compare_ptr(0) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(0) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(0);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(1) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(1) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(1);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(2) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(2) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(2);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(3) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(3) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(3);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(4) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(4) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(4);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(5) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(5) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(5);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(6) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(6) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(6);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(7) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(7) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(7);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(8) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(8) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(8);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(9) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(9) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(9);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(10) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(10) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(10);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(11) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(11) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(11);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(12) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(12) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(12);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(13) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(13) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(13);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(14) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(14) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(14);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(15) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(15) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(15);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(16) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(16) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(16);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(17) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(17) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(17);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(18) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(18) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(18);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(19) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(19) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(19);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(20) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(20) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(20);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(21) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(21) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(21);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(22) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(22) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(22);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(23) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(23) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(23);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(24) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(24) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(24);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(25) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(25) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(25);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(26) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(26) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(26);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(27) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(27) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(27);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(28) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(28) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(28);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(29) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(29) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(29);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(30) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(30) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(30);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(31) )))= pc_exec_1_in and valid_exec_alu = '1' and valid_out(31) = '1') then
+		exec_ptr_1 <= exec_compare_ptr(31);
 	else
 		exec_ptr_1 <= "00000";
 	end if;
 
-	if (pc_out(0) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(0) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(0,5));
-	elsif (pc_out(1) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(1) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(1,5));
-	elsif (pc_out(2) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(2) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(2,5));
-	elsif (pc_out(3) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(3) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(3,5));
-	elsif (pc_out(4) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(4) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(4,5));
-	elsif (pc_out(5) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(5) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(5,5));
-	elsif (pc_out(6) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(6) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(6,5));
-	elsif (pc_out(7) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(7) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(7,5));
-	elsif (pc_out(8) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(8) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(8,5));
-	elsif (pc_out(9) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(9) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(9,5));
-	elsif (pc_out(10) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(10) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(10,5));
-	elsif (pc_out(11) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(11) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(11,5));
-	elsif (pc_out(12) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(12) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(12,5));
-	elsif (pc_out(13) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(13) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(13,5));
-	elsif (pc_out(14) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(14) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(14,5));
-	elsif (pc_out(15) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(15) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(15,5));
-	elsif (pc_out(16) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(16) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(16,5));
-	elsif (pc_out(17) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(17) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(17,5));
-	elsif (pc_out(18) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(18) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(18,5));
-	elsif (pc_out(19) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(19) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(19,5));
-	elsif (pc_out(20) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(20) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(20,5));
-	elsif (pc_out(21) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(21) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(21,5));
-	elsif (pc_out(22) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(22) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(22,5));
-	elsif (pc_out(23) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(23) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(23,5));
-	elsif (pc_out(24) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(24) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(24,5));
-	elsif (pc_out(25) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(25) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(25,5));
-	elsif (pc_out(26) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(26) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(26,5));
-	elsif (pc_out(27) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(27) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(27,5));
-	elsif (pc_out(28) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(28) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(28,5));
-	elsif (pc_out(29) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(29) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(29,5));
-	elsif (pc_out(30) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(30) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(30,5));
-	elsif (pc_out(31) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(31) = '1') then
-		exec_ptr_2 <= std_logic_vector(to_unsigned(31,5));
+	if (pc_out(to_integer(unsigned(exec_compare_ptr(0)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(0) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(0);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(1)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(1) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(1);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(2)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(2) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(2);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(3)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(3) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(3);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(4)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(4) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(4);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(5)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(5) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(5);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(6)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(6) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(6);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(7)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(7) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(7);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(8)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(8) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(8);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(9)))) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(9) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(9);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(10)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(10) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(10);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(11)))) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(11) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(11);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(12)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(12) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(12);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(13)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(13) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(13);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(14)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(14) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(14);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(15)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(15) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(15);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(16)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(16) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(16);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(17)))) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(17) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(17);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(18)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(18) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(18);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(19)))) = pc_exec_2_in and valid_exec_ls = '1'and valid_out(19) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(19);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(20)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(20) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(20);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(21)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(21) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(21);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(22)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(22) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(22);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(23)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(23) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(23);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(24)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(24) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(24);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(25)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(25) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(25);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(26)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(26) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(26);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(27)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(27) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(27);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(28)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(28) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(28);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(29)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(29) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(29);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(30)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(30) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(30);
+	elsif (pc_out(to_integer(unsigned(exec_compare_ptr(31)))) = pc_exec_2_in and valid_exec_ls = '1' and valid_out(31) = '1') then
+		exec_ptr_2 <= exec_compare_ptr(31);
 	else
 		exec_ptr_2 <= "00000";
 	end if;
-
 
 	if (ir_out(to_integer(unsigned(exec_ptr_1)))(15 downto 12) = "0000") then
 		dest1 <= ("0000000000000" & ir_out(to_integer(unsigned(exec_ptr_1)))(5 downto 3));
