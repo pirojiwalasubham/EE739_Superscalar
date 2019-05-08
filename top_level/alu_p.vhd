@@ -131,7 +131,7 @@ architecture behave of alu_p is
 
 		alu_p_valid_out <= rb_validout;
 
-		rb_op2_out <= rb_op2out;
+		rb_op2_out <= rb_op1out;
 
 		alu_p_out <= alu_p_out_temp & alu_p_c_temp & alu_p_z_temp;
 		alu_p_z<=alu_p_z_temp;
@@ -183,7 +183,7 @@ architecture behave of alu_p is
 		alu_p_rrf_en <= '0' when rb_irout(15 downto 12) = "1100" else
 						'0' when dependency_special_case_z = '1' else
 						'0' when dependency_special_case_c = '1' else
-						alu_p_valid_out_temp;
+						(not(alu_p_valid_out_temp) and rb_validout);
 							
 									
 	end architecture behave;
