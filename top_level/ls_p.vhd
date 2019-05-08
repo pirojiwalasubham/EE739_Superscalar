@@ -89,7 +89,7 @@ architecture behave of ls_p is
 					rc_op1out when rc_irout(15 downto 12) = "0111" else
 					"0000000000000000";
 
-		add_in_b <= rc_op2out when rc_irout(15 downto 12) = "0100" else
+		add_in_b <= rc_op1out when rc_irout(15 downto 12) = "0100" else
 					rc_op2out when rc_irout(15 downto 12) = "0101" else
 					"0000000000000000";
 
@@ -124,7 +124,7 @@ architecture behave of ls_p is
 
 		lw_r7_resolved <= '1' when ((rc_irout(15 downto 12) = "0100") and (rc_validout = '1') and (rc_irout(11 downto 9) = "111")) else '0';
 
-		ls_p_z_temp <= or_reduce(read_datafrommem);
+		ls_p_z_temp <= not(or_reduce(read_datafrommem));
 
 		ls_p_data_out <= ls_p_data_out_temp & '0' & ls_p_z_temp;
 
