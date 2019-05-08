@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top_level
-Wed May 08 12:17:16 2019
+Wed May 08 17:35:45 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -482,127 +482,128 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 474. Port Connectivity Checks: "ls_p:LS_P_INST|myRegister:RC_OP1_INST"
 475. Port Connectivity Checks: "ls_p:LS_P_INST|myRegister:RC_PC_INST"
 476. Port Connectivity Checks: "ls_p:LS_P_INST"
-477. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_ZER_O_READY"
-478. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_ZER_O"
-479. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_CA_RRY_READY"
-480. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_C_ARRY"
-481. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:R_B_VALID"
-482. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:R_B_DEST_R7"
-483. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_SPECTAG"
-484. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_RR_TAG"
-485. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_Z_ERO_TAG"
-486. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_CARRY_TAG"
-487. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_I_R"
-488. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_OP2"
-489. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_O_P1"
-490. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_P_C"
-491. Port Connectivity Checks: "alu_p:ALU_P_INST"
-492. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:15:MINUSTWO"
-493. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:15:MINUSONE"
-494. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:14:MINUSTWO"
-495. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:14:MINUSONE"
-496. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:13:MINUSTWO"
-497. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:13:MINUSONE"
-498. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:12:MINUSTWO"
-499. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:12:MINUSONE"
-500. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:11:MINUSTWO"
-501. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:11:MINUSONE"
-502. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:10:MINUSTWO"
-503. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:10:MINUSONE"
-504. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:9:MINUSTWO"
-505. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:9:MINUSONE"
-506. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:8:MINUSTWO"
-507. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:8:MINUSONE"
-508. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:7:MINUSTWO"
-509. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:7:MINUSONE"
-510. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:6:MINUSTWO"
-511. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:6:MINUSONE"
-512. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:5:MINUSTWO"
-513. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:5:MINUSONE"
-514. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:4:MINUSTWO"
-515. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:4:MINUSONE"
-516. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:3:MINUSTWO"
-517. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:3:MINUSONE"
-518. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:2:MINUSTWO"
-519. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:2:MINUSONE"
-520. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:1:MINUSTWO"
-521. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:1:MINUSONE"
-522. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:0:MINUSTWO"
-523. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:0:MINUSONE"
-524. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|pen16bitwith2output:TWO_FREE_ENTRIES"
-525. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:31:rrf_valid_file"
-526. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:31:rrf_busy_file"
-527. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:30:rrf_valid_file"
-528. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:30:rrf_busy_file"
-529. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:29:rrf_valid_file"
-530. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:29:rrf_busy_file"
-531. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:28:rrf_valid_file"
-532. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:28:rrf_busy_file"
-533. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:27:rrf_valid_file"
-534. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:27:rrf_busy_file"
-535. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:26:rrf_valid_file"
-536. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:26:rrf_busy_file"
-537. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:25:rrf_valid_file"
-538. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:25:rrf_busy_file"
-539. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:24:rrf_valid_file"
-540. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:24:rrf_busy_file"
-541. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:23:rrf_valid_file"
-542. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:23:rrf_busy_file"
-543. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:22:rrf_valid_file"
-544. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:22:rrf_busy_file"
-545. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:21:rrf_valid_file"
-546. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:21:rrf_busy_file"
-547. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:20:rrf_valid_file"
-548. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:20:rrf_busy_file"
-549. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:19:rrf_valid_file"
-550. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:19:rrf_busy_file"
-551. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:18:rrf_valid_file"
-552. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:18:rrf_busy_file"
-553. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:17:rrf_valid_file"
-554. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:17:rrf_busy_file"
-555. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:16:rrf_valid_file"
-556. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:16:rrf_busy_file"
-557. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:15:rrf_valid_file"
-558. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:15:rrf_busy_file"
-559. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:14:rrf_valid_file"
-560. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:14:rrf_busy_file"
-561. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:13:rrf_valid_file"
-562. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:13:rrf_busy_file"
-563. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:12:rrf_valid_file"
-564. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:12:rrf_busy_file"
-565. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:11:rrf_valid_file"
-566. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:11:rrf_busy_file"
-567. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:10:rrf_valid_file"
-568. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:10:rrf_busy_file"
-569. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:9:rrf_valid_file"
-570. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:9:rrf_busy_file"
-571. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:8:rrf_valid_file"
-572. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:8:rrf_busy_file"
-573. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:7:rrf_valid_file"
-574. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:7:rrf_busy_file"
-575. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:6:rrf_valid_file"
-576. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:6:rrf_busy_file"
-577. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:5:rrf_valid_file"
-578. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:5:rrf_busy_file"
-579. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:4:rrf_valid_file"
-580. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:4:rrf_busy_file"
-581. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:3:rrf_valid_file"
-582. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:3:rrf_busy_file"
-583. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:2:rrf_valid_file"
-584. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:2:rrf_busy_file"
-585. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:1:rrf_valid_file"
-586. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:1:rrf_busy_file"
-587. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:0:rrf_valid_file"
-588. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:0:rrf_busy_file"
-589. Port Connectivity Checks: "IFetch:IFETCH_INST|ram:IMEM|add1:ADDER_MEM"
-590. Port Connectivity Checks: "IFetch:IFETCH_INST|ram:IMEM"
-591. Port Connectivity Checks: "IFetch:IFETCH_INST|add1:PC_PLUS1|Add:A1"
-592. Port Connectivity Checks: "IFetch:IFETCH_INST|add2:ADDER1|Add:A1|FullAdder:F0"
-593. Port Connectivity Checks: "IFetch:IFETCH_INST|add2:ADDER1|Add:A1"
-594. Port Connectivity Checks: "dram:DRAM_INST"
-595. Post-Synthesis Netlist Statistics for Top Partition
-596. Elapsed Time Per Partition
-597. Analysis & Synthesis Messages
+477. Port Connectivity Checks: "alu_p:ALU_P_INST|Add:PC_plus1"
+478. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_ZER_O_READY"
+479. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_ZER_O"
+480. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_CA_RRY_READY"
+481. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_C_ARRY"
+482. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:R_B_VALID"
+483. Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:R_B_DEST_R7"
+484. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_SPECTAG"
+485. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_RR_TAG"
+486. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_Z_ERO_TAG"
+487. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_CARRY_TAG"
+488. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_I_R"
+489. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:R_B_OP2"
+490. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_O_P1"
+491. Port Connectivity Checks: "alu_p:ALU_P_INST|myRegister:RB_P_C"
+492. Port Connectivity Checks: "alu_p:ALU_P_INST"
+493. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:15:MINUSTWO"
+494. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:15:MINUSONE"
+495. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:14:MINUSTWO"
+496. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:14:MINUSONE"
+497. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:13:MINUSTWO"
+498. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:13:MINUSONE"
+499. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:12:MINUSTWO"
+500. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:12:MINUSONE"
+501. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:11:MINUSTWO"
+502. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:11:MINUSONE"
+503. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:10:MINUSTWO"
+504. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:10:MINUSONE"
+505. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:9:MINUSTWO"
+506. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:9:MINUSONE"
+507. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:8:MINUSTWO"
+508. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:8:MINUSONE"
+509. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:7:MINUSTWO"
+510. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:7:MINUSONE"
+511. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:6:MINUSTWO"
+512. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:6:MINUSONE"
+513. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:5:MINUSTWO"
+514. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:5:MINUSONE"
+515. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:4:MINUSTWO"
+516. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:4:MINUSONE"
+517. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:3:MINUSTWO"
+518. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:3:MINUSONE"
+519. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:2:MINUSTWO"
+520. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:2:MINUSONE"
+521. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:1:MINUSTWO"
+522. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:1:MINUSONE"
+523. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:0:MINUSTWO"
+524. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|Add:\Subtract1:0:MINUSONE"
+525. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|pen16bitwith2output:TWO_FREE_ENTRIES"
+526. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:31:rrf_valid_file"
+527. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:31:rrf_busy_file"
+528. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:30:rrf_valid_file"
+529. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:30:rrf_busy_file"
+530. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:29:rrf_valid_file"
+531. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:29:rrf_busy_file"
+532. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:28:rrf_valid_file"
+533. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:28:rrf_busy_file"
+534. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:27:rrf_valid_file"
+535. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:27:rrf_busy_file"
+536. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:26:rrf_valid_file"
+537. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:26:rrf_busy_file"
+538. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:25:rrf_valid_file"
+539. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:25:rrf_busy_file"
+540. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:24:rrf_valid_file"
+541. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:24:rrf_busy_file"
+542. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:23:rrf_valid_file"
+543. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:23:rrf_busy_file"
+544. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:22:rrf_valid_file"
+545. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:22:rrf_busy_file"
+546. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:21:rrf_valid_file"
+547. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:21:rrf_busy_file"
+548. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:20:rrf_valid_file"
+549. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:20:rrf_busy_file"
+550. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:19:rrf_valid_file"
+551. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:19:rrf_busy_file"
+552. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:18:rrf_valid_file"
+553. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:18:rrf_busy_file"
+554. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:17:rrf_valid_file"
+555. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:17:rrf_busy_file"
+556. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:16:rrf_valid_file"
+557. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:16:rrf_busy_file"
+558. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:15:rrf_valid_file"
+559. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:15:rrf_busy_file"
+560. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:14:rrf_valid_file"
+561. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:14:rrf_busy_file"
+562. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:13:rrf_valid_file"
+563. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:13:rrf_busy_file"
+564. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:12:rrf_valid_file"
+565. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:12:rrf_busy_file"
+566. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:11:rrf_valid_file"
+567. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:11:rrf_busy_file"
+568. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:10:rrf_valid_file"
+569. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:10:rrf_busy_file"
+570. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:9:rrf_valid_file"
+571. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:9:rrf_busy_file"
+572. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:8:rrf_valid_file"
+573. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:8:rrf_busy_file"
+574. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:7:rrf_valid_file"
+575. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:7:rrf_busy_file"
+576. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:6:rrf_valid_file"
+577. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:6:rrf_busy_file"
+578. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:5:rrf_valid_file"
+579. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:5:rrf_busy_file"
+580. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:4:rrf_valid_file"
+581. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:4:rrf_busy_file"
+582. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:3:rrf_valid_file"
+583. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:3:rrf_busy_file"
+584. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:2:rrf_valid_file"
+585. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:2:rrf_busy_file"
+586. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:1:rrf_valid_file"
+587. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:1:rrf_busy_file"
+588. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:0:rrf_valid_file"
+589. Port Connectivity Checks: "RS_RF_Sched:RS_RRF_SCHED_INST|bit_register:\RRF:0:rrf_busy_file"
+590. Port Connectivity Checks: "IFetch:IFETCH_INST|ram:IMEM|add1:ADDER_MEM"
+591. Port Connectivity Checks: "IFetch:IFETCH_INST|ram:IMEM"
+592. Port Connectivity Checks: "IFetch:IFETCH_INST|add1:PC_PLUS1|Add:A1"
+593. Port Connectivity Checks: "IFetch:IFETCH_INST|add2:ADDER1|Add:A1|FullAdder:F0"
+594. Port Connectivity Checks: "IFetch:IFETCH_INST|add2:ADDER1|Add:A1"
+595. Port Connectivity Checks: "dram:DRAM_INST"
+596. Post-Synthesis Netlist Statistics for Top Partition
+597. Elapsed Time Per Partition
+598. Analysis & Synthesis Messages
 
 
 
@@ -628,7 +629,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed May 08 12:17:16 2019       ;
+; Analysis & Synthesis Status     ; Successful - Wed May 08 17:35:45 2019       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; top_level                                   ;
 ; Top-level Entity Name           ; top_level                                   ;
@@ -5523,6 +5524,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_p:ALU_P_INST|Add:PC_plus1"                                                          ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; y[15..1] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; y[0]     ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; c_out    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +----------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "alu_p:ALU_P_INST|bit_register:RB_ZER_O_READY"                                       ;
 +------+--------+----------+-------------------------------------------------------------------------------------+
@@ -6709,7 +6721,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Wed May 08 12:16:55 2019
+    Info: Processing started: Wed May 08 17:35:24 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -6870,8 +6882,8 @@ Info (21057): Implemented 3 device resources after synthesis - the final resourc
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 0 output pins
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 46 warnings
-    Info: Peak virtual memory: 4938 megabytes
-    Info: Processing ended: Wed May 08 12:17:16 2019
+    Info: Peak virtual memory: 4936 megabytes
+    Info: Processing ended: Wed May 08 17:35:45 2019
     Info: Elapsed time: 00:00:21
     Info: Total CPU time (on all processors): 00:00:39
 

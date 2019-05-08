@@ -34856,6 +34856,282 @@ alu_b[15] => temp[15].IN1
 tz <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 
 
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1
+x[0] => FullAdder:F0.x0
+x[1] => FullAdder:ist_add:1:F1.x0
+x[2] => FullAdder:ist_add:2:F1.x0
+x[3] => FullAdder:ist_add:3:F1.x0
+x[4] => FullAdder:ist_add:4:F1.x0
+x[5] => FullAdder:ist_add:5:F1.x0
+x[6] => FullAdder:ist_add:6:F1.x0
+x[7] => FullAdder:ist_add:7:F1.x0
+x[8] => FullAdder:ist_add:8:F1.x0
+x[9] => FullAdder:ist_add:9:F1.x0
+x[10] => FullAdder:ist_add:10:F1.x0
+x[11] => FullAdder:ist_add:11:F1.x0
+x[12] => FullAdder:ist_add:12:F1.x0
+x[13] => FullAdder:ist_add:13:F1.x0
+x[14] => FullAdder:ist_add:14:F1.x0
+x[15] => FullAdder:ist_add:15:F1.x0
+y[0] => FullAdder:F0.y0
+y[1] => FullAdder:ist_add:1:F1.y0
+y[2] => FullAdder:ist_add:2:F1.y0
+y[3] => FullAdder:ist_add:3:F1.y0
+y[4] => FullAdder:ist_add:4:F1.y0
+y[5] => FullAdder:ist_add:5:F1.y0
+y[6] => FullAdder:ist_add:6:F1.y0
+y[7] => FullAdder:ist_add:7:F1.y0
+y[8] => FullAdder:ist_add:8:F1.y0
+y[9] => FullAdder:ist_add:9:F1.y0
+y[10] => FullAdder:ist_add:10:F1.y0
+y[11] => FullAdder:ist_add:11:F1.y0
+y[12] => FullAdder:ist_add:12:F1.y0
+y[13] => FullAdder:ist_add:13:F1.y0
+y[14] => FullAdder:ist_add:14:F1.y0
+y[15] => FullAdder:ist_add:15:F1.y0
+s0[0] <= FullAdder:F0.s0
+s0[1] <= FullAdder:ist_add:1:F1.s0
+s0[2] <= FullAdder:ist_add:2:F1.s0
+s0[3] <= FullAdder:ist_add:3:F1.s0
+s0[4] <= FullAdder:ist_add:4:F1.s0
+s0[5] <= FullAdder:ist_add:5:F1.s0
+s0[6] <= FullAdder:ist_add:6:F1.s0
+s0[7] <= FullAdder:ist_add:7:F1.s0
+s0[8] <= FullAdder:ist_add:8:F1.s0
+s0[9] <= FullAdder:ist_add:9:F1.s0
+s0[10] <= FullAdder:ist_add:10:F1.s0
+s0[11] <= FullAdder:ist_add:11:F1.s0
+s0[12] <= FullAdder:ist_add:12:F1.s0
+s0[13] <= FullAdder:ist_add:13:F1.s0
+s0[14] <= FullAdder:ist_add:14:F1.s0
+s0[15] <= FullAdder:ist_add:15:F1.s0
+c_out <= FullAdder:ist_add:15:F1.cout
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:F0
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:1:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:2:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:3:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:4:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:5:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:6:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:7:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:8:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:9:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:10:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:11:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:12:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:13:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:14:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top_level|alu_p:ALU_P_INST|Add:PC_plus1|FullAdder:\ist_add:15:F1
+x0 => s0.IN0
+x0 => cout.IN0
+x0 => cout.IN0
+y0 => s0.IN1
+y0 => cout.IN1
+y0 => cout.IN0
+cin => s0.IN1
+cin => cout.IN1
+cin => cout.IN1
+s0 <= s0.DB_MAX_OUTPUT_PORT_TYPE
+cout <= cout.DB_MAX_OUTPUT_PORT_TYPE
+
+
 |top_level|ls_p:LS_P_INST
 clk => myRegister:RC_PC_INST.clk
 clk => myRegister:RC_OP1_INST.clk
@@ -38221,7 +38497,9 @@ ra1_val_out => x1_beq.IN1
 ra1_val_out => x1_jal.IN1
 ra1_val_out => x1_jlr.IN1
 ra1_val_out => ra1_invalidate_out.OUTPUTSELECT
+ra1_val_out => x1_val.DATAA
 ra1_val_out => x1_val_var.DATAA
+ra1_val_out => arf_busy_wr_en1.DATAA
 ra1_val_out => arf_tag_wr_en1.DATAA
 ra2_val_out => x2_add.IN1
 ra2_val_out => x2_adc.IN1
@@ -38332,7 +38610,7 @@ ra1_ir_out[3] => x1_destination[0].DATAB
 ra1_ir_out[3] => Add:ADDER2.y[3]
 ra1_ir_out[3] => ZA7_1_out[10].DATAIN
 ra1_ir_out[3] => ir1[3].DATAIN
-ra1_ir_out[3] => Equal35.IN2
+ra1_ir_out[3] => Equal37.IN2
 ra1_ir_out[4] => Awr1.DATAB
 ra1_ir_out[4] => Awr1.DATAB
 ra1_ir_out[4] => Awr1.DATAB
@@ -38351,7 +38629,7 @@ ra1_ir_out[4] => x1_destination[1].DATAB
 ra1_ir_out[4] => Add:ADDER2.y[4]
 ra1_ir_out[4] => ZA7_1_out[11].DATAIN
 ra1_ir_out[4] => ir1[4].DATAIN
-ra1_ir_out[4] => Equal35.IN1
+ra1_ir_out[4] => Equal37.IN1
 ra1_ir_out[5] => Awr1.DATAB
 ra1_ir_out[5] => Awr1.DATAB
 ra1_ir_out[5] => Awr1.DATAB
@@ -38390,7 +38668,7 @@ ra1_ir_out[5] => x1_destination[2].DATAB
 ra1_ir_out[5] => Add:ADDER2.y[5]
 ra1_ir_out[5] => ZA7_1_out[12].DATAIN
 ra1_ir_out[5] => ir1[5].DATAIN
-ra1_ir_out[5] => Equal35.IN0
+ra1_ir_out[5] => Equal37.IN0
 ra1_ir_out[6] => Ard1a.DATAA
 ra1_ir_out[6] => Ard1a.DATAB
 ra1_ir_out[6] => Ard1b.DATAB
@@ -38408,7 +38686,7 @@ ra1_ir_out[6] => x1_destination.DATAB
 ra1_ir_out[6] => Add:ADDER2.y[6]
 ra1_ir_out[6] => ZA7_1_out[13].DATAIN
 ra1_ir_out[6] => ir1[6].DATAIN
-ra1_ir_out[6] => Equal36.IN2
+ra1_ir_out[6] => Equal38.IN2
 ra1_ir_out[7] => Ard1a.DATAA
 ra1_ir_out[7] => Ard1a.DATAB
 ra1_ir_out[7] => Ard1b.DATAB
@@ -38427,7 +38705,7 @@ ra1_ir_out[7] => process_0.IN1
 ra1_ir_out[7] => Add:ADDER2.y[7]
 ra1_ir_out[7] => ZA7_1_out[14].DATAIN
 ra1_ir_out[7] => ir1[7].DATAIN
-ra1_ir_out[7] => Equal36.IN1
+ra1_ir_out[7] => Equal38.IN1
 ra1_ir_out[8] => Ard1a.DATAA
 ra1_ir_out[8] => Ard1a.DATAB
 ra1_ir_out[8] => Ard1b.DATAB
@@ -38452,7 +38730,7 @@ ra1_ir_out[8] => Add:ADDER2.y[9]
 ra1_ir_out[8] => Add:ADDER2.y[8]
 ra1_ir_out[8] => ZA7_1_out[15].DATAIN
 ra1_ir_out[8] => ir1[8].DATAIN
-ra1_ir_out[8] => Equal36.IN0
+ra1_ir_out[8] => Equal38.IN0
 ra1_ir_out[9] => Ard1a.DATAB
 ra1_ir_out[9] => Ard1a.DATAB
 ra1_ir_out[9] => Ard1a.DATAB
@@ -38468,7 +38746,7 @@ ra1_ir_out[9] => Awr1.DATAB
 ra1_ir_out[9] => Awr1.DATAB
 ra1_ir_out[9] => x1_destination.DATAA
 ra1_ir_out[9] => ir1[9].DATAIN
-ra1_ir_out[9] => Equal37.IN2
+ra1_ir_out[9] => Equal39.IN2
 ra1_ir_out[10] => Ard1a.DATAB
 ra1_ir_out[10] => Ard1a.DATAB
 ra1_ir_out[10] => Ard1a.DATAB
@@ -38484,7 +38762,7 @@ ra1_ir_out[10] => Awr1.DATAB
 ra1_ir_out[10] => Awr1.DATAB
 ra1_ir_out[10] => x1_destination.DATAA
 ra1_ir_out[10] => ir1[10].DATAIN
-ra1_ir_out[10] => Equal37.IN1
+ra1_ir_out[10] => Equal39.IN1
 ra1_ir_out[11] => Ard1a.DATAB
 ra1_ir_out[11] => Ard1a.DATAB
 ra1_ir_out[11] => Ard1a.DATAB
@@ -38500,7 +38778,7 @@ ra1_ir_out[11] => Awr1.DATAB
 ra1_ir_out[11] => Awr1.DATAB
 ra1_ir_out[11] => x1_destination.DATAA
 ra1_ir_out[11] => ir1[11].DATAIN
-ra1_ir_out[11] => Equal37.IN0
+ra1_ir_out[11] => Equal39.IN0
 ra1_ir_out[12] => ir1[12].DATAIN
 ra1_ir_out[12] => Equal0.IN3
 ra1_ir_out[12] => Equal4.IN3
@@ -38513,7 +38791,7 @@ ra1_ir_out[12] => Equal10.IN3
 ra1_ir_out[12] => Equal11.IN1
 ra1_ir_out[12] => Equal12.IN2
 ra1_ir_out[12] => Equal13.IN3
-ra1_ir_out[12] => Equal38.IN3
+ra1_ir_out[12] => Equal35.IN3
 ra1_ir_out[13] => ir1[13].DATAIN
 ra1_ir_out[13] => Equal0.IN2
 ra1_ir_out[13] => Equal4.IN2
@@ -38526,7 +38804,7 @@ ra1_ir_out[13] => Equal10.IN2
 ra1_ir_out[13] => Equal11.IN0
 ra1_ir_out[13] => Equal12.IN1
 ra1_ir_out[13] => Equal13.IN1
-ra1_ir_out[13] => Equal38.IN2
+ra1_ir_out[13] => Equal35.IN2
 ra1_ir_out[14] => ir1[14].DATAIN
 ra1_ir_out[14] => Equal0.IN1
 ra1_ir_out[14] => Equal4.IN1
@@ -38539,7 +38817,7 @@ ra1_ir_out[14] => Equal10.IN1
 ra1_ir_out[14] => Equal11.IN3
 ra1_ir_out[14] => Equal12.IN0
 ra1_ir_out[14] => Equal13.IN0
-ra1_ir_out[14] => Equal38.IN1
+ra1_ir_out[14] => Equal35.IN1
 ra1_ir_out[15] => ir1[15].DATAIN
 ra1_ir_out[15] => Equal0.IN0
 ra1_ir_out[15] => Equal4.IN0
@@ -38552,7 +38830,7 @@ ra1_ir_out[15] => Equal10.IN0
 ra1_ir_out[15] => Equal11.IN2
 ra1_ir_out[15] => Equal12.IN3
 ra1_ir_out[15] => Equal13.IN2
-ra1_ir_out[15] => Equal38.IN0
+ra1_ir_out[15] => Equal35.IN0
 ra2_pc_out[0] => Add:ADDER3.x[0]
 ra2_pc_out[0] => pc2[0].DATAIN
 ra2_pc_out[0] => Equal34.IN15
@@ -38809,7 +39087,7 @@ ra2_ir_out[12] => Equal24.IN3
 ra2_ir_out[12] => Equal25.IN1
 ra2_ir_out[12] => Equal26.IN2
 ra2_ir_out[12] => Equal27.IN3
-ra2_ir_out[12] => Equal39.IN3
+ra2_ir_out[12] => Equal36.IN3
 ra2_ir_out[13] => ir2[13].DATAIN
 ra2_ir_out[13] => Equal14.IN2
 ra2_ir_out[13] => Equal15.IN2
@@ -38822,7 +39100,7 @@ ra2_ir_out[13] => Equal24.IN2
 ra2_ir_out[13] => Equal25.IN0
 ra2_ir_out[13] => Equal26.IN1
 ra2_ir_out[13] => Equal27.IN1
-ra2_ir_out[13] => Equal39.IN2
+ra2_ir_out[13] => Equal36.IN2
 ra2_ir_out[14] => ir2[14].DATAIN
 ra2_ir_out[14] => Equal14.IN1
 ra2_ir_out[14] => Equal15.IN1
@@ -38835,7 +39113,7 @@ ra2_ir_out[14] => Equal24.IN1
 ra2_ir_out[14] => Equal25.IN3
 ra2_ir_out[14] => Equal26.IN0
 ra2_ir_out[14] => Equal27.IN0
-ra2_ir_out[14] => Equal39.IN1
+ra2_ir_out[14] => Equal36.IN1
 ra2_ir_out[15] => ir2[15].DATAIN
 ra2_ir_out[15] => Equal14.IN0
 ra2_ir_out[15] => Equal15.IN0
@@ -38848,7 +39126,7 @@ ra2_ir_out[15] => Equal24.IN0
 ra2_ir_out[15] => Equal25.IN2
 ra2_ir_out[15] => Equal26.IN3
 ra2_ir_out[15] => Equal27.IN2
-ra2_ir_out[15] => Equal39.IN0
+ra2_ir_out[15] => Equal36.IN0
 free_rrf_vec[0] => free_rrf_vec_out.DATAA
 free_rrf_vec[0] => pen32bitwith2output:PE.penin[0]
 free_rrf_vec[1] => free_rrf_vec_out.DATAA
@@ -39621,8 +39899,8 @@ ra1_invalidate_out <= ra1_invalidate_out.DB_MAX_OUTPUT_PORT_TYPE
 ra2_invalidate_out <= ra2_invalidate_out.DB_MAX_OUTPUT_PORT_TYPE
 pc_en_out <= process_0.DB_MAX_OUTPUT_PORT_TYPE
 ra_en_out <= process_0.DB_MAX_OUTPUT_PORT_TYPE
-arf_busy_wr_en1 <= x1_val_var.DB_MAX_OUTPUT_PORT_TYPE
-arf_busy_wr_en2 <= x2_val_var.DB_MAX_OUTPUT_PORT_TYPE
+arf_busy_wr_en1 <= arf_busy_wr_en1.DB_MAX_OUTPUT_PORT_TYPE
+arf_busy_wr_en2 <= arf_busy_wr_en2.DB_MAX_OUTPUT_PORT_TYPE
 arf_tag_wr_en1 <= arf_tag_wr_en1.DB_MAX_OUTPUT_PORT_TYPE
 arf_tag_wr_en2 <= arf_tag_wr_en2.DB_MAX_OUTPUT_PORT_TYPE
 adder2_out[0] <= Add:ADDER2.s0[0]

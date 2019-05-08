@@ -1708,7 +1708,7 @@ end if;
 
 --------------------------------------------------------------------------------------------------------------------------------
 	
-if(taken_branch_detected = '1' or twoRRnotFree = '1') then
+if(taken_branch_detected = '1' or twoRRnotFree = '1' or ra1_ir_out(15 downto 12) = "1111") then
 	x1_val <= '0';
 	x1_val_var := '0';
 	arf_busy_wr_en1 <= '0';
@@ -1723,7 +1723,7 @@ else
 	arf_tag_wr_en1  <= ra1_val_out;
 end if;
 ------------------------------------------
-if(taken_branch_detected = '1' or twoRRnotFree = '1') then
+if(taken_branch_detected = '1' or twoRRnotFree = '1' or ra2_ir_out(15 downto 12) = "1111") then
 	x2_val <= '0';
 	x2_val_var := '0';
 	arf_busy_wr_en2 <=  '0';
@@ -1843,25 +1843,25 @@ elsif (alu_r7_resolved = '1' or jlr_resolved = '1' or lw_r7_resolved = '1' ) the
 		S1 <= '0';
 		S0 <= '0';
 	end if;
-elsif (x1_jal = '1') then
+elsif (x1_jal = '1' and x1_val_var = '1') then
 	--0001
 		S3 <= '0';
 		S2 <= '0';
 		S1 <= '0';
 		S0 <= '1';
-elsif (x1_lhi = '1' and ra1_ir_out(11 downto 9) = "111") then
+elsif (x1_lhi = '1' and x1_val_var = '1' and ra1_ir_out(11 downto 9) = "111") then
 	--0110
 		S3 <= '0';
 		S2 <= '1';
 		S1 <= '1';
 		S0 <= '0';
-elsif (x2_jal = '1') then
+elsif (x2_jal = '1' and x2_val_var = '1') then
 	--0010
 		S3 <= '0';
 		S2 <= '0';
 		S1 <= '1';
 		S0 <= '0';
-elsif (x2_lhi = '1' and ra2_ir_out(11 downto 9) = "111") then
+elsif (x2_lhi = '1' and x2_val_var = '1' and ra2_ir_out(11 downto 9) = "111") then
 	--0111
 		S3 <= '0';
 		S2 <= '1';
@@ -2182,14 +2182,14 @@ end if;
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-if(ra1_ir_out(15 downto 12) = "1111") then
-	x1_val_var :='0';
-	x1_val <= '0';
-end if;
-if(ra2_ir_out(15 downto 12) = "1111") then
-	x2_val_var :='0';
-	x2_val <= '0';
-end if;
+--if(ra1_ir_out(15 downto 12) = "1111") then
+--	x1_val_var :='0';
+--	x1_val <= '0';
+--end if;
+--if(ra2_ir_out(15 downto 12) = "1111") then
+--	x2_val_var :='0';
+--	x2_val <= '0';
+--end if;
 
 
 

@@ -57,7 +57,7 @@ architecture behave of alu_p is
 			);	
 	end component bit_register;
 
-	signal rb_pcout,rb_op1out,rb_op2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out,rb_irout,rbimm6out, alu_p_out_temp : std_logic_vector (15 downto 0);
+	signal rb_pcout,rb_op1out,rb_op2out,alu_in_a,alu_in_b,alu_add_out,alu_nand_out,rb_irout,rbimm6out, alu_p_out_temp,rb_pcout_plus1 : std_logic_vector (15 downto 0);
 	signal rb_dest_rrtagout,rb_carrytagout, rb_zerotagout : std_logic_vector (4 downto 0);
 	signal rb_spectagout : std_logic_vector(1 downto 0);
 	signal rbdestr7out,alu_p_brach_taken_temp,alu_p_brach_nottaken_temp,alu_p_valid_out_temp, rb_validout,rb_carryout,rb_zeroout,rb_carryreadyout,rb_zeroreadyout,alu_p_comp : std_logic;
@@ -114,11 +114,14 @@ architecture behave of alu_p is
 
 		ALU_ADD : Add port map (alu_in_a,alu_in_b,alu_add_out,alu_p_c_temp);
 		alu_nand_out <= (alu_in_a nand alu_in_b);
-		ALU_COMP : comp port map (alu_in_a,alu_in_b,alu_p_comp);
+		ALU_COMP : comp port map (rb_op1out,rb_op2out,alu_p_comp);
+
+		PC_plus1 : Add port map (rb_pcout,"0000000000000001",rb_pcout_plus1);
 
 		alu_p_out_temp <= alu_add_out when rb_irout(15 downto 12) = "0000" else
 					alu_add_out when rb_irout(15 downto 12) = "0001" else
-					alu_add_out when rb_irout(15 downto 12) = "1100" else
+					alu_add_out when rb_irout(15 downto 12) = "1100" and alu_p_comp = '1' else
+					rb_pcout_plus1 when rb_irout(15 downto 12) = "1100" and alu_p_comp = '0' else
 					alu_nand_out when rb_irout(15 downto 12) = "0010" else
 					rb_pcout when rb_irout(15 downto 13) = "100" else "0000000000000000";
 
