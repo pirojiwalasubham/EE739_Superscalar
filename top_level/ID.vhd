@@ -126,6 +126,7 @@ signal c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4 : std_logic;
 signal free_rrf_vec_out_sig,free_rrf_vec_out_sig2 : std_logic_vector(31 downto 0);
 
 
+
 begin
 
 x1_add <= '1' when((ra1_ir_out(15 downto 12) = "0000" and ra1_ir_out(2 downto 0 ) = "000")  and ra1_val_out = '1' ) else '0';
@@ -219,7 +220,8 @@ process(clk, reset
 		c_store_tag1,c_store_tag2,c_store_tag3,c_store_tag4
 	)
 
-variable x1_val_var, x2_val_var, x1_beq_var, x2_beq_var, x1_sw_var, x2_sw_var: std_logic;
+variable x1_val_var, x2_val_var, x1_beq_var, x2_beq_var, x1_sw_var, x2_sw_var, x1_destination_check, x1_carry_write_check, x1_zero_write_check: std_logic;
+variable x1_destination : std_logic_vector(2 downto 0);
 begin
 	
 	x1_val_var := ra1_val_out;
@@ -280,6 +282,10 @@ begin
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
 
+		x1_destination := ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '1';
+		x1_zero_write_check := '1';
 -----------------------------------------------------------
 	elsif (x1_adc = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -327,6 +333,11 @@ begin
 		C_tag_out_arf <= penout1;
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination :=ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '1';
+		x1_zero_write_check := '1';
 
 -----------------------------------------------------------
 	elsif (x1_adz = '1') then
@@ -376,6 +387,11 @@ begin
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
 
+		x1_destination := ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '1';
+		x1_zero_write_check := '1';
+
 -----------------------------------------------------------
 	elsif (x1_adi = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -414,6 +430,11 @@ begin
 		C_tag_out_arf <= penout1;
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination:=ra1_ir_out(8 downto 6);
+		x1_destination_check :='1';
+		x1_carry_write_check := '1';
+		x1_zero_write_check := '1';
 ------------------------------------------------
 	elsif(x1_ndu = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -451,6 +472,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination  :=ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '1';
 
 -----------------------------------------------------------
 	elsif (x1_ndc = '1') then
@@ -499,6 +525,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination  := ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '1';
 -------------------------------------------------------------
 	elsif (x1_ndz = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -547,6 +578,11 @@ begin
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
 
+		x1_destination  := ra1_ir_out(5 downto 3);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '1';
+
 -----------------------------------------------------------
 	elsif (x1_lhi = '1') then
 		Ard1a <= "000";
@@ -574,6 +610,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
 -----------------------------------------------------------
 	elsif (x1_lw = '1') then
 		Ard1a <= ra1_ir_out(8 downto 6);
@@ -613,6 +654,11 @@ begin
 		Z_tag_out_arf <= penout1;
 		dest_AR_tag_out <= penout1;
 
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '1';
+
 -----------------------------------------------------------
 	elsif (x1_sw = '1') then
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -651,6 +697,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= tag_dest1_in;
+
+		x1_destination := ra1_ir_out(11 downto 9);
+		x1_destination_check :='0';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
 ---------------------------------------------------------
 	elsif (x1_lm = '1' or x1_sm = '1') then  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
 		Ard1a <= ra1_ir_out(11 downto 9);
@@ -689,6 +740,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= tag_dest1_in;
+
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='0';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
 
 -------------------------------------------------
 	elsif (x1_beq = '1') then
@@ -729,6 +785,11 @@ begin
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= tag_dest1_in;
 
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='0';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
+
 -------------------------------------------------
 	elsif (x1_jal = '1') then
 		Ard1a <= "000";
@@ -757,6 +818,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
 
 -------------------------------------------------
 	elsif (x1_jlr = '1') then
@@ -792,6 +858,11 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination:=ra1_ir_out(11 downto 9);
+		x1_destination_check :='1';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
 ----------------------------------------------------
 	else
 		Ard1a <= ra1_ir_out(8 downto 6);
@@ -826,6 +897,12 @@ begin
 		C_tag_out_arf <= C_tag_in;
 		Z_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_out <= penout1;
+
+		x1_destination:= ra1_ir_out(11 downto 9);
+		x1_destination_check :='0';
+		x1_carry_write_check := '0';
+		x1_zero_write_check := '0';
+
 	end if;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -871,6 +948,18 @@ begin
 		C_2_tag_out_arf <= penout2;
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
+
+
 
 -----------------------------------------------------------
 	elsif (x2_adc = '1') then
@@ -920,6 +1009,20 @@ begin
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
 
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
+		if(x1_carry_write_check = '1') then
+			C_2_ready <= '0';
+			C_2_tag_out_rs <=  penout1;
+		end if;
+
 -----------------------------------------------------------
 	elsif (x2_adz = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -968,6 +1071,20 @@ begin
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
 
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
+		if(x1_zero_write_check = '1') then
+			Z_2_ready <= '0';
+			Z_2_tag_out_rs <=  penout1;
+		end if;
+
 -----------------------------------------------------------
 	elsif (x2_adi = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -1006,6 +1123,11 @@ begin
 		C_2_tag_out_arf <= penout2;
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
 ------------------------------------------------
 	elsif(x2_ndu = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -1043,6 +1165,15 @@ begin
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
 
 -----------------------------------------------------------
 	elsif (x2_ndc = '1') then
@@ -1091,6 +1222,20 @@ begin
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
+		if(x1_carry_write_check = '1') then
+			C_2_ready <= '0';
+			C_2_tag_out_rs <=  penout1;
+		end if;
 -------------------------------------------------------------
 	elsif (x2_ndz = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -1138,6 +1283,20 @@ begin
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
+		if(x1_zero_write_check = '1') then
+			Z_2_ready <= '0';
+			Z_2_tag_out_rs <=  penout1;
+		end if;
 
 -----------------------------------------------------------
 	elsif (x2_lhi = '1') then
@@ -1205,6 +1364,12 @@ begin
 		Z_2_tag_out_arf <= penout2;
 		dest_AR_tag_2_out <= penout2;
 
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		
+
 -----------------------------------------------------------
 	elsif (x2_sw = '1') then
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -1243,6 +1408,15 @@ begin
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_2_out <= tag_dest2_in;
+
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
 ---------------------------------------------------------
 	elsif (x2_lm = '1' or x2_sm = '1') then  -----DITCHHHHHHHHHHHHHHHHHHHHHHHH HAI
 		Ard2a <= ra2_ir_out(11 downto 9);
@@ -1321,6 +1495,15 @@ begin
 		Z_2_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_2_out <= tag_dest2_in;
 
+		if(ra2_ir_out(11 downto 9) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op2 <= "00000000000" & penout1;	
+			x2_op2_ready <= '0';	
+		end if;
+
 -------------------------------------------------
 	elsif (x2_jal = '1') then
 		Ard2a <= "000";
@@ -1384,6 +1567,12 @@ begin
 		C_2_tag_out_arf <= C_tag_in;
 		Z_2_tag_out_arf <= Z_tag_in;
 		dest_AR_tag_2_out <= penout2;
+
+		if(ra2_ir_out(8 downto 6) = x1_destination and (x1_destination_check = '1')) then
+			x2_op1 <= "00000000000" & penout1;	
+			x2_op1_ready <= '0';	
+		end if;
+		
 ----------------------------------------------------
 	else
 		Ard2a <= ra2_ir_out(8 downto 6);
@@ -1989,9 +2178,28 @@ end if;
 
 --------------------------------------------------------------------------------------------------------------------------------
 
+-- NOP instruction
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+if(ra1_ir_out(15 downto 12) = "1111") then
+	x1_val_var :='0';
+	x1_val <= '0';
+end if;
+if(ra2_ir_out(15 downto 12) = "1111") then
+	x2_val_var :='0';
+	x2_val <= '0';
+end if;
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 -- STORE_TAG_REG
 
 --------------------------------------------------------------------------------------------------------------------------------
+
+
 
 x1_sw_var := x1_sw_var and x1_val_var;
 x2_sw_var := x2_sw_var and x2_val_var;
@@ -2071,6 +2279,7 @@ elsif (x1_val_var = '1' and x2_val_var = '0') then
 else
 	free_rrf_vec_out <= free_rrf_vec;
 end if ;
+
 --free_rrf_vec_out <= free_rrf_vec_out_sig when(x1_val_var = '1' and x2_val_var = '1') else
 --					free_rrf_vec_out_sig2 when(x1_val_var = '1' and x2_val_var = '0') else
 --					free_rrf_vec;
