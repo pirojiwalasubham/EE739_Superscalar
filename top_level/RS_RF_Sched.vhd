@@ -595,8 +595,13 @@ begin
 	a3: for i in 0 to 15 generate
 		alu_schedulable_vec(i) <= '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and (rs_ir_out(i)(15 downto 12) = "0000" or rs_ir_out(i)(15 downto 12) = "0001" or rs_ir_out(i)(15 downto 12) = "0010" or rs_ir_out(i)(15 downto 12) = "1100" or rs_ir_out(i)(15 downto 12) = "1000" or rs_ir_out(i)(15 downto 12) = "1001" ) ) else
 									'0';
-		ls_schedulable_vec(i) <= '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and (rs_ir_out(i)(15 downto 12) = "0011" or rs_ir_out(i)(15 downto 12) = "0100" or rs_ir_out(i)(15 downto 12) = "0101" or rs_ir_out(i)(15 downto 12) = "0110" or rs_ir_out(i)(15 downto 12) = "0111" ) ) else
+		ls_schedulable_vec(i) <= '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and 
+									(rs_ir_out(i)(15 downto 12) = "0011" or  rs_ir_out(i)(15 downto 12) = "0101" or  rs_ir_out(i)(15 downto 12) = "0111" ) ) else
+							     '1' when(rs_inst_val_out(i) = '1' and rs_op1_val_out(i) = '1' and rs_op2_val_out(i) = '1' and rs_carry_ready_out(i) = '1' and rs_zero_ready_out(i) = '1' and 
+									(rs_ir_out(i)(15 downto 12) = "0100" or rs_ir_out(i)(15 downto 12) = "0110"  ) and rs_store_tag_out(i) = "00000" ) else
 								'0';
+
+
 	end generate a3;
 	P1: pen16bit port map(alu_schedulable_vec, no1found_alu_sched, pennext_alu_sched, penout_alu_sched);
 	P2: pen16bit port map (ls_schedulable_vec, no1found_ls_sched,  pennext_ls_sched , penout_ls_sched);

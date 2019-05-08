@@ -2208,67 +2208,67 @@ if(x1_sw_var = '0' and x2_sw_var = '0' and store_retirement_count = "00") then
 	store_tag_reg_in <= store_tag_reg_out;
 	store_tag_reg_en <= '0';
 	store_tag_rs_out1<= store_tag_reg_out;
-	store_tag_rs_out1<= store_tag_reg_out;
+	store_tag_rs_out2<= store_tag_reg_out;
 elsif (x1_sw_var = '0' and x2_sw_var = '1' and store_retirement_count = "00") then
 	store_tag_reg_in <= store_tag_reg_out_plus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out;
-	store_tag_rs_out1<= store_tag_reg_out;
+	store_tag_rs_out2<= store_tag_reg_out;
 elsif (x1_sw_var = '1' and x2_sw_var = '0' and store_retirement_count = "00") then
 	store_tag_reg_in <= store_tag_reg_out_plus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out;
-	store_tag_rs_out1<= store_tag_reg_out_plus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_plus_one(4 downto 0);
 elsif (x1_sw_var = '1' and x2_sw_var = '1' and store_retirement_count = "00") then
 	store_tag_reg_in <= store_tag_reg_out_plus_two(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out;
-	store_tag_rs_out1<= store_tag_reg_out_plus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_plus_one(4 downto 0);
 elsif (x1_sw_var = '0' and x2_sw_var = '0' and store_retirement_count = "01") then
 	store_tag_reg_in <= store_tag_reg_out_minus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_one(4 downto 0);
 elsif (x1_sw_var = '0' and x2_sw_var = '1' and store_retirement_count = "01") then
 	store_tag_reg_in <= store_tag_reg_out(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_one(4 downto 0);
 elsif (x1_sw_var = '1' and x2_sw_var = '0' and store_retirement_count = "01") then
 	store_tag_reg_in <= store_tag_reg_out;
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out;
+	store_tag_rs_out2<= store_tag_reg_out;
 elsif (x1_sw_var = '1' and x2_sw_var = '1' and store_retirement_count = "01") then
 	store_tag_reg_in <= store_tag_reg_out_plus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out;
+	store_tag_rs_out2<= store_tag_reg_out;
 elsif (x1_sw_var = '0' and x2_sw_var = '0' and store_retirement_count = "10") then
 	store_tag_reg_in <= store_tag_reg_out_minus_two(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_two(4 downto 0);
 elsif (x1_sw_var = '0' and x2_sw_var = '1' and store_retirement_count = "10") then
 	store_tag_reg_in <= store_tag_reg_out_minus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_two(4 downto 0);
 elsif (x1_sw_var = '1' and x2_sw_var = '0' and store_retirement_count = "10") then
 	store_tag_reg_in <= store_tag_reg_out_minus_one(4 downto 0);
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_one(4 downto 0);
 elsif (x1_sw_var = '1' and x2_sw_var = '1' and store_retirement_count = "10") then
 	store_tag_reg_in <= store_tag_reg_out;
 	store_tag_reg_en <= '1';
 	store_tag_rs_out1<= store_tag_reg_out_minus_two(4 downto 0);
-	store_tag_rs_out1<= store_tag_reg_out_minus_one(4 downto 0);
+	store_tag_rs_out2<= store_tag_reg_out_minus_one(4 downto 0);
 else
 	store_tag_reg_in <= store_tag_reg_out;
 	store_tag_reg_en <= '0';
 	store_tag_rs_out1<= store_tag_reg_out;
-	store_tag_rs_out1<= store_tag_reg_out;
+	store_tag_rs_out2<= store_tag_reg_out;
 end if;
 
 
