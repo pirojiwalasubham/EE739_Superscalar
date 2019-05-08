@@ -278,34 +278,33 @@ end component;
 
 component RS_RF_Sched is 
 	port(
-		clk,reset : in std_logic;
-		rrf_Awr1_in, rrf_Awr2_in : in std_logic_vector(4 downto 0);
-		rrf_write1_in, rrf_write2_in : in std_logic;
-		rrf_Data1_EX_in, rrf_Data2_EX_in : in std_logic_vector(17 downto 0);
-		rrf_free_vec_ID_in, rrf_free_vec_Rob_in : in std_logic_vector(31 downto 0);
-		rrf_valid_vec_EX_in, rrf_valid_vec_Rob_in : in std_logic_vector(31 downto 0);
+			clk,reset : in std_logic;
+			rrf_Awr1_in, rrf_Awr2_in : in std_logic_vector(4 downto 0);
+			rrf_write1_in, rrf_write2_in : in std_logic;
+			rrf_Data1_EX_in, rrf_Data2_EX_in : in std_logic_vector(17 downto 0);
+			rrf_free_vec_ID_in, rrf_free_vec_Rob_in : in std_logic_vector(31 downto 0);
+			rrf_valid_vec_EX_in, rrf_valid_vec_Rob_in : in std_logic_vector(31 downto 0);
 
-		rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) ;
-		------------------------------------------------------------------------------------
-		id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
-		id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
-		store_retirement_count : in std_logic_vector(1 downto 0);
-		id_1_op1_in,id_1_op2_in, id_2_op1_in, id_2_op2_in : in std_logic_vector(15 downto 0);
-		id_1_store_tag_in,id_2_store_tag_in : in std_logic_vector(4 downto 0);
-		id_2_zero_ready_in,id_1_zero_ready_in,id_2_zero_in,id_1_zero_in,id_2_carry_ready_in,id_1_carry_ready_in,id_2_carry_in,id_1_carry_in,id_2_val_in,id_1_val_in,id_2_op2_val_in,id_1_op2_val_in,id_2_op1_val_in,id_1_op1_val_in: in std_logic;
-
-
-		twoRSnotFree_rs : out std_logic;
-		rb_pc,rb_op1,rb_op2, rb_ir :out std_logic_vector(15 downto 0);
-		rb_dest_rrtag			   :out std_logic_vector(4 downto 0);
-		rb_valid,rb_carry,rb_zero  :out std_logic;
-		rc_pc,rc_op1,rc_op2, rc_ir :out std_logic_vector(15 downto 0);
-		rc_dest_rrtag  			   :out std_logic_vector(4 downto 0);
-		rc_valid,rc_carry,rc_zero  :out std_logic
+			rrf_free_vec_out, rrf_valid_vec_out : out std_logic_vector(31 downto 0) ;
+			------------------------------------------------------------------------------------
+			id_pc1_in, id_pc2_in,id_ir1_in,id_ir2_in : in std_logic_vector(15 downto 0);
+			id_dest_rr_tag1_in,id_dest_rr_tag2_in,id_carry_tag1_in,id_carry_tag2_in,id_zero_tag1_in,id_zero_tag2_in : in std_logic_vector(4 downto 0);
+			store_retirement_count : in std_logic_vector(1 downto 0);
+			id_1_op1_in,id_1_op2_in, id_2_op1_in, id_2_op2_in : in std_logic_vector(15 downto 0);
+			id_1_store_tag_in,id_2_store_tag_in : in std_logic_vector(4 downto 0);
+			id_1_zero_ready_in, id_2_zero_ready_in, id_1_zero_in, id_2_zero_in, id_1_carry_ready_in, id_2_carry_ready_in, id_1_carry_in, id_2_carry_in, id_1_val_in, id_2_val_in, id_1_op1_val_in, id_1_op2_val_in, id_2_op1_val_in, id_2_op2_val_in : in std_logic;
 
 
+			twoRSnotFree_rs : out std_logic;
+			rb_pc,rb_op1,rb_op2, rb_ir :out std_logic_vector(15 downto 0);
+			rb_dest_rrtag			   :out std_logic_vector(4 downto 0);
+			rb_valid,rb_carry,rb_zero  :out std_logic;
+			rc_pc,rc_op1,rc_op2, rc_ir :out std_logic_vector(15 downto 0);
+			rc_dest_rrtag  			   :out std_logic_vector(4 downto 0);
+			rc_valid,rc_carry,rc_zero  :out std_logic
 
-		); 
+
+); 
 end component;
 ------------------------------------SIGNALS-----------------------------------------------------------------------------
 --DRAM
